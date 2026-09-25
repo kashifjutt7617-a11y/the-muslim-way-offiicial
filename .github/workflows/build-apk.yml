@@ -1,0 +1,32 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Extract Android project
+        run: |
+          mkdir -p project
+          unzip -q *.zip -d project
+
+      - name: Build APK
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Run Gradle build
+        working-directory: project/TheMuslimWayAndroid
+        run: gradle assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: The-Muslim-Way-Official-APK
+          path: project/TheMuslimWayAndroid/app/build/outputs/apk/debug/app-debug.apk
