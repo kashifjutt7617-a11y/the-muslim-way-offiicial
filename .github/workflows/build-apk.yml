@@ -2,31 +2,37 @@ name: Build Android APK
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download project
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Extract Android project
-        run: |
-          mkdir -p project
-          unzip -q *.zip -d project
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: flutter pub get
 
       - name: Build APK
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.9'
-
-      - name: Run Gradle build
-        working-directory: project/TheMuslimWayAndroid
-        run: gradle assembleDebug
+        run: flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: The-Muslim-Way-Official-APK
-          path: project/TheMuslimWayAndroid/app/build/outputs/apk/debug/app-debug.apk
+          name: The-Muslim-Way-Offiicial-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
