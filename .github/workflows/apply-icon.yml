@@ -1,0 +1,38 @@
+name: Apply App Icon
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apply-icon:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Find icon file
+        id: find_icon
+        run: |
+          ICON=$(ls file_* 2>/dev/null | head -n 1)
+          echo "icon=$ICON" >> $GITHUB_OUTPUT
+
+      - name: Resize icon to 5 sizes
+        run: |
+          ICON="${{ steps.find_icon.outputs.icon }}"
+          convert "$ICON" -resize 48x48 android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+          convert "$ICON" -resize 72x72 android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+          convert "$ICON" -resize 96x96 android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+          convert "$ICON" -resize 144x144 android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+          convert "$ICON" -resize 192x192 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add android/app/src/main/res/
+          git commit -m "Add custom Islamic icon" || echo "no changes"
+          git push
