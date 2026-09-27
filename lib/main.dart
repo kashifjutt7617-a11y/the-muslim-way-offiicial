@@ -313,10 +313,10 @@ class HomeTab extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
+                child: const Column(
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
                         SizedBox(width: 8),
                         Text(
@@ -329,8 +329,8 @@ class HomeTab extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 15),
-                    const Text(
+                    SizedBox(height: 15),
+                    Text(
                       'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -340,8 +340,8 @@ class HomeTab extends StatelessWidget {
                         fontFamily: 'serif',
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const Text(
+                    SizedBox(height: 10),
+                    Text(
                       '"بے شک مشکل کے ساتھ آسانی ہے"',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -350,8 +350,8 @@ class HomeTab extends StatelessWidget {
                         fontStyle: FontStyle.italic,
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    const Text(
+                    SizedBox(height: 5),
+                    Text(
                       '(سورۃ الشرح: 6)',
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
@@ -360,7 +360,7 @@ class HomeTab extends StatelessWidget {
               ),
             ),
 
-            // Quick Access
+            // Quick Access Title
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Align(
@@ -376,6 +376,8 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
+
+            // Quick Access Cards
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GridView.count(
@@ -386,17 +388,17 @@ class HomeTab extends StatelessWidget {
                 mainAxisSpacing: 12,
                 childAspectRatio: 1.3,
                 children: const [
-                  _QuickCard(icon: Icons.menu_book, title: 'قرآن پاک', color: AppColors.deepGreen),
-                  _QuickCard(icon: Icons.auto_stories, title: 'صحیح حدیث', color: AppColors.lightGreen),
-                  _QuickCard(icon: Icons.volunteer_activism, title: 'دعائیں و اذکار', color: AppColors.gold),
-                  _QuickCard(icon: Icons.access_time, title: 'نماز کے اوقات', color: AppColors.deepGreen),
-                  _QuickCard(icon: Icons.explore, title: 'قبلہ کمپاس', color: AppColors.lightGreen),
-                  _QuickCard(icon: Icons.calendar_month, title: 'اسلامی کیلنڈر', color: AppColors.gold),
+                  QuickCard(icon: Icons.menu_book, title: 'قرآن پاک', color: AppColors.deepGreen),
+                  QuickCard(icon: Icons.auto_stories, title: 'صحیح حدیث', color: AppColors.lightGreen),
+                  QuickCard(icon: Icons.volunteer_activism, title: 'دعائیں و اذکار', color: AppColors.gold),
+                  QuickCard(icon: Icons.access_time, title: 'نماز کے اوقات', color: AppColors.deepGreen),
+                  QuickCard(icon: Icons.explore, title: 'قبلہ کمپاس', color: AppColors.lightGreen),
+                  QuickCard(icon: Icons.calendar_month, title: 'اسلامی کیلنڈر', color: AppColors.gold),
                 ],
               ),
             ),
 
-            // ======= Contact Section =======
+            // Contact Section
             const SizedBox(height: 25),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -417,7 +419,7 @@ class HomeTab extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  _ContactButton(
+                  ContactButton(
                     icon: Icons.chat,
                     title: 'WhatsApp',
                     subtitle: 'واٹس ایپ پر رابطہ',
@@ -425,7 +427,7 @@ class HomeTab extends StatelessWidget {
                     onTap: () => _openWhatsApp(context),
                   ),
                   const SizedBox(height: 10),
-                  _ContactButton(
+                  ContactButton(
                     icon: Icons.phone,
                     title: 'Call',
                     subtitle: 'فون کال کریں',
@@ -433,7 +435,7 @@ class HomeTab extends StatelessWidget {
                     onTap: () => _openPhone(context),
                   ),
                   const SizedBox(height: 10),
-                  _ContactButton(
+                  ContactButton(
                     icon: Icons.language,
                     title: 'Website',
                     subtitle: 'themuslimwayoffiicial.com',
@@ -445,6 +447,7 @@ class HomeTab extends StatelessWidget {
             ),
 
             const SizedBox(height: 25),
+
             // Footer
             Container(
               width: double.infinity,
@@ -488,15 +491,16 @@ class HomeTab extends StatelessWidget {
   }
 }
 
-// ============ Contact Button ============
-class _ContactButton extends StatelessWidget {
+// ============ Contact Button Widget ============
+class ContactButton extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
   final Color color;
   final VoidCallback onTap;
 
-  const _ContactButton({
+  const ContactButton({
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -566,12 +570,16 @@ class _ContactButton extends StatelessWidget {
 }
 
 // ============ Quick Card Widget ============
-class _QuickCard extends StatelessWidget {
+class QuickCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final Color color;
 
-  const _QuickCard({required this.icon, required this.title, required this.color});
+  const QuickCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.color,
+  });
 
-  @override
-  Widget build(BuildContext
+  @overr
