@@ -227,7 +227,6 @@ class HomeTab extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // Header
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
@@ -294,8 +293,6 @@ class HomeTab extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Daily Ayah
             Padding(
               padding: const EdgeInsets.all(16),
               child: Container(
@@ -359,8 +356,6 @@ class HomeTab extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Quick Access Title
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Align(
@@ -376,8 +371,6 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-
-            // Quick Access Cards
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GridView.count(
@@ -397,8 +390,6 @@ class HomeTab extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Contact Section
             const SizedBox(height: 25),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -445,10 +436,7 @@ class HomeTab extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(height: 25),
-
-            // Footer
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -582,4 +570,9 @@ class QuickCard extends StatelessWidget {
     required this.color,
   });
 
-  @overr
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
