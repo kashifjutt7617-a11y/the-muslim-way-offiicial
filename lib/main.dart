@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MuslimWayApp());
@@ -11,6 +12,12 @@ class AppColors {
   static const Color lightGold = Color(0xFFE8C766);
   static const Color cream = Color(0xFFFDFBF5);
   static const Color darkText = Color(0xFF1A1A1A);
+}
+
+class AppContact {
+  static const String whatsappNumber = '+447838186629';
+  static const String phoneNumber = '+447838186629';
+  static const String website = 'https://www.themuslimwayoffiicial.com';
 }
 
 class MuslimWayApp extends StatelessWidget {
@@ -95,6 +102,28 @@ class _SplashScreenState extends State<SplashScreen> {
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
+
+  Future<void> openWhatsApp() async {
+    final url = 'https://wa.me/${AppContact.whatsappNumber.replaceAll('+', '')}';
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  Future<void> openPhone() async {
+    final uri = Uri.parse('tel:${AppContact.phoneNumber}');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
+  }
+
+  Future<void> openWebsite() async {
+    final uri = Uri.parse(AppContact.website);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -294,12 +323,30 @@ class DashboardPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
-                    children: const [
-                      ContactCard(icon: Icons.chat, title: 'WhatsApp', subtitle: 'واٹس ایپ پر رابطہ', color: Color(0xFF25D366)),
-                      SizedBox(height: 10),
-                      ContactCard(icon: Icons.phone, title: 'Call', subtitle: 'فون کال کریں', color: AppColors.deepGreen),
-                      SizedBox(height: 10),
-                      ContactCard(icon: Icons.language, title: 'Website', subtitle: 'themuslimwayoffiicial.com', color: AppColors.gold),
+                    children: [
+                      ContactCard(
+                        icon: Icons.chat,
+                        title: 'WhatsApp',
+                        subtitle: 'واٹس ایپ پر رابطہ',
+                        color: const Color(0xFF25D366),
+                        onTap: openWhatsApp,
+                      ),
+                      const SizedBox(height: 10),
+                      ContactCard(
+                        icon: Icons.phone,
+                        title: 'Call',
+                        subtitle: 'فون کال کریں',
+                        color: AppColors.deepGreen,
+                        onTap: openPhone,
+                      ),
+                      const SizedBox(height: 10),
+                      ContactCard(
+                        icon: Icons.language,
+                        title: 'Website',
+                        subtitle: 'themuslimwayoffiicial.com',
+                        color: AppColors.gold,
+                        onTap: openWebsite,
+                      ),
                     ],
                   ),
                 ),
@@ -407,6 +454,7 @@ class ContactCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final Color color;
+  final VoidCallback onTap;
 
   const ContactCard({
     super.key,
@@ -414,57 +462,65 @@ class ContactCard extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.color,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+            boxShadow: [
+              BoxShadow(
+                color: color.withOpacity(0.08),
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(0.12),
-            ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.darkText,
-                  ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: color.withOpacity(0.12),
                 ),
-                const SizedBox(height: 3),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                child: Icon(icon, color: color, size: 24),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.darkText,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      subtitle,
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Icon(Icons.arrow_back_ios, color: color, size: 16),
+            ],
           ),
-          Icon(Icons.arrow_back_ios, color: color, size: 16),
-        ],
+        ),
       ),
     );
   }
