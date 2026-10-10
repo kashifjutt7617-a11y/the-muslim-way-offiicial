@@ -325,12 +325,12 @@ class DashboardPage extends StatelessWidget {
                   child: Column(
                     children: [
                       ContactCard(
-                        icon: Icons.chat,
-                        title: 'WhatsApp',
-                        subtitle: 'واٹس ایپ پر رابطہ',
-                        color: const Color(0xFF25D366),
-                        onTap: openWhatsApp,
-                      ),
+  icon: Icons.chat,
+  title: 'WhatsApp',
+  subtitle: 'واٹس ایپ پر رابطہ',
+  color: const Color(0xFF25D366),
+  onTap: () => openWhatsApp(context),
+),
                       const SizedBox(height: 10),
                       ContactCard(
                         icon: Icons.phone,
