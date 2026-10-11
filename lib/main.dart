@@ -20,7 +20,6 @@ class AppContact {
   static const String website = 'https://www.themuslimwayoffiicial.com';
 }
 
-// ============ Main App ============
 class MuslimWayApp extends StatelessWidget {
   const MuslimWayApp({super.key});
 
@@ -38,7 +37,6 @@ class MuslimWayApp extends StatelessWidget {
   }
 }
 
-// ============ Splash Screen ============
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override
@@ -102,7 +100,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ============ Dashboard ============
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -335,7 +332,6 @@ class DashboardPage extends StatelessWidget {
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
               _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
               _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
-              // استخارہ — یہ الگ صفحہ کھولے گا
               GestureDetector(
                 onTap: () => _openIstikhara(context),
                 child: Container(
@@ -528,7 +524,7 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-// ============ استخارہ کا صفحہ (مکمل) ============
+// ============ استخارہ کا مکمل صفحہ ============
 class IstikharaPage extends StatelessWidget {
   const IstikharaPage({super.key});
 
@@ -551,20 +547,13 @@ class IstikharaPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              // ===== تعارف =====
               _buildSectionCard(
                 title: 'استخارہ کیا ہے؟',
                 icon: Icons.info_outline,
                 children: [
-                  _buildText(
-                    'استخارہ ایک عبادت ہے جس میں بندہ اللہ سے کسی جائز کام کے بارے میں رہنمائی مانگتا ہے۔',
-                  ),
-                  _buildText(
-                    'یہ نبی کریم ﷺ کی سنت ہے اور ہر مسلمان کو اس کی ضرورت پڑتی ہے۔',
-                  ),
-                  _buildText(
-                    'استخارہ صرف شادی کے لیے نہیں — بلکہ ہر جائز اور اہم کام کے لیے کیا جا سکتا ہے:',
-                  ),
+                  _buildText('استخارہ ایک عبادت ہے جس میں بندہ اللہ سے کسی جائز کام کے بارے میں رہنمائی مانگتا ہے۔'),
+                  _buildText('یہ نبی کریم ﷺ کی سنت ہے اور ہر مسلمان کو اس کی ضرورت پڑتی ہے۔'),
+                  _buildText('استخارہ صرف شادی کے لیے نہیں — بلکہ ہر جائز اور اہم کام کے لیے کیا جا سکتا ہے:'),
                   _buildBullet('نکاح'),
                   _buildBullet('نوکری / کاروبار'),
                   _buildBullet('سفر'),
@@ -572,8 +561,6 @@ class IstikharaPage extends StatelessWidget {
                   _buildBullet('تعلیم کا انتخاب'),
                 ],
               ),
-
-              // ===== طریقہ =====
               _buildSectionCard(
                 title: 'استخارہ کا مکمل طریقہ',
                 icon: Icons.list_alt,
@@ -587,8 +574,6 @@ class IstikharaPage extends StatelessWidget {
                   _buildStep('5', 'رات کو سوتے وقت بھی استخارہ کر سکتے ہیں۔'),
                 ],
               ),
-
-              // ===== دعائے استخارہ =====
               _buildSectionCard(
                 title: 'دعائے استخارہ',
                 icon: Icons.volunteer_activism,
@@ -596,4 +581,6 @@ class IstikharaPage extends StatelessWidget {
                   _buildArabicText(
                     'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاقْدُرْ لِي الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ',
                   ),
-       
+                  const SizedBox(height: 15),
+                  _buildUrduText(
+                    '"اے اللہ! میں تیرے علم کے ذریعے تجھ سے بھلائی مانگتا ہوں، اور تیری قدرت کے ذریعے تجھ سے طاقت مانگتا ہوں، اور تیرے عظیم فضل سے سوال کرتا ہوں۔ بے شک تو قدرت رکھتا ہے اور میں نہیں، تو جانتا ہے اور میں نہیں، اور تو غیبوں کا جاننے والا ہے۔ اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے دین، میری زندگی، اور میرے انجام کے لیے 
