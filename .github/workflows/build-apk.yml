@@ -22,8 +22,13 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.47.5'
+          flutter-version: '3.24.5'
           channel: 'stable'
+          cache: true
+
+      - name: Disable NDK
+        run: |
+          echo "android.ndkVersion=21.4.7075529" >> android/gradle.properties
 
       - name: Get dependencies
         run: flutter pub get
