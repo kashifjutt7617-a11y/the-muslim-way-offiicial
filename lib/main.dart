@@ -337,7 +337,7 @@ class DashboardPage extends StatelessWidget {
                         title: 'Call',
                         subtitle: 'فون کال کریں',
                         color: AppColors.deepGreen,
-                        onTap: openPhone,
+                        onTap: () => openPhone(context),
                       ),
                       const SizedBox(height: 10),
                       ContactCard(
@@ -345,7 +345,7 @@ class DashboardPage extends StatelessWidget {
                         title: 'Website',
                         subtitle: 'themuslimwayoffiicial.com',
                         color: AppColors.gold,
-                        onTap: openWebsite,
+                        onTap: () => openWebsite(context), 
                       ),
                     ],
                   ),
