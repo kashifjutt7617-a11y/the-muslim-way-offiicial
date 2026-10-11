@@ -37,7 +37,6 @@ class MuslimWayApp extends StatelessWidget {
   }
 }
 
-// ============ Splash Screen ============
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override
@@ -101,7 +100,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ============ Dashboard ============
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -322,58 +320,54 @@ class DashboardPage extends StatelessWidget {
             mainAxisSpacing: 12,
             childAspectRatio: 1.2,
             children: [
-              _QuickCard(
-                icon: Icons.menu_book,
-                title: 'قرآن پاک',
-                color: AppColors.deepGreen,
-                onTap: () => _openPage(context, 'قرآن پاک', Icons.menu_book),
-              ),
-              _QuickCard(
-                icon: Icons.auto_stories,
-                title: 'صحیح حدیث',
-                color: AppColors.lightGreen,
-                onTap: () => _openPage(context, 'صحیح حدیث', Icons.auto_stories),
-              ),
-              _QuickCard(
-                icon: Icons.volunteer_activism,
-                title: 'دعائیں و اذکار',
-                color: AppColors.gold,
-                onTap: () => _openPage(context, 'دعائیں و اذکار', Icons.volunteer_activism),
-              ),
-              _QuickCard(
-                icon: Icons.access_time,
-                title: 'نماز کے اوقات',
-                color: AppColors.deepGreen,
-                onTap: () => _openPage(context, 'نماز کے اوقات', Icons.access_time),
-              ),
-              _QuickCard(
-                icon: Icons.explore,
-                title: 'قبلہ کمپاس',
-                color: AppColors.lightGreen,
-                onTap: () => _openPage(context, 'قبلہ کمپاس', Icons.explore),
-              ),
-              _QuickCard(
-                icon: Icons.calendar_month,
-                title: 'اسلامی کیلنڈر',
-                color: AppColors.gold,
-                onTap: () => _openPage(context, 'اسلامی کیلنڈر', Icons.calendar_month),
-              ),
-              _QuickCard(
-                icon: Icons.auto_awesome,
-                title: 'استخارہ',
-                color: AppColors.deepGreen,
-                onTap: () => _openPage(context, 'استخارہ', Icons.auto_awesome),
-              ),
-              _QuickCard(
-                icon: Icons.help_outline,
-                title: 'روز مرہ مسائل',
-                color: AppColors.lightGreen,
-                onTap: () => _openPage(context, 'روز مرہ مسائل', Icons.help_outline),
-              ),
+              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen),
+              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
+              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
+              _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
+              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
+              _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
+              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
+              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _makeCard(BuildContext context, IconData icon, String title, Color color) {
+    return GestureDetector(
+      onTap: () => _openPage(context, title, icon),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color.withOpacity(0.12),
+              ),
+              child: Icon(icon, color: color, size: 28),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: AppColors.darkText,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -399,39 +393,63 @@ class DashboardPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              GestureDetector(
-                onTap: () => _openWhatsApp(context),
-                child: const _ContactCard(
-                  icon: Icons.chat,
-                  title: 'WhatsApp',
-                  subtitle: 'واٹس ایپ پر رابطہ',
-                  color: Color(0xFF25D366),
-                ),
-              ),
+              _makeContact(context, Icons.chat, 'WhatsApp', 'واٹس ایپ پر رابطہ', const Color(0xFF25D366), () => _openWhatsApp(context)),
               const SizedBox(height: 10),
-              GestureDetector(
-                onTap: () => _openPhone(context),
-                child: const _ContactCard(
-                  icon: Icons.phone,
-                  title: 'Call',
-                  subtitle: 'فون کال کریں',
-                  color: AppColors.deepGreen,
-                ),
-              ),
+              _makeContact(context, Icons.phone, 'Call', 'فون کال کریں', AppColors.deepGreen, () => _openPhone(context)),
               const SizedBox(height: 10),
-              GestureDetector(
-                onTap: () => _openWebsite(context),
-                child: const _ContactCard(
-                  icon: Icons.language,
-                  title: 'Website',
-                  subtitle: 'themuslimwayoffiicial.com',
-                  color: AppColors.gold,
-                ),
-              ),
+              _makeContact(context, Icons.language, 'Website', 'themuslimwayoffiicial.com', AppColors.gold, () => _openWebsite(context)),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _makeContact(BuildContext context, IconData icon, String title, String subtitle, Color color, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color.withOpacity(0.12),
+              ),
+              child: Icon(icon, color: color, size: 24),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.darkText,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    subtitle,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_back_ios, color: color, size: 16),
+          ],
+        ),
+      ),
     );
   }
 
@@ -469,7 +487,6 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-// ============ Section Page (ہر card کا صفحہ) ============
 class SectionPage extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -562,92 +579,3 @@ class SectionPage extends StatelessWidget {
     );
   }
 }
-
-// ============ Quick Card ============
-class _QuickCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _QuickCard({
-    required this.icon,
-    required this.title,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: color.withOpacity(0.12),
-              ),
-              child: Icon(icon, color: color, size: 28),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: AppColors.darkText,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ============ Contact Card ============
-class _ContactCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final Color color;
-
-  const _ContactCard({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(0.12),
-            ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Colum
