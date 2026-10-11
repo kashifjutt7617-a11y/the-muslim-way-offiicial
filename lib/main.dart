@@ -131,12 +131,6 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  void _openIstikhara(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => IstikharaPage()),
-    );
-  }
-
   void _openComingSoon(BuildContext context, String title, IconData icon) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -338,7 +332,7 @@ class DashboardPage extends StatelessWidget {
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen, null),
               _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen, null),
               _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold, null),
-              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen, _openIstikhara),
+              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen, null),
               _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen, null),
             ],
           ),
@@ -608,20 +602,3 @@ class ComingSoonPage extends StatelessWidget {
     );
   }
 }
-
-// ============ قرآن پاک کا صفحہ ============
-class QuranPage extends StatelessWidget {
-  const QuranPage({super.key});
-
-  static const List<Map<String, dynamic>> surahs = [
-    {'num': 1, 'name': 'الفاتحہ', 'meaning': 'کھولنے والی', 'ayahs': 7, 'makki': true},
-    {'num': 2, 'name': 'البقرہ', 'meaning': 'گائے', 'ayahs': 286, 'makki': false},
-    {'num': 3, 'name': 'آل عمران', 'meaning': 'عمران کا خاندان', 'ayahs': 200, 'makki': false},
-    {'num': 4, 'name': 'النساء', 'meaning': 'عورتیں', 'ayahs': 176, 'makki': false},
-    {'num': 5, 'name': 'المائدہ', 'meaning': 'دسترخوان', 'ayahs': 120, 'makki': false},
-    {'num': 6, 'name': 'الانعام', 'meaning': 'مویشی', 'ayahs': 165, 'makki': true},
-    {'num': 7, 'name': 'الاعراف', 'meaning': 'بلندیاں', 'ayahs': 206, 'makki': true},
-    {'num': 8, 'name': 'الانفال', 'meaning': 'مالِ غنیمت', 'ayahs': 75, 'makki': false},
-    {'num': 9, 'name': 'التوبہ', 'meaning': 'توبہ', 'ayahs': 129, 'makki': false},
-    {'num': 10, 'name': 'یونس', 'meaning': 'یونس علیہ السلام', 'ayahs': 109, 'makki': true},
-    {'num': 11, 'name': 'ہود
