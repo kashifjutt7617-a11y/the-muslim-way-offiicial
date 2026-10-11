@@ -583,4 +583,443 @@ class IstikharaPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   _buildUrduText(
+                    '"اے اللہ! میں تیرے علم کے ذریعے تجھ سے بھلائی مانگتا ہوں، اور تیری قدرت کے ذریعے تجھ سے طاقت مانگتا ہوں، اور تیرے عظیم فضل سے سوال کرتا ہوں۔ بے شک تو قدرت رکھتا ہے اور میں نہیں، تو جانتا ہے اور میں نہیں، اور تو غیبوں کا جاننے والا ہے۔ اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے دین، میری زندگی، اور میرے انجام کے لیے بہتر ہے، تو اسے میرے لیے مقدر فرما، آسان فرما، اور اس میں برکت دے۔ اور اگر تو جانتا ہے کہ یہ کام میرے دین، میری زندگی، اور میرے انجام کے لیے برا ہے، تو اسے مجھ سے پھیر دے، اور جہاں بھی خیر ہو میرے لیے مقدر فرما، پھر مجھے اس پر راضی کر دے۔"',
+                  ),
+                  const SizedBox(height: 10),
+                  _buildReference('(صحیح بخاری: 1166)'),
+                ],
+              ),
+              _buildSectionCard(
+                title: 'استخارہ کے بعد کیا کریں؟',
+                icon: Icons.check_circle_outline,
+                children: [
+                  _buildBullet('دل کے جھکاؤ کو دیکھیں — جس طرف دل مطمئن ہو، وہی بہتر ہے۔'),
+                  _buildBullet('خواب کا انتظار کرنا ضروری نہیں — خواب آنا شرط نہیں۔'),
+                  _buildBullet('اپنے کام کو آگے بڑھائیں — اللہ پر بھروسہ رکھیں۔'),
+                  _buildBullet('اگر الجھن ہو تو اہل علم سے مشورہ کریں۔'),
+                  _buildBullet('بار بار استخارہ کرنا جائز نہیں — ایک بار کافی ہے۔'),
+                ],
+              ),
+              _buildSectionCard(
+                title: 'استخارہ کے بارے میں غلط فہمیاں',
+                icon: Icons.warning_amber_outlined,
+                children: [
+                  _buildMistake('خواب آنا ضروری ہے', 'نہیں — خواب شرط نہیں'),
+                  _buildMistake('استخارہ صرف شادی کے لیے', 'نہیں — ہر جائز کام کے لیے'),
+                  _buildMistake('استخارہ سے جواب خودکار ملتا ہے', 'نہیں — اللہ سے دعا ہے'),
+                  _buildMistake('استخارہ کے بعد کچھ نہ کریں', 'نہیں — اپنے کام کو آگے بڑھائیں'),
+                  _buildMistake('کسی ولی سے استخارہ کروانا', 'نہیں — خود کریں'),
+                ],
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: AppColors.gold.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: AppColors.gold, width: 1.5),
+                ),
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.info, color: AppColors.gold, size: 22),
+                        SizedBox(width: 8),
+                        Text(
+                          'اہم نوٹ',
+                          style: TextStyle(
+                            color: AppColors.deepGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'یہ App صرف رہنمائی کے لیے ہے — کوئی فتویٰ نہیں۔ کسی بھی شرعی مسئلے میں اپنے علاقے کے مستند مفتی یا اہل علم سے رجوع کریں۔',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.darkText,
+                        height: 1.6,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  label: const Text(
+                    'واپس جائیں',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.deepGreen,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.gold.withOpacity(0.15),
+                ),
+                child: Icon(icon, color: AppColors.gold, size: 22),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildText(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 14,
+          color: AppColors.darkText,
+          height: 1.7,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBullet(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6, right: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('• ', style: TextStyle(fontSize: 16, color: AppColors.gold)),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.darkText,
+                height: 1.6,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStep(String number, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 28,
+            height: 28,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.deepGreen,
+            ),
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: AppColors.gold,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.darkText,
+                height: 1.6,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSubText(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4, right: 38),
+      child: Text(
+        '◦ $text',
+        style: TextStyle(
+          fontSize: 13,
+          color: Colors.grey[700],
+          height: 1.6,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildArabicText(String text) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: AppColors.deepGreen.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.deepGreen.withOpacity(0.2)),
+      ),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: AppColors.deepGreen,
+          fontFamily: 'serif',
+          height: 2.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUrduText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 14,
+        color: AppColors.darkText,
+        fontStyle: FontStyle.italic,
+        height: 1.8,
+      ),
+    );
+  }
+
+  Widget _buildReference(String text) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.grey[600],
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMistake(String wrong, String right) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.close, color: Colors.red, size: 18),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  wrong,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.red,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(right: 24),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.check, color: Colors.green, size: 18),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    right,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.green,
+                      height: 1.5,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============ Coming Soon Page ============
+class ComingSoonPage extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const ComingSoonPage({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.gold,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.deepGreen.withOpacity(0.1),
+                    border: Border.all(color: AppColors.gold, width: 2),
+                  ),
+                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.deepGreen,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(width: 60, height: 3, color: AppColors.gold),
+                const SizedBox(height: 20),
+                const Text(
+                  'بہت جلد دستیاب ہوگا',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Coming Soon',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  label: const Text(
+                    'واپس جائیں',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.deepGreen,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+              _buildSectionCard(
+                title: 'استخارہ کا مکمل طریقہ',
+                icon: Icons.list_alt,
+                children: [
+                  _buildStep('1', 'وضو کریں اور نیت کریں کہ آپ استخارہ کر رہے ہیں۔'),
+                  _buildStep('2', 'دو رکعت نفل نماز پڑھیں:'),
+                  _buildSubText('پہلی رکعت: سورۃ الفاتحہ + سورۃ الکافرون'),
+                  _buildSubText('دوسری رکعت: سورۃ الفاتحہ + سورۃ الاخلاص'),
+                  _buildStep('3', 'سلام پھیرنے کے بعد دعائے استخارہ پڑھیں۔'),
+                  _buildStep('4', 'پھر اس کام کا عزم کریں یا اللہ پر بھروسہ کریں۔'),
+                  _buildStep('5', 'رات کو سوتے وقت بھی استخارہ کر سکتے ہیں۔'),
+                ],
+              ),
+              _buildSectionCard(
+                title: 'دعائے استخارہ',
+                icon: Icons.volunteer_activism,
+                children: [
+                  _buildArabicText(
+                    'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاقْدُرْ لِي الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ',
+                  ),
+                  const SizedBox(height: 15),
+                  _buildUrduText(
                     '"اے اللہ! میں تیرے علم کے ذریعے تجھ سے بھلائی مانگتا ہوں، اور تیری قدرت کے ذریعے تجھ سے طاقت مانگتا ہوں، اور تیرے عظیم فضل سے سوال کرتا ہوں۔ بے شک تو قدرت رکھتا ہے اور میں نہیں، تو جانتا ہے اور میں نہیں، اور تو غیبوں کا جاننے والا ہے۔ اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے دین، میری زندگی، اور میرے انجام کے لیے 
