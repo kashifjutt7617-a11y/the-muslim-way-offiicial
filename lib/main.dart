@@ -20,6 +20,7 @@ class AppContact {
   static const String website = 'https://www.themuslimwayoffiicial.com';
 }
 
+// ============ Main App ============
 class MuslimWayApp extends StatelessWidget {
   const MuslimWayApp({super.key});
 
@@ -37,6 +38,7 @@ class MuslimWayApp extends StatelessWidget {
   }
 }
 
+// ============ Splash Screen ============
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
   @override
@@ -100,6 +102,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
+// ============ Dashboard ============
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -125,10 +128,16 @@ class DashboardPage extends StatelessWidget {
     }
   }
 
-  void _openPage(BuildContext context, String title, IconData icon) {
+  void _openIstikhara(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const IstikharaPage()),
+    );
+  }
+
+  void _openComingSoon(BuildContext context, String title, IconData icon) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => SectionPage(title: title, icon: icon),
+        builder: (_) => ComingSoonPage(title: title, icon: icon),
       ),
     );
   }
@@ -326,7 +335,39 @@ class DashboardPage extends StatelessWidget {
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
               _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
               _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
-              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
+              // استخارہ — یہ الگ صفحہ کھولے گا
+              GestureDetector(
+                onTap: () => _openIstikhara(context),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: AppColors.deepGreen.withOpacity(0.3), width: 1.5),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.deepGreen.withOpacity(0.12),
+                        ),
+                        child: const Icon(Icons.auto_awesome, color: AppColors.deepGreen, size: 28),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'استخارہ',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.darkText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
             ],
           ),
@@ -337,7 +378,7 @@ class DashboardPage extends StatelessWidget {
 
   Widget _makeCard(BuildContext context, IconData icon, String title, Color color) {
     return GestureDetector(
-      onTap: () => _openPage(context, title, icon),
+      onTap: () => _openComingSoon(context, title, icon),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -487,11 +528,9 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-class SectionPage extends StatelessWidget {
-  final String title;
-  final IconData icon;
-
-  const SectionPage({super.key, required this.title, required this.icon});
+// ============ استخارہ کا صفحہ (مکمل) ============
+class IstikharaPage extends StatelessWidget {
+  const IstikharaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -501,81 +540,60 @@ class SectionPage extends StatelessWidget {
         backgroundColor: AppColors.cream,
         appBar: AppBar(
           backgroundColor: AppColors.deepGreen,
-          title: Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.gold,
-              fontWeight: FontWeight.bold,
-            ),
+          title: const Text(
+            'استخارہ',
+            style: TextStyle(color: AppColors.gold, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
           iconTheme: const IconThemeData(color: AppColors.gold),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.deepGreen.withOpacity(0.1),
-                    border: Border.all(color: AppColors.gold, width: 2),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              // ===== تعارف =====
+              _buildSectionCard(
+                title: 'استخارہ کیا ہے؟',
+                icon: Icons.info_outline,
+                children: [
+                  _buildText(
+                    'استخارہ ایک عبادت ہے جس میں بندہ اللہ سے کسی جائز کام کے بارے میں رہنمائی مانگتا ہے۔',
                   ),
-                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.deepGreen,
+                  _buildText(
+                    'یہ نبی کریم ﷺ کی سنت ہے اور ہر مسلمان کو اس کی ضرورت پڑتی ہے۔',
                   ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 60,
-                  height: 3,
-                  color: AppColors.gold,
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'بہت جلد دستیاب ہوگا',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.w600,
+                  _buildText(
+                    'استخارہ صرف شادی کے لیے نہیں — بلکہ ہر جائز اور اہم کام کے لیے کیا جا سکتا ہے:',
                   ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Coming Soon',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                const SizedBox(height: 40),
-                ElevatedButton.icon(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  label: const Text(
-                    'واپس جائیں',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  _buildBullet('نکاح'),
+                  _buildBullet('نوکری / کاروبار'),
+                  _buildBullet('سفر'),
+                  _buildBullet('گھر خریدنا'),
+                  _buildBullet('تعلیم کا انتخاب'),
+                ],
+              ),
+
+              // ===== طریقہ =====
+              _buildSectionCard(
+                title: 'استخارہ کا مکمل طریقہ',
+                icon: Icons.list_alt,
+                children: [
+                  _buildStep('1', 'وضو کریں اور نیت کریں کہ آپ استخارہ کر رہے ہیں۔'),
+                  _buildStep('2', 'دو رکعت نفل نماز پڑھیں:'),
+                  _buildSubText('پہلی رکعت: سورۃ الفاتحہ + سورۃ الکافرون'),
+                  _buildSubText('دوسری رکعت: سورۃ الفاتحہ + سورۃ الاخلاص'),
+                  _buildStep('3', 'سلام پھیرنے کے بعد دعائے استخارہ پڑھیں۔'),
+                  _buildStep('4', 'پھر اس کام کا عزم کریں یا اللہ پر بھروسہ کریں۔'),
+                  _buildStep('5', 'رات کو سوتے وقت بھی استخارہ کر سکتے ہیں۔'),
+                ],
+              ),
+
+              // ===== دعائے استخارہ =====
+              _buildSectionCard(
+                title: 'دعائے استخارہ',
+                icon: Icons.volunteer_activism,
+                children: [
+                  _buildArabicText(
+                    'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاقْدُرْ لِي الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ',
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.deepGreen,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+       
