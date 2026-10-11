@@ -325,19 +325,19 @@ class DashboardPage extends StatelessWidget {
                   child: Column(
                     children: [
                       ContactCard(
-  icon: Icons.chat,
-  title: 'WhatsApp',
-  subtitle: 'واٹس ایپ پر رابطہ',
-  color: const Color(0xFF25D366),
-  onTap: () => openWhatsApp(context),
-),
+                        icon: Icons.chat,
+                        title: 'WhatsApp',
+                        subtitle: 'واٹس ایپ پر رابطہ',
+                        color: const Color(0xFF25D366),
+                        onTap: openWhatsApp,
+                      ),
                       const SizedBox(height: 10),
                       ContactCard(
                         icon: Icons.phone,
                         title: 'Call',
                         subtitle: 'فون کال کریں',
                         color: AppColors.deepGreen,
-                        onTap: () => openPhone(context),
+                        onTap: openPhone,
                       ),
                       const SizedBox(height: 10),
                       ContactCard(
@@ -345,7 +345,7 @@ class DashboardPage extends StatelessWidget {
                         title: 'Website',
                         subtitle: 'themuslimwayoffiicial.com',
                         color: AppColors.gold,
-                        onTap: () => openWebsite(context), 
+                        onTap: openWebsite,
                       ),
                     ],
                   ),
