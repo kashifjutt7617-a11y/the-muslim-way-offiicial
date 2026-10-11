@@ -250,8 +250,8 @@ class DashboardPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppColors.gold.withOpacity(0.4), width: 1.5),
         ),
-        child: Column(
-          children: const [
+        child: const Column(
+          children: [
             Row(
               children: [
                 Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
@@ -523,6 +523,96 @@ class DashboardPage extends StatelessWidget {
             style: TextStyle(color: Colors.white54, fontSize: 12),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// ============ Coming Soon Page ============
+class ComingSoonPage extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const ComingSoonPage({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.gold,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.deepGreen.withOpacity(0.1),
+                    border: Border.all(color: AppColors.gold, width: 2),
+                  ),
+                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.deepGreen,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(width: 60, height: 3, color: AppColors.gold),
+                const SizedBox(height: 20),
+                const Text(
+                  'بہت جلد دستیاب ہوگا',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Coming Soon',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  label: const Text(
+                    'واپس جائیں',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.deepGreen,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
