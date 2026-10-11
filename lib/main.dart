@@ -100,7 +100,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ============ Dashboard ============
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -128,13 +127,13 @@ class DashboardPage extends StatelessWidget {
 
   void _openQuran(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const QuranPage()),
+      MaterialPageRoute(builder: (_) => QuranPage()),
     );
   }
 
   void _openIstikhara(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const IstikharaPage()),
+      MaterialPageRoute(builder: (_) => IstikharaPage()),
     );
   }
 
@@ -519,6 +518,97 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
+// ============ Coming Soon Page ============
+class ComingSoonPage extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const ComingSoonPage({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.gold,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.deepGreen.withOpacity(0.1),
+                    border: Border.all(color: AppColors.gold, width: 2),
+                  ),
+                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.deepGreen,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Container(width: 60, height: 3, color: AppColors.gold),
+                const SizedBox(height: 20),
+                const Text(
+                  'بہت جلد دستیاب ہوگا',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Coming Soon',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                const SizedBox(height: 40),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  label: const Text(
+                    'واپس جائیں',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.deepGreen,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 // ============ قرآن پاک کا صفحہ ============
 class QuranPage extends StatelessWidget {
   const QuranPage({super.key});
@@ -534,41 +624,4 @@ class QuranPage extends StatelessWidget {
     {'num': 8, 'name': 'الانفال', 'meaning': 'مالِ غنیمت', 'ayahs': 75, 'makki': false},
     {'num': 9, 'name': 'التوبہ', 'meaning': 'توبہ', 'ayahs': 129, 'makki': false},
     {'num': 10, 'name': 'یونس', 'meaning': 'یونس علیہ السلام', 'ayahs': 109, 'makki': true},
-    {'num': 11, 'name': 'ہود', 'meaning': 'ہود علیہ السلام', 'ayahs': 123, 'makki': true},
-    {'num': 12, 'name': 'یوسف', 'meaning': 'یوسف علیہ السلام', 'ayahs': 111, 'makki': true},
-    {'num': 13, 'name': 'الرعد', 'meaning': 'گرج', 'ayahs': 43, 'makki': false},
-    {'num': 14, 'name': 'ابراہیم', 'meaning': 'ابراہیم علیہ السلام', 'ayahs': 52, 'makki': true},
-    {'num': 15, 'name': 'الحجر', 'meaning': 'پتھریلی زمین', 'ayahs': 99, 'makki': true},
-    {'num': 16, 'name': 'النحل', 'meaning': 'شہد کی مکھی', 'ayahs': 128, 'makki': true},
-    {'num': 17, 'name': 'بنی اسرائیل', 'meaning': 'اسرائیل کی اولاد', 'ayahs': 111, 'makki': true},
-    {'num': 18, 'name': 'الکہف', 'meaning': 'غار', 'ayahs': 110, 'makki': true},
-    {'num': 19, 'name': 'مریم', 'meaning': 'مریم علیہا السلام', 'ayahs': 98, 'makki': true},
-    {'num': 20, 'name': 'طہ', 'meaning': 'طہ', 'ayahs': 135, 'makki': true},
-    {'num': 21, 'name': 'الانبیاء', 'meaning': 'انبیاء', 'ayahs': 112, 'makki': true},
-    {'num': 22, 'name': 'الحج', 'meaning': 'حج', 'ayahs': 78, 'makki': false},
-    {'num': 23, 'name': 'المؤمنون', 'meaning': 'ایمان والے', 'ayahs': 118, 'makki': true},
-    {'num': 24, 'name': 'النور', 'meaning': 'نور', 'ayahs': 64, 'makki': false},
-    {'num': 25, 'name': 'الفرقان', 'meaning': 'حق و باطل میں فرق', 'ayahs': 77, 'makki': true},
-    {'num': 26, 'name': 'الشعراء', 'meaning': 'شاعر', 'ayahs': 227, 'makki': true},
-    {'num': 27, 'name': 'النمل', 'meaning': 'چیونٹی', 'ayahs': 93, 'makki': true},
-    {'num': 28, 'name': 'القصص', 'meaning': 'قصے', 'ayahs': 88, 'makki': true},
-    {'num': 29, 'name': 'العنکبوت', 'meaning': 'مکڑی', 'ayahs': 69, 'makki': true},
-    {'num': 30, 'name': 'الروم', 'meaning': 'روم', 'ayahs': 60, 'makki': true},
-    {'num': 31, 'name': 'لقمان', 'meaning': 'لقمان', 'ayahs': 34, 'makki': true},
-    {'num': 32, 'name': 'السجدہ', 'meaning': 'سجدہ', 'ayahs': 30, 'makki': true},
-    {'num': 33, 'name': 'الاحزاب', 'meaning': 'لشکر', 'ayahs': 73, 'makki': false},
-    {'num': 34, 'name': 'سبأ', 'meaning': 'سبا', 'ayahs': 54, 'makki': true},
-    {'num': 35, 'name': 'فاطر', 'meaning': 'پیدا کرنے والا', 'ayahs': 45, 'makki': true},
-    {'num': 36, 'name': 'یس', 'meaning': 'یس', 'ayahs': 83, 'makki': true},
-    {'num': 37, 'name': 'الصافات', 'meaning': 'صف باندھنے والے', 'ayahs': 182, 'makki': true},
-    {'num': 38, 'name': 'ص', 'meaning': 'ص', 'ayahs': 88, 'makki': true},
-    {'num': 39, 'name': 'الزمر', 'meaning': 'گروہ', 'ayahs': 75, 'makki': true},
-    {'num': 40, 'name': 'غافر', 'meaning': 'بخشش والا', 'ayahs': 85, 'makki': true},
-    {'num': 41, 'name': 'فصلت', 'meaning': 'واضح', 'ayahs': 54, 'makki': true},
-    {'num': 42, 'name': 'الشوریٰ', 'meaning': 'مشورہ', 'ayahs': 53, 'makki': true},
-    {'num': 43, 'name': 'الزخرف', 'meaning': 'زینت', 'ayahs': 89, 'makki': true},
-    {'num': 44, 'name': 'الدخان', 'meaning': 'دھواں', 'ayahs': 59, 'makki': true},
-    {'num': 45, 'name': 'الجاثیہ', 'meaning': 'گھٹنوں کے بل', 'ayahs': 37, 'makki': true},
-    {'num': 46, 'name': 'الاحقاف', 'meaning': 'ریت کے ٹیلے', 'ayahs': 35, 'makki': true},
-    {'num': 47, 'name': 'محمد', 'meaning': 'محمد ﷺ', 'ayahs': 38, 'makki': false},
-    {'num': 48, 'name': 'الفتح'
+    {'num': 11, 'name': 'ہود
