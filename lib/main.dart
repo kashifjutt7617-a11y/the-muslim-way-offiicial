@@ -100,6 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
+// ============ Dashboard ============
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -123,6 +124,12 @@ class DashboardPage extends StatelessWidget {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
+  }
+
+  void _openQuran(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const QuranPage()),
+    );
   }
 
   void _openIstikhara(BuildContext context) {
@@ -326,14 +333,14 @@ class DashboardPage extends StatelessWidget {
             mainAxisSpacing: 12,
             childAspectRatio: 1.2,
             children: [
-              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen),
-              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
-              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
-              _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
-              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
-              _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
-              _makeIstikharaCard(context),
-              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
+              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen, _openQuran),
+              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen, null),
+              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold, null),
+              _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen, null),
+              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen, null),
+              _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold, null),
+              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen, _openIstikhara),
+              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen, null),
             ],
           ),
         ),
@@ -341,9 +348,21 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _makeCard(BuildContext context, IconData icon, String title, Color color) {
+  Widget _makeCard(
+    BuildContext context,
+    IconData icon,
+    String title,
+    Color color,
+    void Function(BuildContext)? customAction,
+  ) {
     return GestureDetector(
-      onTap: () => _openComingSoon(context, title, icon),
+      onTap: () {
+        if (customAction != null) {
+          customAction(context);
+        } else {
+          _openComingSoon(context, title, icon);
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -370,41 +389,6 @@ class DashboardPage extends StatelessWidget {
                 color: AppColors.darkText,
               ),
               textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _makeIstikharaCard(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _openIstikhara(context),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppColors.deepGreen.withOpacity(0.3), width: 1.5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.deepGreen.withOpacity(0.12),
-              ),
-              child: const Icon(Icons.auto_awesome, color: AppColors.deepGreen, size: 28),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'استخارہ',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-                color: AppColors.darkText,
-              ),
             ),
           ],
         ),
@@ -446,7 +430,14 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _makeContact(BuildContext context, IconData icon, String title, String subtitle, Color color, VoidCallback onTap) {
+  Widget _makeContact(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String subtitle,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -528,481 +519,56 @@ class DashboardPage extends StatelessWidget {
   }
 }
 
-// ============ Coming Soon Page ============
-class ComingSoonPage extends StatelessWidget {
-  final String title;
-  final IconData icon;
+// ============ قرآن پاک کا صفحہ ============
+class QuranPage extends StatelessWidget {
+  const QuranPage({super.key});
 
-  const ComingSoonPage({super.key, required this.title, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.cream,
-        appBar: AppBar(
-          backgroundColor: AppColors.deepGreen,
-          title: Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.gold,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.gold),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.deepGreen.withOpacity(0.1),
-                    border: Border.all(color: AppColors.gold, width: 2),
-                  ),
-                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.deepGreen,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(width: 60, height: 3, color: AppColors.gold),
-                const SizedBox(height: 20),
-                const Text(
-                  'بہت جلد دستیاب ہوگا',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Coming Soon',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                const SizedBox(height: 40),
-                ElevatedButton.icon(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  label: const Text(
-                    'واپس جائیں',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.deepGreen,
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-// ============ استخارہ کا مکمل صفحہ ============
-class IstikharaPage extends StatelessWidget {
-  const IstikharaPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.cream,
-        appBar: AppBar(
-          backgroundColor: AppColors.deepGreen,
-          title: const Text(
-            'استخارہ',
-            style: TextStyle(color: AppColors.gold, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.gold),
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              _sectionCard(
-                title: 'استخارہ کیا ہے؟',
-                icon: Icons.info_outline,
-                items: const [
-                  'استخارہ ایک عبادت ہے جس میں بندہ اللہ سے کسی جائز کام کے بارے میں رہنمائی مانگتا ہے۔',
-                  'یہ نبی کریم ﷺ کی سنت ہے اور ہر مسلمان کو اس کی ضرورت پڑتی ہے۔',
-                  'استخارہ صرف شادی کے لیے نہیں — بلکہ ہر جائز اور اہم کام کے لیے کیا جا سکتا ہے۔',
-                  'مثلاً: نکاح، نوکری، کاروبار، سفر، گھر خریدنا، تعلیم کا انتخاب۔',
-                ],
-              ),
-              _sectionCard(
-                title: 'استخارہ کا مکمل طریقہ',
-                icon: Icons.list_alt,
-                items: const [
-                  'وضو کریں اور نیت کریں کہ آپ استخارہ کر رہے ہیں۔',
-                  'دو رکعت نفل نماز پڑھیں:',
-                  'پہلی رکعت: سورۃ الفاتحہ + سورۃ الکافرون',
-                  'دوسری رکعت: سورۃ الفاتحہ + سورۃ الاخلاص',
-                  'سلام پھیرنے کے بعد دعائے استخارہ پڑھیں۔',
-                  'پھر اس کام کا عزم کریں یا اللہ پر بھروسہ کریں۔',
-                  'رات کو سوتے وقت بھی استخارہ کر سکتے ہیں۔',
-                ],
-              ),
-              _arabicCard(
-                title: 'دعائے استخارہ',
-                arabic: 'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاقْدُرْ لِي الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ',
-                urdu: '"اے اللہ! میں تیرے علم کے ذریعے تجھ سے بھلائی مانگتا ہوں، اور تیری قدرت کے ذریعے تجھ سے طاقت مانگتا ہوں، اور تیرے عظیم فضل سے سوال کرتا ہوں۔ بے شک تو قدرت رکھتا ہے اور میں نہیں، تو جانتا ہے اور میں نہیں، اور تو غیبوں کا جاننے والا ہے۔ اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے دین، میری زندگی، اور میرے انجام کے لیے بہتر ہے، تو اسے میرے لیے مقدر فرما، آسان فرما، اور اس میں برکت دے۔ اور اگر تو جانتا ہے کہ یہ کام میرے دین، میری زندگی، اور میرے انجام کے لیے برا ہے، تو اسے مجھ سے پھیر دے، اور جہاں بھی خیر ہو میرے لیے مقدر فرما، پھر مجھے اس پر راضی کر دے۔"',
-                reference: '(صحیح بخاری: 1166)',
-              ),
-              _sectionCard(
-                title: 'استخارہ کے بعد کیا کریں؟',
-                icon: Icons.check_circle_outline,
-                items: const [
-                  'دل کے جھکاؤ کو دیکھیں — جس طرف دل مطمئن ہو، وہی بہتر ہے۔',
-                  'خواب کا انتظار کرنا ضروری نہیں — خواب آنا شرط نہیں۔',
-                  'اپنے کام کو آگے بڑھائیں — اللہ پر بھروسہ رکھیں۔',
-                  'اگر الجھن ہو تو اہل علم سے مشورہ کریں۔',
-                  'بار بار استخارہ کرنا جائز نہیں — ایک بار کافی ہے۔',
-                ],
-              ),
-              _mistakesCard(),
-              _noteCard(),
-              _backButton(context),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _sectionCard({
-    required String title,
-    required IconData icon,
-    required List<String> items,
-  }) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.gold.withOpacity(0.15),
-                ),
-                child: Icon(icon, color: AppColors.gold, size: 22),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          ...items.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('• ', style: TextStyle(fontSize: 16, color: AppColors.gold)),
-                    Expanded(
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppColors.darkText,
-                          height: 1.7,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-
-  Widget _arabicCard({
-    required String title,
-    required String arabic,
-    required String urdu,
-    required String reference,
-  }) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.gold.withOpacity(0.15),
-                ),
-                child: const Icon(Icons.volunteer_activism, color: AppColors.gold, size: 22),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: AppColors.deepGreen.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.deepGreen.withOpacity(0.2)),
-            ),
-            child: Text(
-              arabic,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.deepGreen,
-                fontFamily: 'serif',
-                height: 2.0,
-              ),
-            ),
-          ),
-          const SizedBox(height: 15),
-          Text(
-            urdu,
-            style: const TextStyle(
-              fontSize: 14,
-              color: AppColors.darkText,
-              fontStyle: FontStyle.italic,
-              height: 1.8,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              reference,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _mistakesCard() {
-    final mistakes = [
-      ['خواب آنا ضروری ہے', 'نہیں — خواب شرط نہیں'],
-      ['استخارہ صرف شادی کے لیے', 'نہیں — ہر جائز کام کے لیے'],
-      ['استخارہ سے جواب خودکار ملتا ہے', 'نہیں — اللہ سے دعا ہے'],
-      ['استخارہ کے بعد کچھ نہ کریں', 'نہیں — اپنے کام کو آگے بڑھائیں'],
-      ['کسی ولی سے استخارہ کروانا', 'نہیں — خود کریں'],
-    ];
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.gold.withOpacity(0.15),
-                ),
-                child: const Icon(Icons.warning_amber_outlined, color: AppColors.gold, size: 22),
-              ),
-              const SizedBox(width: 10),
-              const Expanded(
-                child: Text(
-                  'استخارہ کے بارے میں غلط فہمیاں',
-                  style: TextStyle(
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          ...mistakes.map((m) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.close, color: Colors.red, size: 18),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: Text(
-                            m[0],
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.red,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 24),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.check, color: Colors.green, size: 18),
-                          const SizedBox(width: 6),
-                          Expanded(
-                            child: Text(
-                              m[1],
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.green,
-                                height: 1.5,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-
-  Widget _noteCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: AppColors.gold.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: AppColors.gold, width: 1.5),
-      ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.info, color: AppColors.gold, size: 22),
-              SizedBox(width: 8),
-              Text(
-                'اہم نوٹ',
-                style: TextStyle(
-                  color: AppColors.deepGreen,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Text(
-            'یہ App صرف رہنمائی کے لیے ہے — کوئی فتویٰ نہیں۔ کسی بھی شرعی مسئلے میں اپنے علاقے کے مستند مفتی یا اہل علم سے رجوع کریں۔',
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.darkText,
-              height: 1.6,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _backButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        onPressed: () => Navigator.of(context).pop(),
-        icon: const Icon(Icons.arrow_back, color: Colors.white),
-        label: const Text(
-          'واپس جائیں',
-          style: TextStyle(color: Colors.white, fontSize: 16),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.deepGreen,
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-      ),
-    );
-  }
-}
+  static const List<Map<String, dynamic>> surahs = [
+    {'num': 1, 'name': 'الفاتحہ', 'meaning': 'کھولنے والی', 'ayahs': 7, 'makki': true},
+    {'num': 2, 'name': 'البقرہ', 'meaning': 'گائے', 'ayahs': 286, 'makki': false},
+    {'num': 3, 'name': 'آل عمران', 'meaning': 'عمران کا خاندان', 'ayahs': 200, 'makki': false},
+    {'num': 4, 'name': 'النساء', 'meaning': 'عورتیں', 'ayahs': 176, 'makki': false},
+    {'num': 5, 'name': 'المائدہ', 'meaning': 'دسترخوان', 'ayahs': 120, 'makki': false},
+    {'num': 6, 'name': 'الانعام', 'meaning': 'مویشی', 'ayahs': 165, 'makki': true},
+    {'num': 7, 'name': 'الاعراف', 'meaning': 'بلندیاں', 'ayahs': 206, 'makki': true},
+    {'num': 8, 'name': 'الانفال', 'meaning': 'مالِ غنیمت', 'ayahs': 75, 'makki': false},
+    {'num': 9, 'name': 'التوبہ', 'meaning': 'توبہ', 'ayahs': 129, 'makki': false},
+    {'num': 10, 'name': 'یونس', 'meaning': 'یونس علیہ السلام', 'ayahs': 109, 'makki': true},
+    {'num': 11, 'name': 'ہود', 'meaning': 'ہود علیہ السلام', 'ayahs': 123, 'makki': true},
+    {'num': 12, 'name': 'یوسف', 'meaning': 'یوسف علیہ السلام', 'ayahs': 111, 'makki': true},
+    {'num': 13, 'name': 'الرعد', 'meaning': 'گرج', 'ayahs': 43, 'makki': false},
+    {'num': 14, 'name': 'ابراہیم', 'meaning': 'ابراہیم علیہ السلام', 'ayahs': 52, 'makki': true},
+    {'num': 15, 'name': 'الحجر', 'meaning': 'پتھریلی زمین', 'ayahs': 99, 'makki': true},
+    {'num': 16, 'name': 'النحل', 'meaning': 'شہد کی مکھی', 'ayahs': 128, 'makki': true},
+    {'num': 17, 'name': 'بنی اسرائیل', 'meaning': 'اسرائیل کی اولاد', 'ayahs': 111, 'makki': true},
+    {'num': 18, 'name': 'الکہف', 'meaning': 'غار', 'ayahs': 110, 'makki': true},
+    {'num': 19, 'name': 'مریم', 'meaning': 'مریم علیہا السلام', 'ayahs': 98, 'makki': true},
+    {'num': 20, 'name': 'طہ', 'meaning': 'طہ', 'ayahs': 135, 'makki': true},
+    {'num': 21, 'name': 'الانبیاء', 'meaning': 'انبیاء', 'ayahs': 112, 'makki': true},
+    {'num': 22, 'name': 'الحج', 'meaning': 'حج', 'ayahs': 78, 'makki': false},
+    {'num': 23, 'name': 'المؤمنون', 'meaning': 'ایمان والے', 'ayahs': 118, 'makki': true},
+    {'num': 24, 'name': 'النور', 'meaning': 'نور', 'ayahs': 64, 'makki': false},
+    {'num': 25, 'name': 'الفرقان', 'meaning': 'حق و باطل میں فرق', 'ayahs': 77, 'makki': true},
+    {'num': 26, 'name': 'الشعراء', 'meaning': 'شاعر', 'ayahs': 227, 'makki': true},
+    {'num': 27, 'name': 'النمل', 'meaning': 'چیونٹی', 'ayahs': 93, 'makki': true},
+    {'num': 28, 'name': 'القصص', 'meaning': 'قصے', 'ayahs': 88, 'makki': true},
+    {'num': 29, 'name': 'العنکبوت', 'meaning': 'مکڑی', 'ayahs': 69, 'makki': true},
+    {'num': 30, 'name': 'الروم', 'meaning': 'روم', 'ayahs': 60, 'makki': true},
+    {'num': 31, 'name': 'لقمان', 'meaning': 'لقمان', 'ayahs': 34, 'makki': true},
+    {'num': 32, 'name': 'السجدہ', 'meaning': 'سجدہ', 'ayahs': 30, 'makki': true},
+    {'num': 33, 'name': 'الاحزاب', 'meaning': 'لشکر', 'ayahs': 73, 'makki': false},
+    {'num': 34, 'name': 'سبأ', 'meaning': 'سبا', 'ayahs': 54, 'makki': true},
+    {'num': 35, 'name': 'فاطر', 'meaning': 'پیدا کرنے والا', 'ayahs': 45, 'makki': true},
+    {'num': 36, 'name': 'یس', 'meaning': 'یس', 'ayahs': 83, 'makki': true},
+    {'num': 37, 'name': 'الصافات', 'meaning': 'صف باندھنے والے', 'ayahs': 182, 'makki': true},
+    {'num': 38, 'name': 'ص', 'meaning': 'ص', 'ayahs': 88, 'makki': true},
+    {'num': 39, 'name': 'الزمر', 'meaning': 'گروہ', 'ayahs': 75, 'makki': true},
+    {'num': 40, 'name': 'غافر', 'meaning': 'بخشش والا', 'ayahs': 85, 'makki': true},
+    {'num': 41, 'name': 'فصلت', 'meaning': 'واضح', 'ayahs': 54, 'makki': true},
+    {'num': 42, 'name': 'الشوریٰ', 'meaning': 'مشورہ', 'ayahs': 53, 'makki': true},
+    {'num': 43, 'name': 'الزخرف', 'meaning': 'زینت', 'ayahs': 89, 'makki': true},
+    {'num': 44, 'name': 'الدخان', 'meaning': 'دھواں', 'ayahs': 59, 'makki': true},
+    {'num': 45, 'name': 'الجاثیہ', 'meaning': 'گھٹنوں کے بل', 'ayahs': 37, 'makki': true},
+    {'num': 46, 'name': 'الاحقاف', 'meaning': 'ریت کے ٹیلے', 'ayahs': 35, 'makki': true},
+    {'num': 47, 'name': 'محمد', 'meaning': 'محمد ﷺ', 'ayahs': 38, 'makki': false},
+    {'num': 48, 'name': 'الفتح'
