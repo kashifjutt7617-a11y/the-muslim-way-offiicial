@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const DashboardPage()),
+          MaterialPageRoute(builder: (_) => const MainScreen()),
         );
       }
     });
@@ -101,6 +101,112 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
+// ============ Main Screen with Bottom Navigation ============
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = const [
+    DashboardPage(),
+    ComingSoonPage(title: 'قرآن پاک', icon: Icons.menu_book),
+    ComingSoonPage(title: 'صحیح حدیث', icon: Icons.auto_stories),
+    ComingSoonPage(title: 'دعائیں و اذکار', icon: Icons.volunteer_activism),
+    ComingSoonPage(title: 'نماز کے اوقات', icon: Icons.access_time),
+    ComingSoonPage(title: 'قبلہ کمپاس', icon: Icons.explore),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: _pages[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (i) => setState(() => _currentIndex = i),
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: AppColors.deepGreen,
+          selectedItemColor: AppColors.gold,
+          unselectedItemColor: Colors.white70,
+          selectedLabelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+          unselectedLabelStyle: const TextStyle(fontSize: 10),
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ہوم'),
+            BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'قرآن'),
+            BottomNavigationBarItem(icon: Icon(Icons.auto_stories), label: 'حدیث'),
+            BottomNavigationBarItem(icon: Icon(Icons.volunteer_activism), label: 'دعائیں'),
+            BottomNavigationBarItem(icon: Icon(Icons.access_time), label: 'نماز'),
+            BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'قبلہ'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ============ Coming Soon Page ============
+class ComingSoonPage extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const ComingSoonPage({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.cream,
+      appBar: AppBar(
+        backgroundColor: AppColors.deepGreen,
+        title: Text(
+          title,
+          style: const TextStyle(color: AppColors.gold, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: AppColors.gold),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.deepGreen.withOpacity(0.1),
+              ),
+              child: Icon(icon, size: 80, color: AppColors.deepGreen),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+              ),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'بہت جلد دستیاب ہوگا',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Coming Soon',
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ============ Dashboard ============
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -113,17 +219,11 @@ class DashboardPage extends StatelessWidget {
           uri,
           mode: external ? LaunchMode.externalApplication : LaunchMode.platformDefault,
         );
-      } else {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Could not open: $url')),
-          );
-        }
       }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('Could not open: $url')),
         );
       }
     }
@@ -144,25 +244,22 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.cream,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 16),
-                _buildDailyAyah(),
-                const SizedBox(height: 20),
-                _buildQuickAccess(),
-                const SizedBox(height: 25),
-                _buildContactSection(context),
-                const SizedBox(height: 25),
-                _buildFooter(),
-              ],
-            ),
+    return Scaffold(
+      backgroundColor: AppColors.cream,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildHeader(),
+              const SizedBox(height: 16),
+              _buildDailyAyah(),
+              const SizedBox(height: 20),
+              _buildQuickAccess(),
+              const SizedBox(height: 25),
+              _buildContactSection(context),
+              const SizedBox(height: 25),
+              _buildFooter(),
+            ],
           ),
         ),
       ),
@@ -554,20 +651,4 @@ class ContactCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.darkText,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.arrow_back_ios, color: color, size: 16),
-        ],
-      ),
-    );
-  }
-}
+                    color: AppColors.
