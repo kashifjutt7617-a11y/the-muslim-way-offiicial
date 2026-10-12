@@ -1202,3 +1202,505 @@ class _IstikharaArabicCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+// ============================================================
+// SURAH DETAIL PAGE — 10 چھوٹی سورتیں (عربی + سادہ اردو)
+// ============================================================
+class SurahDetailPage extends StatelessWidget {
+  final int surahNumber;
+  const SurahDetailPage({super.key, required this.surahNumber});
+
+  static const Map<int, Map<String, dynamic>> shortSurahs = {
+    1: {
+      'name': 'الفاتحہ',
+      'en': 'Al-Fatihah',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+          'ur': 'اللہ کے نام سے جو بڑا مہربان، نہایت رحم والا ہے۔',
+        },
+        {
+          'ar': 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
+          'ur': 'سب تعریف اللہ کے لیے ہے جو تمام جہانوں کا پالنے والا ہے۔',
+        },
+        {
+          'ar': 'الرَّحْمَٰنِ الرَّحِيمِ',
+          'ur': 'بڑا مہربان، نہایت رحم والا۔',
+        },
+        {
+          'ar': 'مَالِكِ يَوْمِ الدِّينِ',
+          'ur': 'روزِ جزا کا مالک۔',
+        },
+        {
+          'ar': 'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ',
+          'ur': 'ہم صرف تیری عبادت کرتے ہیں اور صرف تجھ سے مدد مانگتے ہیں۔',
+        },
+        {
+          'ar': 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
+          'ur': 'ہمیں سیدھا راستہ دکھا۔',
+        },
+        {
+          'ar': 'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ',
+          'ur': 'اُن لوگوں کا راستہ جن پر تو نے انعام کیا، نہ اُن کا جن پر غضب ہوا اور نہ گمراہوں کا۔',
+        },
+      ],
+    },
+    112: {
+      'name': 'الاخلاص',
+      'en': 'Al-Ikhlas',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'قُلْ هُوَ اللَّهُ أَحَدٌ',
+          'ur': 'کہہ دیں: وہ اللہ ایک ہے۔',
+        },
+        {
+          'ar': 'اللَّهُ الصَّمَدُ',
+          'ur': 'اللہ بے نیاز ہے (سب اُس کے محتاج ہیں)۔',
+        },
+        {
+          'ar': 'لَمْ يَلِدْ وَلَمْ يُولَدْ',
+          'ur': 'نہ اُس نے کسی کو جنا اور نہ وہ جنا گیا۔',
+        },
+        {
+          'ar': 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
+          'ur': 'اور اُس کے برابر کوئی نہیں۔',
+        },
+      ],
+    },
+    113: {
+      'name': 'الفلق',
+      'en': 'Al-Falaq',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ',
+          'ur': 'کہہ دیں: میں صبح کے رب کی پناہ مانگتا ہوں۔',
+        },
+        {
+          'ar': 'مِن شَرِّ مَا خَلَقَ',
+          'ur': 'ہر اُس چیز کے شر سے جو اُس نے پیدا کی۔',
+        },
+        {
+          'ar': 'وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ',
+          'ur': 'اور اندھیری رات کے شر سے جب وہ چھا جائے۔',
+        },
+        {
+          'ar': 'وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ',
+          'ur': 'اور گرہوں میں پھونکنے والیوں کے شر سے۔',
+        },
+        {
+          'ar': 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
+          'ur': 'اور حاسد کے شر سے جب وہ حسد کرے۔',
+        },
+      ],
+    },
+    114: {
+      'name': 'الناس',
+      'en': 'An-Nas',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ',
+          'ur': 'کہہ دیں: میں لوگوں کے رب کی پناہ مانگتا ہوں۔',
+        },
+        {
+          'ar': 'مَلِكِ النَّاسِ',
+          'ur': 'لوگوں کے بادشاہ کی۔',
+        },
+        {
+          'ar': 'إِلَٰهِ النَّاسِ',
+          'ur': 'لوگوں کے معبود کی۔',
+        },
+        {
+          'ar': 'مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ',
+          'ur': 'وسوسہ ڈالنے والے، پیچھے ہٹنے والے کے شر سے۔',
+        },
+        {
+          'ar': 'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ',
+          'ur': 'جو لوگوں کے سینوں میں وسوسہ ڈالتا ہے۔',
+        },
+        {
+          'ar': 'مِنَ الْجِنَّةِ وَالنَّاسِ',
+          'ur': 'خواہ وہ جنوں میں سے ہو یا انسانوں میں سے۔',
+        },
+      ],
+    },
+    108: {
+      'name': 'الکوثر',
+      'en': 'Al-Kauthar',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ',
+          'ur': 'بے شک ہم نے آپ کو کوثر (بہت بھلائی) عطا کی۔',
+        },
+        {
+          'ar': 'فَصَلِّ لِرَبِّكَ وَانْحَرْ',
+          'ur': 'پس اپنے رب کے لیے نماز پڑھیں اور قربانی کریں۔',
+        },
+        {
+          'ar': 'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ',
+          'ur': 'بے شک آپ کا دشمن ہی بے نام و نشان ہے۔',
+        },
+      ],
+    },
+    103: {
+      'name': 'العصر',
+      'en': 'Al-Asr',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'وَالْعَصْرِ',
+          'ur': 'زمانے کی قسم۔',
+        },
+        {
+          'ar': 'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ',
+          'ur': 'بے شک انسان خسارے میں ہے۔',
+        },
+        {
+          'ar': 'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ',
+          'ur': 'سوائے اُن کے جو ایمان لائے، نیک عمل کیے، ایک دوسرے کو حق کی نصیحت کی اور صبر کی نصیحت کی۔',
+        },
+      ],
+    },
+    105: {
+      'name': 'الفیل',
+      'en': 'Al-Fil',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ',
+          'ur': 'کیا آپ نے نہیں دیکھا کہ آپ کے رب نے ہاتھی والوں کے ساتھ کیا کیا؟',
+        },
+        {
+          'ar': 'أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ',
+          'ur': 'کیا اُن کی چال کو بے کار نہیں کر دیا؟',
+        },
+        {
+          'ar': 'وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَوَابِيدَ',
+          'ur': 'اور اُن پر پرندوں کے غول بھیجے۔',
+        },
+        {
+          'ar': 'تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ',
+          'ur': 'جو اُن پر پکی ہوئی مٹی کے پتھر مارتے تھے۔',
+        },
+        {
+          'ar': 'فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ',
+          'ur': 'پھر اُن کو کھائے ہوئے بھوسے کی طرح کر دیا۔',
+        },
+      ],
+    },
+    106: {
+      'name': 'قریش',
+      'en': 'Quraish',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'لِإِيلَافِ قُرَيْشٍ',
+          'ur': 'قریش کو مانوس کرنے کے لیے۔',
+        },
+        {
+          'ar': 'إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ',
+          'ur': 'یعنی سردی اور گرمی کے سفر سے مانوس کرنے کے لیے۔',
+        },
+        {
+          'ar': 'فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ',
+          'ur': 'پس چاہیے کہ یہ اِس گھر کے رب کی عبادت کریں۔',
+        },
+        {
+          'ar': 'الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ',
+          'ur': 'جس نے اُن کو بھوک میں کھلایا اور خوف سے امان دی۔',
+        },
+      ],
+    },
+    107: {
+      'name': 'الماعون',
+      'en': 'Al-Maun',
+      'place': 'مکی',
+      'ayat': [
+        {
+          'ar': 'أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ',
+          'ur': 'کیا آپ نے اُسے دیکھا جو روزِ جزا کو جھٹلاتا ہے؟',
+        },
+        {
+          'ar': 'فَذَٰلِكَ الَّذِي يَدُعُّ الْيَتِيمَ',
+          'ur': 'پس وہی ہے جو یتیم کو دھتکارتا ہے۔',
+        },
+        {
+          'ar': 'وَلَا يَحُضُّ عَلَىٰ طَعَامِ الْمِسْكِينِ',
+          'ur': 'اور مسکین کو کھانا کھلانے کی ترغیب نہیں دیتا۔',
+        },
+        {
+          'ar': 'فَوَيْلٌ لِّلْمُصَلِّينَ',
+          'ur': 'پس اُن نمازیوں کے لیے ہلاکت ہے۔',
+        },
+        {
+          'ar': 'الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ',
+          'ur': 'جو اپنی نماز سے غافل ہیں۔',
+        },
+        {
+          'ar': 'الَّذِينَ هُمْ يُرَاءُونَ',
+          'ur': 'جو دکھاوے کے لیے (عبادت) کرتے ہیں۔',
+        },
+        {
+          'ar': 'وَيَمْنَعُونَ الْمَاعُونَ',
+          'ur': 'اور معمولی چیزیں (کسی کو) نہیں دیتے۔',
+        },
+      ],
+    },
+    110: {
+      'name': 'النصر',
+      'en': 'An-Nasr',
+      'place': 'مدنی',
+      'ayat': [
+        {
+          'ar': 'إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ',
+          'ur': 'جب اللہ کی مدد آئے اور فتح ہو۔',
+        },
+        {
+          'ar': 'وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا',
+          'ur': 'اور آپ لوگوں کو دیکھیں کہ وہ اللہ کے دین میں فوج در فوج داخل ہو رہے ہیں۔',
+        },
+        {
+          'ar': 'فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا',
+          'ur': 'تو اپنے رب کی حمد کے ساتھ تسبیح کریں اور اُس سے مغفرت مانگیں، بے شک وہ توبہ قبول کرنے والا ہے۔',
+        },
+      ],
+    },
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final data = shortSurahs[surahNumber];
+    if (data == null) {
+      return const ComingSoonPage(
+        title: 'سورت',
+        icon: Icons.menu_book,
+      );
+    }
+
+    final String name = data['name'] as String;
+    final String en = data['en'] as String;
+    final String place = data['place'] as String;
+    final List<dynamic> ayat = data['ayat'] as List;
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          foregroundColor: AppColors.gold,
+          title: Text(
+            'سورۃ $name',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [AppColors.deepGreen, AppColors.lightGreen],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.gold, width: 2),
+              ),
+              child: Column(
+                children: [
+                  const Icon(Icons.menu_book,
+                      color: AppColors.gold, size: 40),
+                  const SizedBox(height: 10),
+                  Text(
+                    'سورۃ $name',
+                    style: const TextStyle(
+                      color: AppColors.gold,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    en,
+                    style: const TextStyle(
+                      color: AppColors.cream,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.gold.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          place,
+                          style: const TextStyle(
+                            color: AppColors.gold,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.gold.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '${ayat.length} آیات',
+                          style: const TextStyle(
+                            color: AppColors.gold,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            ...List.generate(ayat.length, (index) {
+              final a = ayat[index] as Map;
+              return Container(
+                margin: const EdgeInsets.only(bottom: 14),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: AppColors.gold.withOpacity(0.4),
+                    width: 1.5,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.deepGreen.withOpacity(0.06),
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: AppColors.deepGreen,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: AppColors.gold,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${index + 1}',
+                              style: const TextStyle(
+                                color: AppColors.gold,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: AppColors.deepGreen.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.gold.withOpacity(0.3),
+                        ),
+                      ),
+                      child: Text(
+                        a['ar'] ?? '',
+                        style: const TextStyle(
+                          color: AppColors.deepGreen,
+                          fontSize: 22,
+                          height: 2.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      a['ur'] ?? '',
+                      style: const TextStyle(
+                        color: AppColors.darkText,
+                        fontSize: 16,
+                        height: 1.8,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
+                ),
+              );
+            }),
+            Container(
+              margin: const EdgeInsets.only(top: 8, bottom: 24),
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: AppColors.gold.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColors.gold.withOpacity(0.4),
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.info_outline,
+                      color: AppColors.gold, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'یہ سورۃ نمبر $surahNumber ہے — قرآن مجید',
+                      style: const TextStyle(
+                        color: AppColors.darkText,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
