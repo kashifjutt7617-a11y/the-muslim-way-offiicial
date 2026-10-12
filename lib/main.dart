@@ -827,13 +827,22 @@ class _SurahTile extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ComingSoonPage(title: 'سورۃ $name', icon: Icons.menu_book),
-              ),
-            );
-          },
+  if (SurahDetailPage.shortSurahs.containsKey(number)) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => SurahDetailPage(surahNumber: number),
+      ),
+    );
+  } else {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ComingSoonPage(title: 'سورۃ $name', icon: Icons.menu_book),
+      ),
+    );
+  }
+},
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
