@@ -130,6 +130,11 @@ class DashboardPage extends StatelessWidget {
       MaterialPageRoute(builder: (_) => QuranPage()),
     );
   }
+  void _openIstikhara(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(builder: (_) => const IstikharaPage()),
+  );
+  }
 
   void _openComingSoon(BuildContext context, String title, IconData icon) {
     Navigator.of(context).push(
@@ -332,7 +337,7 @@ class DashboardPage extends StatelessWidget {
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen, null),
               _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen, null),
               _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold, null),
-              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen, null),
+              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen, _openIstikhara),
               _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen, null),
             ],
           ),
@@ -923,6 +928,267 @@ class _SurahTile extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// ISTIKHARA PAGE — مکمل شرعی رہنمائی
+// ============================================================
+class IstikharaPage extends StatelessWidget {
+  const IstikharaPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          foregroundColor: AppColors.gold,
+          title: const Text(
+            'استخارہ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(16),
+          children: const [
+            _IstikharaHeader(),
+            SizedBox(height: 16),
+            _IstikharaCard(
+              title: 'استخارہ کیا ہے؟',
+              body:
+                  'استخارہ کا مطلب ہے اللہ تعالیٰ سے کسی کام میں بھلائی طلب کرنا۔ '
+                  'جب انسان کسی جائز کام کا ارادہ کرے اور اسے صحیح یا غلط ہونے میں تردد ہو، '
+                  'تو دو رکعت نماز پڑھ کر دعائے استخارہ پڑھے۔ '
+                  'یہ سنت سے ثابت شدہ عمل ہے اور نبی کریم ﷺ نے اس کی تعلیم دی ہے۔',
+            ),
+            _IstikharaCard(
+              title: 'استخارہ کا شرعی طریقہ',
+              body:
+                  '① وضو کریں (پاک ہو کر)\n\n'
+                  '② دو رکعت نفل نماز پڑھیں — پہلی رکعت میں سورۃ الفاتحہ کے بعد '
+                  'سورۃ الکافرون، دوسری رکعت میں سورۃ الفاتحہ کے بعد سورۃ الاخلاص '
+                  'پڑھنا افضل ہے\n\n'
+                  '③ نماز سے فارغ ہو کر اللہ کی حمد و ثنا کریں اور درود شریف پڑھیں\n\n'
+                  '④ دل میں اس کام کا ارادہ رکھتے ہوئے دعائے استخارہ پڑھیں\n\n'
+                  '⑤ دعا کے بعد اللہ پر توکل کریں اور جو دل میں رجحان پیدا ہو '
+                  'اس پر عمل کریں\n\n'
+                  '⑥ اگر دل مطمئن نہ ہو تو اہل علم و مشورہ سے کام لیں',
+            ),
+            _IstikharaArabicCard(),
+            _IstikharaCard(
+              title: 'دعائے استخارہ کا ترجمہ',
+              body:
+                  'اے اللہ! میں تیرے علم کے ذریعے تجھ سے بھلائی طلب کرتا ہوں، '
+                  'اور تیری قدرت کے ذریعے طاقت مانگتا ہوں، '
+                  'اور تیرے عظیم فضل سے سوال کرتا ہوں۔ '
+                  'بے شک تو قدرت رکھتا ہے اور میں نہیں رکھتا، '
+                  'تو جانتا ہے اور میں نہیں جانتا، '
+                  'اور تو غیبوں کا جاننے والا ہے۔\n\n'
+                  'اے اللہ! اگر یہ کام میرے دین، میری دنیا، میری زندگی اور میرے '
+                  'انجام کے لحاظ سے بہتر ہے تو اسے میرے لیے مقدر کر دے، '
+                  'آسان کر دے اور پھر اس پر برکت دے۔\n\n'
+                  'اور اگر یہ کام میرے دین، میری دنیا، میری زندگی اور میرے '
+                  'انجام کے لحاظ سے برا ہے تو اسے مجھ سے پھیر دے، '
+                  'اور جہاں بھلائی ہو وہاں میرا رخ کر دے، '
+                  'اور پھر مجھے اس پر راضی کر دے۔',
+            ),
+            _IstikharaCard(
+              title: 'صحیح حوالہ',
+              body:
+                  'حضرت جابر بن عبداللہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ '
+                  'ہمیں ہر کام میں استخارہ سکھاتے تھے، جیسے قرآن کی سورت سکھاتے تھے۔\n\n'
+                  '📖 صحیح بخاری: 1166\n'
+                  '📖 صحیح بخاری: 6382\n'
+                  '📖 سنن ابو داؤد: 1538\n'
+                  '📖 سنن ترمذی: 480\n'
+                  '📖 سنن ابن ماجہ: 1383',
+            ),
+            _IstikharaCard(
+              title: 'عام غلط فہمیاں (ضرور پڑھیں)',
+              body:
+                  '❌ "استخارہ کے بعد خواب آنا ضروری ہے" — یہ غلط ہے۔ '
+                  'خواب آنا شرط نہیں، دل کا رجحان کافی ہے۔\n\n'
+                  '❌ "استخارہ صرف شادی کے لیے ہے" — یہ غلط ہے۔ '
+                  'ہر جائز اور مشکوک کام کے لیے کیا جا سکتا ہے۔\n\n'
+                  '❌ "استخارہ ایک ہی بار کیا جاتا ہے" — نہیں، '
+                  'ضرورت پڑنے پر کئی بار کیا جا سکتا ہے۔\n\n'
+                  '❌ "استخارہ کے بعد خود فیصلہ نہیں کرنا" — نہیں، '
+                  'دل کے رجحان اور عقل و مشورے کے مطابق فیصلہ کریں۔',
+            ),
+            _IstikharaCard(
+              title: 'اہم نصیحت',
+              body:
+                  'اگر استخارہ کے بعد بھی تردد ہو تو اہل علم سے مشورہ کریں '
+                  'اور اپنے دل کی گواہی کو اہمیت دیں۔\n\n'
+                  '﴿ وَشَاوِرْهُمْ فِي الْأَمْرِ ۖ فَإِذَا عَزَمْتَ فَتَوَكَّلْ عَلَى اللَّهِ ﴾\n\n'
+                  '"اور ان سے مشورہ کریں، پھر جب آپ عزم کر لیں تو اللہ پر توکل کریں۔"\n\n'
+                  '📖 سورۃ آل عمران: 159',
+            ),
+            SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _IstikharaHeader extends StatelessWidget {
+  const _IstikharaHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [AppColors.deepGreen, AppColors.lightGreen],
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.gold, width: 2),
+      ),
+      child: const Column(
+        children: [
+          Icon(Icons.auto_awesome, color: AppColors.gold, size: 48),
+          SizedBox(height: 12),
+          Text(
+            'دعائے استخارہ',
+            style: TextStyle(
+              color: AppColors.gold,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'اللہ سے بھلائی طلب کرنے کی سنت',
+            style: TextStyle(color: AppColors.cream, fontSize: 14),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IstikharaCard extends StatelessWidget {
+  final String title;
+  final String body;
+  const _IstikharaCard({required this.title, required this.body});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppColors.gold.withOpacity(0.4),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.deepGreen.withOpacity(0.08),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 6,
+                height: 22,
+                decoration: BoxDecoration(
+                  color: AppColors.gold,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppColors.deepGreen,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            body,
+            style: const TextStyle(
+              color: AppColors.darkText,
+              fontSize: 15,
+              height: 1.8,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IstikharaArabicCard extends StatelessWidget {
+  const _IstikharaArabicCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.deepGreen,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.gold, width: 2),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            'دعائے استخارہ (عربی)',
+            style: TextStyle(
+              color: AppColors.gold,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 14),
+          Text(
+            'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، '
+            'وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، '
+            'وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ. '
+            'اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي '
+            'وَدُنْيَايَ وَمَعَاشِي وَعَاقِبَةِ أَمْرِي، فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي '
+            'ثُمَّ بَارِكْ لِي فِيهِ. وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي '
+            'فِي دِينِي وَدُنْيَايَ وَمَعَاشِي وَعَاقِبَةِ أَمْرِي، فَاصْرِفْهُ عَنِّي '
+            'وَاقْدُرْ لِي الْخَيْرَ حَيْثُ كَانَ، ثُمَّ أَرْضِنِي بِهِ.',
+            style: TextStyle(
+              color: AppColors.cream,
+              fontSize: 18,
+              height: 2.2,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.right,
+          ),
+        ],
       ),
     );
   }
