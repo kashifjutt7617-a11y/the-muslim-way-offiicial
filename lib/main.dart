@@ -333,31 +333,6 @@ class _DashboardPageState extends State<DashboardPage> {
       {'ar': 'فَاذْكُرُونِي أَذْكُرْكُمْ', 'ur': 'پس تم میرا ذکر کرو، میں تمہارا ذکر کروں گا۔', 'ref': 'سورۃ البقرہ: 152'},
       {'ar': 'وَاصْبِرْ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', 'ur': 'اور صبر کرو، بے شک اللہ صبر کرنے والوں کے ساتھ ہے۔', 'ref': 'سورۃ الانفال: 46'},
       {'ar': 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', 'ur': 'خبردار! اللہ کے ذکر سے ہی دلوں کو سکون ملتا ہے۔', 'ref': 'سورۃ الرعد: 28'},
-      {'ar': 'وَاللَّهُ خَيْرُ الرَّازِقِينَ', 'ur': 'اور اللہ بہترین رزق دینے والا ہے۔', 'ref': 'سورۃ الجمعہ: 11'},
-      {'ar': 'وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ', 'ur': 'اور وہ تمہارے ساتھ ہے جہاں بھی تم ہو۔', 'ref': 'سورۃ الحدید: 4'},
-      {'ar': 'إِنَّ اللَّهَ غَفُورٌ رَّحِيمٌ', 'ur': 'بے شک اللہ بخشنے والا، رحم کرنے والا ہے۔', 'ref': 'سورۃ البقرہ: 173'},
-      {'ar': 'وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ', 'ur': 'اور ممکن ہے تم کسی چیز کو ناپسند کرو اور وہ تمہارے لیے بہتر ہو۔', 'ref': 'سورۃ البقرہ: 216'},
-      {'ar': 'إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ', 'ur': 'بے شک اللہ توکل کرنے والوں سے محبت کرتا ہے۔', 'ref': 'سورۃ آل عمران: 159'},
-      {'ar': 'وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ', 'ur': 'اور انسان کے لیے وہی ہے جس کی وہ کوشش کرے۔', 'ref': 'سورۃ النجم: 39'},
-      {'ar': 'إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ', 'ur': 'بے شک اللہ انصاف اور نیکی کا حکم دیتا ہے۔', 'ref': 'سورۃ النحل: 90'},
-      {'ar': 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا', 'ur': 'پس بے شک مشکل کے ساتھ آسانی ہے۔', 'ref': 'سورۃ الشرح: 5'},
-      {'ar': 'وَاللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ', 'ur': 'اور اللہ جانتا ہے اور تم نہیں جانتے۔', 'ref': 'سورۃ البقرہ: 216'},
-      {'ar': 'وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ', 'ur': 'اور میری توفیق صرف اللہ کی طرف سے ہے۔', 'ref': 'سورۃ ہود: 88'},
-      {'ar': 'إِنَّ اللَّهَ وَاسِعٌ عَلِيمٌ', 'ur': 'بے شک اللہ کشادگی والا، جاننے والا ہے۔', 'ref': 'سورۃ البقرہ: 115'},
-      {'ar': 'وَتَوَكَّلْ عَلَى اللَّهِ وَكَفَىٰ بِاللَّهِ وَكِيلًا', 'ur': 'اور اللہ پر بھروسہ کریں، اور اللہ کافی ہے کارساز۔', 'ref': 'سورۃ النساء: 81'},
-      {'ar': 'إِنَّ اللَّهَ لَا يُحِبُّ الْمُسْرِفِينَ', 'ur': 'بے شک اللہ حد سے بڑھنے والوں کو پسند نہیں کرتا۔', 'ref': 'سورۃ الاعراف: 31'},
-      {'ar': 'وَاللَّهُ مَعَ الصَّابِرِينَ', 'ur': 'اور اللہ صبر کرنے والوں کے ساتھ ہے۔', 'ref': 'سورۃ البقرہ: 249'},
-      {'ar': 'إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ', 'ur': 'بے شک اِس میں غور کرنے والوں کے لیے نشانیاں ہیں۔', 'ref': 'سورۃ الرعد: 3'},
-      {'ar': 'وَاتَّقُوا اللَّهَ وَاعْلَمُوا أَنَّ اللَّهَ مَعَ الْمُتَّقِينَ', 'ur': 'اور اللہ سے ڈرو، اور جان لو کہ اللہ پرہیزگاروں کے ساتھ ہے۔', 'ref': 'سورۃ البقرہ: 194'},
-      {'ar': 'وَهُوَ الْغَفُورُ الْوَدُودُ', 'ur': 'اور وہ بخشنے والا، محبت کرنے والا ہے۔', 'ref': 'سورۃ البروج: 14'},
-      {'ar': 'إِنَّ اللَّهَ يُحِبُّ الصَّابِرِينَ', 'ur': 'بے شک اللہ صبر کرنے والوں سے محبت کرتا ہے۔', 'ref': 'سورۃ آل عمران: 146'},
-      {'ar': 'وَاذْكُر رَّبَّكَ إِذَا نَسِيتَ', 'ur': 'اور اپنے رب کا ذکر کرو جب بھول جاؤ۔', 'ref': 'سورۃ الکہف: 24'},
-      {'ar': 'رَبِّ زِدْنِي عِلْمًا', 'ur': 'اے میرے رب! میرے علم میں اضافہ فرما۔', 'ref': 'سورۃ طہ: 114'},
-      {'ar': 'وَاللَّهُ عَلِيمٌ حَكِيمٌ', 'ur': 'اور اللہ جاننے والا، حکمت والا ہے۔', 'ref': 'سورۃ النساء: 26'},
-      {'ar': 'إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوا وَّالَّذِينَ هُم مُّحْسِنُونَ', 'ur': 'بے شک اللہ پرہیزگاروں اور نیکوکاروں کے ساتھ ہے۔', 'ref': 'سورۃ النحل: 128'},
-      {'ar': 'وَبَشِّرِ الصَّابِرِينَ', 'ur': 'اور صبر کرنے والوں کو خوشخبری دے دیں۔', 'ref': 'سورۃ البقرہ: 155'},
-      {'ar': 'إِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ', 'ur': 'بے شک اللہ نیکوکاروں کا اجر ضائع نہیں کرتا۔', 'ref': 'سورۃ التوبہ: 120'},
-      {'ar': 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً', 'ur': 'اے ہمارے رب! ہمیں دنیا میں بھی بھلائی دے اور آخرت میں بھی بھلائی دے۔', 'ref': 'سورۃ البقرہ: 201'},
     ];
 
     final int dayOfYear = int.parse(DateFormat('D').format(_now));
@@ -380,8 +355,7 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Row(
               children: [
-                const Icon(Icons.brightness_5,
-                    color: AppColors.gold, size: 22),
+                const Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
                 const SizedBox(width: 8),
                 const Text(
                   'آج کی آیت',
@@ -389,14 +363,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: AppColors.deepGreen,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  '${dayOfYear % ayahs.length + 1}/${ayahs.length}',
-                  style: TextStyle(
-                    color: AppColors.darkText.withOpacity(0.5),
-                    fontSize: 11,
                   ),
                 ),
               ],
@@ -435,36 +401,18 @@ class _DashboardPageState extends State<DashboardPage> {
   
   Widget _buildDailyHadith() {
     final List<Map<String, String>> hadiths = [
-      {'ar': 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى', 'ur': 'اعمال کا دارومدار نیتوں پر ہے۔', 'ref': 'صحیح بخاری: 1'},
+      {'ar': 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ', 'ur': 'اعمال کا دارومدار نیتوں پر ہے۔', 'ref': 'صحیح بخاری: 1'},
       {'ar': 'الدِّينُ النَّصِيحَةُ', 'ur': 'دین خیر خواہی کا نام ہے۔', 'ref': 'صحیح مسلم: 55'},
-      {'ar': 'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ', 'ur': 'جو اللہ اور آخرت پر ایمان رکھتا ہے وہ اچھی بات کہے یا خاموش رہے۔', 'ref': 'صحیح بخاری: 6018'},
       {'ar': 'لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ', 'ur': 'تم میں سے کوئی اُس وقت تک مومن نہیں ہو سکتا جب تک وہ اپنے بھائی کے لیے وہی نہ چاہے جو اپنے لیے چاہتا ہے۔', 'ref': 'صحیح بخاری: 13'},
       {'ar': 'اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ', 'ur': 'جہاں بھی ہو اللہ سے ڈرو۔', 'ref': 'سنن ترمذی: 1987'},
-      {'ar': 'الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ', 'ur': 'مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں۔', 'ref': 'صحیح بخاری: 10'},
       {'ar': 'خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ', 'ur': 'تم میں سب سے بہتر وہ ہے جو قرآن سیکھے اور سکھائے۔', 'ref': 'صحیح بخاری: 5027'},
-      {'ar': 'الطُّهُورُ شَطْرُ الإِيمَانِ', 'ur': 'پاکیزگی ایمان کا حصہ ہے۔', 'ref': 'صحیح مسلم: 223'},
-      {'ar': 'مَنْ حُسْنِ إِسْلاَمِ الْمَرْءِ تَرْكُهُ مَا لاَ يَعْنِيهِ', 'ur': 'آدمی کے اسلام کی خوبی یہ ہے کہ وہ بے کار چیزوں کو چھوڑ دے۔', 'ref': 'سنن ترمذی: 2317'},
       {'ar': 'لاَ تَغْضَبْ', 'ur': 'غصہ نہ کرو۔', 'ref': 'صحیح بخاری: 6116'},
-      {'ar': 'الْجَنَّةُ تَحْتَ أَقْدَامِ الأُمَّهَاتِ', 'ur': 'جنت ماؤں کے قدموں کے نیچے ہے۔', 'ref': 'سنن نسائی (صحیح)'},
-      {'ar': 'مَنْ صَلَّى عَلَىَّ صَلاَةً صَلَّى اللَّهُ عَلَيْهِ بِهَا عَشْرًا', 'ur': 'جو مجھ پر ایک بار درود بھیجے، اللہ اُس پر دس رحمتیں بھیجتا ہے۔', 'ref': 'صحیح مسلم: 408'},
+      {'ar': 'الْجَنَّةُ تَحْتَ أَقْدَامِ الأُمَّهَاتِ', 'ur': 'جنت ماؤں کے قدموں کے نیچے ہے۔', 'ref': 'سنن نسائی'},
       {'ar': 'الصَّلاَةُ نُورٌ', 'ur': 'نماز نور ہے۔', 'ref': 'صحیح مسلم: 223'},
       {'ar': 'الدُّعَاءُ مُخُّ الْعِبَادَةِ', 'ur': 'دعا عبادت کا مغز ہے۔', 'ref': 'سنن ترمذی: 3371'},
-      {'ar': 'مَنْ لاَ يَرْحَمُ لاَ يُرْحَمُ', 'ur': 'جو رحم نہیں کرتا اُس پر رحم نہیں کیا جائے گا۔', 'ref': 'صحیح بخاری: 5997'},
       {'ar': 'الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ', 'ur': 'اچھی بات کہنا بھی صدقہ ہے۔', 'ref': 'صحیح بخاری: 2989'},
-      {'ar': 'إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ', 'ur': 'بے شک اللہ خوبصورت ہے اور خوبصورتی کو پسند کرتا ہے۔', 'ref': 'صحیح مسلم: 91'},
-      {'ar': 'الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى', 'ur': 'دینے والا ہاتھ لینے والے ہاتھ سے بہتر ہے۔', 'ref': 'صحیح بخاری: 1429'},
       {'ar': 'مَنْ سَلَكَ طَرِيقًا يَطْلُبُ فِيهِ عِلْمًا سَلَكَ اللَّهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ', 'ur': 'جو علم کی تلاش میں راستہ چلے، اللہ اُس کے لیے جنت کا راستہ آسان کر دیتا ہے۔', 'ref': 'صحیح مسلم: 2699'},
-      {'ar': 'إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ', 'ur': 'بے شک اللہ نرمی کرنے والا ہے اور نرمی کو پسند کرتا ہے۔', 'ref': 'صحیح مسلم: 2593'},
-      {'ar': 'لاَ تَحْقِرَنَّ مِنَ الْمَعْرُوفِ شَيْئًا', 'ur': 'نیکی کی کسی چیز کو حقیر نہ سمجھو۔', 'ref': 'صحیح مسلم: 2620'},
-      {'ar': 'الْحَيَاءُ شُعْبَةٌ مِنَ الإِيمَانِ', 'ur': 'حیا ایمان کی شاخ ہے۔', 'ref': 'صحیح بخاری: 9'},
-      {'ar': 'أَفْضَلُ الذِّكْرِ لاَ إِلَهَ إِلاَّ اللَّهُ', 'ur': 'سب سے افضل ذکر «لا الہ الا اللہ» ہے۔', 'ref': 'سنن ترمذی: 3383'},
-      {'ar': 'الصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ', 'ur': 'صدقہ گناہ کو ایسے بجھا دیتا ہے جیسے پانی آگ کو بجھاتا ہے۔', 'ref': 'سنن ترمذی: 614'},
       {'ar': 'أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ', 'ur': 'اللہ کے نزدیک سب سے پسندیدہ عمل وہ ہے جو ہمیشہ کیا جائے۔', 'ref': 'صحیح مسلم: 783'},
-      {'ar': 'مَنْ صَمَتَ نَجَا', 'ur': 'جو خاموش رہا وہ نجات پا گیا۔', 'ref': 'سنن ترمذی: 2501'},
-      {'ar': 'الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا', 'ur': 'مومن دوسرے مومن کے لیے عمارت کی طرح ہے۔', 'ref': 'صحیح بخاری: 481'},
-      {'ar': 'إِنَّ الرِّفْقَ لاَ يَكُونُ فِي شَىْءٍ إِلاَّ زَانَهُ', 'ur': 'نرمی جس چیز میں بھی ہو اُسے خوبصورت بنا دیتی ہے۔', 'ref': 'صحیح مسلم: 2594'},
-      {'ar': 'مَنْ كَذَبَ عَلَىَّ مُتَعَمِّدًا فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ', 'ur': 'جو جان بوجھ کر مجھ پر جھوٹ باندھے وہ جہنم میں اپنا ٹھکانہ بنا لے۔', 'ref': 'صحیح بخاری: 110'},
-      {'ar': 'بُعِثْتُ لأُتَمِّمَ مَكَارِمَ الأَخْلاَقِ', 'ur': 'مجھے اچھے اخلاق کی تکمیل کے لیے بھیجا گیا ہے۔', 'ref': 'مسند احمد: 8952'},
     ];
 
     final int dayOfYear = int.parse(DateFormat('D').format(_now));
@@ -489,8 +437,7 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Row(
               children: [
-                const Icon(Icons.menu_book,
-                    color: AppColors.gold, size: 22),
+                const Icon(Icons.menu_book, color: AppColors.gold, size: 22),
                 const SizedBox(width: 8),
                 const Text(
                   'آج کی حدیث',
@@ -498,14 +445,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     color: AppColors.gold,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  '${(dayOfYear + 3) % hadiths.length + 1}/${hadiths.length}',
-                  style: const TextStyle(
-                    color: AppColors.cream,
-                    fontSize: 11,
                   ),
                 ),
               ],
@@ -1019,11 +958,6 @@ class QuranPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    'کسی بھی سورت پر ٹیپ کریں',
-                    style: TextStyle(color: AppColors.cream, fontSize: 12),
-                  ),
                 ],
               ),
             ),
@@ -1185,6 +1119,426 @@ class _SurahTile extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// ISTIKHARA PAGE — مکمل شرعی رہنمائی
+// ============================================================
+class IstikharaPage extends StatelessWidget {
+  const IstikharaPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          foregroundColor: AppColors.gold,
+          title: const Text(
+            'استخارہ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(16),
+          children: const [
+            _IstikharaHeader(),
+            SizedBox(height: 16),
+            _IstikharaCard(
+              title: 'استخارہ کیا ہے؟',
+              body:
+                  'استخارہ کا مطلب ہے اللہ تعالیٰ سے کسی کام میں بھلائی طلب کرنا۔ جب انسان کسی جائز کام کا ارادہ کرے اور اسے صحیح یا غلط ہونے میں تردد ہو، تو دو رکعت نماز پڑھ کر دعائے استخارہ پڑھے۔',
+            ),
+            _IstikharaCard(
+              title: 'استخارہ کا شرعی طریقہ',
+              body:
+                  '① وضو کریں\n\n② دو رکعت نفل نماز پڑھیں\n\n③ نماز سے فارغ ہو کر اللہ کی حمد و ثنا کریں اور درود شریف پڑھیں\n\n④ دل میں اس کام کا ارادہ رکھتے ہوئے دعائے استخارہ پڑھیں\n\n⑤ دعا کے بعد اللہ پر توکل کریں',
+            ),
+            _IstikharaArabicCard(),
+            _IstikharaCard(
+              title: 'صحیح حوالہ',
+              body:
+                  'حضرت جابر بن عبداللہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ ہمیں ہر کام میں استخارہ سکھاتے تھے۔\n\n📖 صحیح بخاری: 1166\n📖 صحیح بخاری: 6382\n📖 سنن ابو داؤد: 1538',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _IstikharaHeader extends StatelessWidget {
+  const _IstikharaHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [AppColors.deepGreen, AppColors.lightGreen],
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.gold, width: 2),
+      ),
+      child: const Column(
+        children: [
+          Icon(Icons.auto_awesome, color: AppColors.gold, size: 48),
+          SizedBox(height: 12),
+          Text(
+            'دعائے استخارہ',
+            style: TextStyle(
+              color: AppColors.gold,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IstikharaCard extends StatelessWidget {
+  final String title;
+  final String body;
+  const _IstikharaCard({required this.title, required this.body});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.gold.withOpacity(0.4), width: 1.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.deepGreen,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            body,
+            style: const TextStyle(
+              color: AppColors.darkText,
+              fontSize: 15,
+              height: 1.8,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IstikharaArabicCard extends StatelessWidget {
+  const _IstikharaArabicCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.deepGreen,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.gold, width: 2),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            'دعائے استخارہ (عربی)',
+            style: TextStyle(
+              color: AppColors.gold,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 14),
+          Text(
+            'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ.',
+            style: TextStyle(
+              color: AppColors.cream,
+              fontSize: 18,
+              height: 2.2,
+            ),
+            textAlign: TextAlign.right,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============================================================
+// SURAH DETAIL PAGE — 10 چھوٹی سورتیں
+// ============================================================
+class SurahDetailPage extends StatelessWidget {
+  final int surahNumber;
+  const SurahDetailPage({super.key, required this.surahNumber});
+
+  static const Map<int, Map<String, dynamic>> shortSurahs = {
+    1: {
+      'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', 'ur': 'اللہ کے نام سے جو بڑا مہربان، نہایت رحم والا ہے۔'},
+        {'ar': 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', 'ur': 'سب تعریف اللہ کے لیے ہے۔'},
+        {'ar': 'الرَّحْمَٰنِ الرَّحِيمِ', 'ur': 'بڑا مہربان، نہایت رحم والا۔'},
+        {'ar': 'مَالِكِ يَوْمِ الدِّينِ', 'ur': 'روزِ جزا کا مالک۔'},
+        {'ar': 'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', 'ur': 'ہم صرف تیری عبادت کرتے ہیں۔'},
+        {'ar': 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', 'ur': 'ہمیں سیدھا راستہ دکھا۔'},
+        {'ar': 'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ', 'ur': 'اُن لوگوں کا راستہ جن پر تو نے انعام کیا۔'},
+      ],
+    },
+    112: {
+      'name': 'الاخلاص', 'en': 'Al-Ikhlas', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'قُلْ هُوَ اللَّهُ أَحَدٌ', 'ur': 'کہہ دیں: وہ اللہ ایک ہے۔'},
+        {'ar': 'اللَّهُ الصَّمَدُ', 'ur': 'اللہ بے نیاز ہے۔'},
+        {'ar': 'لَمْ يَلِدْ وَلَمْ يُولَدْ', 'ur': 'نہ اُس نے کسی کو جنا۔'},
+        {'ar': 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ', 'ur': 'اور اُس کے برابر کوئی نہیں۔'},
+      ],
+    },
+    113: {
+      'name': 'الفلق', 'en': 'Al-Falaq', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ', 'ur': 'کہہ دیں: میں صبح کے رب کی پناہ مانگتا ہوں۔'},
+        {'ar': 'مِن شَرِّ مَا خَلَقَ', 'ur': 'ہر اُس چیز کے شر سے جو اُس نے پیدا کی۔'},
+        {'ar': 'وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ', 'ur': 'اور اندھیری رات کے شر سے۔'},
+        {'ar': 'وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ', 'ur': 'اور گرہوں میں پھونکنے والیوں کے شر سے۔'},
+        {'ar': 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', 'ur': 'اور حاسد کے شر سے۔'},
+      ],
+    },
+    114: {
+      'name': 'الناس', 'en': 'An-Nas', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ', 'ur': 'کہہ دیں: میں لوگوں کے رب کی پناہ مانگتا ہوں۔'},
+        {'ar': 'مَلِكِ النَّاسِ', 'ur': 'لوگوں کے بادشاہ کی۔'},
+        {'ar': 'إِلَٰهِ النَّاسِ', 'ur': 'لوگوں کے معبود کی۔'},
+        {'ar': 'مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ', 'ur': 'وسوسہ ڈالنے والے کے شر سے۔'},
+        {'ar': 'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ', 'ur': 'جو لوگوں کے سینوں میں وسوسہ ڈالتا ہے۔'},
+        {'ar': 'مِنَ الْجِنَّةِ وَالنَّاسِ', 'ur': 'خواہ جنوں میں سے ہو یا انسانوں میں سے۔'},
+      ],
+    },
+    108: {
+      'name': 'الکوثر', 'en': 'Al-Kauthar', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ', 'ur': 'بے شک ہم نے آپ کو کوثر عطا کی۔'},
+        {'ar': 'فَصَلِّ لِرَبِّكَ وَانْحَرْ', 'ur': 'پس اپنے رب کے لیے نماز پڑھیں اور قربانی کریں۔'},
+        {'ar': 'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ', 'ur': 'بے شک آپ کا دشمن ہی بے نام و نشان ہے۔'},
+      ],
+    },
+    103: {
+      'name': 'العصر', 'en': 'Al-Asr', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'وَالْعَصْرِ', 'ur': 'زمانے کی قسم۔'},
+        {'ar': 'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', 'ur': 'بے شک انسان خسارے میں ہے۔'},
+        {'ar': 'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ', 'ur': 'سوائے اُن کے جو ایمان لائے اور نیک عمل کیے۔'},
+      ],
+    },
+    105: {
+      'name': 'الفیل', 'en': 'Al-Fil', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ', 'ur': 'کیا آپ نے نہیں دیکھا کہ آپ کے رب نے ہاتھی والوں کے ساتھ کیا کیا؟'},
+        {'ar': 'أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ', 'ur': 'کیا اُن کی چال کو بے کار نہیں کر دیا؟'},
+        {'ar': 'وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَوَابِيدَ', 'ur': 'اور اُن پر پرندوں کے غول بھیجے۔'},
+        {'ar': 'تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ', 'ur': 'جو اُن پر پکی ہوئی مٹی کے پتھر مارتے تھے۔'},
+        {'ar': 'فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ', 'ur': 'پھر اُن کو کھائے ہوئے بھوسے کی طرح کر دیا۔'},
+      ],
+    },
+    106: {
+      'name': 'قریش', 'en': 'Quraish', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'لِإِيلَافِ قُرَيْشٍ', 'ur': 'قریش کو مانوس کرنے کے لیے۔'},
+        {'ar': 'إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ', 'ur': 'سردی اور گرمی کے سفر سے مانوس کرنے کے لیے۔'},
+        {'ar': 'فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ', 'ur': 'پس چاہیے کہ یہ اِس گھر کے رب کی عبادت کریں۔'},
+        {'ar': 'الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ', 'ur': 'جس نے اُن کو بھوک میں کھلایا اور خوف سے امان دی۔'},
+      ],
+    },
+    107: {
+      'name': 'الماعون', 'en': 'Al-Maun', 'place': 'مکی',
+      'ayat': [
+        {'ar': 'أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ', 'ur': 'کیا آپ نے اُسے دیکھا جو روزِ جزا کو جھٹلاتا ہے؟'},
+        {'ar': 'فَذَٰلِكَ الَّذِي يَدُعُّ الْيَتِيمَ', 'ur': 'پس وہی ہے جو یتیم کو دھتکارتا ہے۔'},
+        {'ar': 'وَلَا يَحُضُّ عَلَىٰ طَعَامِ الْمِسْكِينِ', 'ur': 'اور مسکین کو کھانا کھلانے کی ترغیب نہیں دیتا۔'},
+        {'ar': 'فَوَيْلٌ لِّلْمُصَلِّينَ', 'ur': 'پس اُن نمازیوں کے لیے ہلاکت ہے۔'},
+        {'ar': 'الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ', 'ur': 'جو اپنی نماز سے غافل ہیں۔'},
+        {'ar': 'الَّذِينَ هُمْ يُرَاءُونَ', 'ur': 'جو دکھاوے کے لیے عبادت کرتے ہیں۔'},
+        {'ar': 'وَيَمْنَعُونَ الْمَاعُونَ', 'ur': 'اور معمولی چیزیں نہیں دیتے۔'},
+      ],
+    },
+    110: {
+      'name': 'النصر', 'en': 'An-Nasr', 'place': 'مدنی',
+      'ayat': [
+        {'ar': 'إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ', 'ur': 'جب اللہ کی مدد آئے اور فتح ہو۔'},
+        {'ar': 'وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا', 'ur': 'اور آپ لوگوں کو دیکھیں کہ وہ اللہ کے دین میں فوج در فوج داخل ہو رہے ہیں۔'},
+        {'ar': 'فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ', 'ur': 'تو اپنے رب کی حمد کے ساتھ تسبیح کریں اور اُس سے مغفرت مانگیں۔'},
+      ],
+    },
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final data = shortSurahs[surahNumber];
+    if (data == null) {
+      return const ComingSoonPage(title: 'سورت', icon: Icons.menu_book);
+    }
+
+    final String name = data['name'] as String;
+    final String en = data['en'] as String;
+    final String place = data['place'] as String;
+    final List<dynamic> ayat = data['ayat'] as List;
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          foregroundColor: AppColors.gold,
+          title: Text('سورۃ $name',
+              style: const TextStyle(fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [AppColors.deepGreen, AppColors.lightGreen],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.gold, width: 2),
+              ),
+              child: Column(
+                children: [
+                  const Icon(Icons.menu_book, color: AppColors.gold, size: 40),
+                  const SizedBox(height: 10),
+                  Text(
+                    'سورۃ $name',
+                    style: const TextStyle(
+                      color: AppColors.gold,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(en,
+                      style: const TextStyle(
+                          color: AppColors.cream, fontSize: 14)),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.gold.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(place,
+                            style: const TextStyle(
+                                color: AppColors.gold, fontSize: 12)),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.gold.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text('${ayat.length} آیات',
+                            style: const TextStyle(
+                                color: AppColors.gold, fontSize: 12)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            ...List.generate(ayat.length, (index) {
+              final a = ayat[index] as Map;
+              return Container(
+                margin: const EdgeInsets.only(bottom: 14),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                      color: AppColors.gold.withOpacity(0.4), width: 1.5),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.deepGreen,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColors.gold, width: 1.5),
+                      ),
+                      child: Text('${index + 1}',
+                          style: const TextStyle(
+                              color: AppColors.gold,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: AppColors.deepGreen.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(a['ar'] ?? '',
+                          style: const TextStyle(
+                              color: AppColors.deepGreen,
+                              fontSize: 22,
+                              height: 2.0),
+                          textAlign: TextAlign.right),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(a['ur'] ?? '',
+                        style: const TextStyle(
+                            color: AppColors.darkText,
+                            fontSize: 16,
+                            height: 1.8),
+                        textAlign: TextAlign.right),
+                  ],
+                ),
+              );
+            }),
+          ],
         ),
       ),
     );
