@@ -291,7 +291,9 @@ Widget _buildHeader() {
         builder: (_) => ComingSoonPage(title: title, icon: icon),
       ),
     );
+Widget _buildDailyAyah() {
   
+    
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
