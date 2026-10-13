@@ -117,7 +117,129 @@ class DashboardPage extends StatelessWidget {
       await launchUrl(uri);
     }
   }
+Widget _buildHeader() {
+  final DateFormat dateFormat = DateFormat('EEEE, d MMMM yyyy');
+  final DateFormat timeFormat = DateFormat('hh:mm:ss a');
 
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [AppColors.deepGreen, AppColors.lightGreen],
+      ),
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(30),
+        bottomRight: Radius.circular(30),
+      ),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.gold, width: 2),
+              ),
+              child: const Icon(Icons.mosque,
+                  color: AppColors.gold, size: 28),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'The Muslim Way',
+                    style: TextStyle(
+                      color: AppColors.gold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Offiicial',
+                    style: TextStyle(
+                      color: AppColors.lightGold,
+                      fontSize: 14,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.gold.withOpacity(0.5),
+              width: 1,
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.calendar_today,
+                      color: AppColors.gold, size: 16),
+                  const SizedBox(width: 8),
+                  Text(
+                    dateFormat.format(_now),
+                    style: const TextStyle(
+                      color: AppColors.cream,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.access_time,
+                      color: AppColors.gold, size: 16),
+                  const SizedBox(width: 8),
+                  Text(
+                    timeFormat.format(_now),
+                    style: const TextStyle(
+                      color: AppColors.cream,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        const Text(
+          'السلام علیکم',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 5),
+        const Text(
+          'خوش آمدید! آج کا دن بابرکت ہو',
+          style: TextStyle(color: Colors.white70, fontSize: 14),
+        ),
+      ],
+    ),
+  );
+}
   Future<void> _openWebsite(BuildContext context) async {
     final uri = Uri.parse(AppContact.website);
     if (await canLaunchUrl(uri)) {
@@ -142,109 +264,7 @@ class DashboardPage extends StatelessWidget {
         builder: (_) => ComingSoonPage(title: title, icon: icon),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.cream,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 16),
-                _buildDailyAyah(),
-                const SizedBox(height: 20),
-                _buildQuickAccess(context),
-                const SizedBox(height: 25),
-                _buildContactSection(context),
-                const SizedBox(height: 25),
-                _buildFooter(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.deepGreen, AppColors.lightGreen],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.gold, width: 2),
-                ),
-                child: const Icon(Icons.mosque, color: AppColors.gold, size: 28),
-              ),
-              const SizedBox(width: 12),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'The Muslim Way',
-                      style: TextStyle(
-                        color: AppColors.gold,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Offiicial',
-                      style: TextStyle(
-                        color: AppColors.lightGold,
-                        fontSize: 14,
-                        letterSpacing: 3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'السلام علیکم',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 5),
-          const Text(
-            'خوش آمدید! آج کا دن بابرکت ہو',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDailyAyah() {
+  
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Container(
