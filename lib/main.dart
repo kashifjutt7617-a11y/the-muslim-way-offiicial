@@ -141,8 +141,10 @@ class _DashboardPageState extends State<DashboardPage> {
                       horizontal: 20, vertical: 12),
                   decoration: BoxDecoration(
                     color: AppColors.deepGreen,
+
+                    ),
                     borderRadius: BorderRadius.circular(12),
-  child: Column(                ),
+  child: Column(
   children: [
     Text(
       _formatDate(now),
