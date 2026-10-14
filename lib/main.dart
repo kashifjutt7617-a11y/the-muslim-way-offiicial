@@ -142,15 +142,27 @@ class _DashboardPageState extends State<DashboardPage> {
                   decoration: BoxDecoration(
                     color: AppColors.deepGreen,
                     borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    _formatDate(now),
-                    style: const TextStyle(
-                      color: AppColors.gold,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+  child: Column(                ),
+  children: [
+    Text(
+      _formatDate(now),
+      style: const TextStyle(
+        color: AppColors.gold,
+        fontSize: 13,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    const SizedBox(height: 6),
+    Text(
+      _formatTime(now),
+      style: const TextStyle(
+        color: AppColors.gold,
+        fontSize: 13,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ],
+),
                 ),
               ],
             ),
