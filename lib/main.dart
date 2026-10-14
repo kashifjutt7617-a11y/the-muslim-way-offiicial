@@ -112,6 +112,15 @@ class _DashboardPageState extends State<DashboardPage> {
     ];
     return '${days[dt.weekday - 1]}, ${dt.day} ${months[dt.month - 1]} ${dt.year}';
   }
+  String _formatTime(DateTime dt) {
+  int hour = dt.hour;
+  final String period = hour >= 12 ? 'PM' : 'AM';
+  hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
+  final String h = hour.toString().padLeft(2, '0');
+  final String m = dt.minute.toString().padLeft(2, '0');
+  final String s = dt.second.toString().padLeft(2, '0');
+  return '$h:$m:$s $period';
+  }
 
   @override
   Widget build(BuildContext context) {
