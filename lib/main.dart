@@ -93,23 +93,41 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
   @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  String _formatDate(DateTime dt) {
+    const days = [
+      'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+      'Friday', 'Saturday', 'Sunday'
+    ];
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return '${days[dt.weekday - 1]}, ${dt.day} ${months[dt.month - 1]} ${dt.year}';
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: AppColors.cream,
-        body: const SafeArea(
+        body: SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.mosque, size: 80, color: AppColors.deepGreen),
-                SizedBox(height: 20),
-                Text(
+                const Icon(Icons.mosque, size: 80, color: AppColors.deepGreen),
+                const SizedBox(height: 20),
+                const Text(
                   'The Muslim Way Offiicial',
                   style: TextStyle(
                     fontSize: 22,
@@ -117,10 +135,22 @@ class DashboardPage extends StatelessWidget {
                     color: AppColors.deepGreen,
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Dashboard',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.deepGreen,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    _formatDate(now),
+                    style: const TextStyle(
+                      color: AppColors.gold,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
