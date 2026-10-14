@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(const MuslimWayApp());
@@ -121,8 +122,23 @@ class _DashboardPageState extends State<DashboardPage> {
   final String s = dt.second.toString().padLeft(2, '0');
   return '$h:$m:$s $period';
   }
+Timer? _timer;
 
   @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+     if (mounted) {
+       setState(() {});
+     }
+      });
+  }
+  
+@override
+void dispose() {
+  _timer?.cancel();
+  super.dispose();
+}
   Widget build(BuildContext context) {
     final now = DateTime.now();
     return Directionality(
