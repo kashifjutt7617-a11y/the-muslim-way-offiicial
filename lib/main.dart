@@ -102,6 +102,27 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  late Timer _timer;
+  DateTime _now = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (mounted) {
+        setState(() {
+          _now = DateTime.now();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   String _formatDate(DateTime dt) {
     const days = [
       'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -113,86 +134,216 @@ class _DashboardPageState extends State<DashboardPage> {
     ];
     return '${days[dt.weekday - 1]}, ${dt.day} ${months[dt.month - 1]} ${dt.year}';
   }
+
   String _formatTime(DateTime dt) {
-  int hour = dt.hour;
-  final String period = hour >= 12 ? 'PM' : 'AM';
-  hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
-  final String h = hour.toString().padLeft(2, '0');
-  final String m = dt.minute.toString().padLeft(2, '0');
-  final String s = dt.second.toString().padLeft(2, '0');
-  return '$h:$m:$s $period';
+    int hour = dt.hour;
+    final String period = hour >= 12 ? 'PM' : 'AM';
+    hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
+    final String h = hour.toString().padLeft(2, '0');
+    final String m = dt.minute.toString().padLeft(2, '0');
+    final String s = dt.second.toString().padLeft(2, '0');
+    return '$h:$m:$s $period';
   }
-Timer? _timer;
 
   @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-     if (mounted) {
-       setState(() {});
-     }
-      });
-  }
-  
-@override
-void dispose() {
-  _timer?.cancel();
-  super.dispose();
-}
   Widget build(BuildContext context) {
-    final now = DateTime.now();
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: AppColors.cream,
         body: SafeArea(
-          child: Center(
+          child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.mosque, size: 80, color: AppColors.deepGreen),
-                const SizedBox(height: 20),
-                const Text(
-                  'The Muslim Way Offiicial',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.deepGreen,
-                  ),
+                _buildHeader(),
+                const SizedBox(height: 16),
+                _buildDailyAyah(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [AppColors.deepGreen, AppColors.lightGreen],
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.gold, width: 2),
                 ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: AppColors.deepGreen,
-borderRadius: BorderRadius.circular(12),
+                child: const Icon(Icons.mosque,
+                    color: AppColors.gold, size: 28),
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'The Muslim Way',
+                      style: TextStyle(
+                        color: AppColors.gold,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-  child: Column(
-  children: [
-    Text(
-      _formatDate(now),
-      style: const TextStyle(
-        color: AppColors.gold,
-        fontSize: 13,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    const SizedBox(height: 6),
-    Text(
-      _formatTime(now),
-      style: const TextStyle(
-        color: AppColors.gold,
-        fontSize: 13,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ],
-),
+                    Text(
+                      'Offiicial',
+                      style: TextStyle(
+                        color: AppColors.lightGold,
+                        fontSize: 14,
+                        letterSpacing: 3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppColors.gold.withOpacity(0.5),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_today,
+                        color: AppColors.gold, size: 16),
+                    const SizedBox(width: 8),
+                    Text(
+                      _formatDate(_now),
+                      style: const TextStyle(
+                        color: AppColors.cream,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.access_time,
+                        color: AppColors.gold, size: 16),
+                    const SizedBox(width: 8),
+                    Text(
+                      _formatTime(_now),
+                      style: const TextStyle(
+                        color: AppColors.cream,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 20),
+          const Text(
+            'السلام علیکم',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            'خوش آمدید! آج کا دن بابرکت ہو',
+            style: TextStyle(color: Colors.white70, fontSize: 14),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDailyAyah() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppColors.gold.withOpacity(0.4),
+            width: 1.5,
+          ),
+        ),
+        child: const Column(
+          children: [
+            Row(
+              children: [
+                Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
+                SizedBox(width: 8),
+                Text(
+                  'آج کی آیت',
+                  style: TextStyle(
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 15),
+            Text(
+              'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+                fontFamily: 'serif',
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              '"بے شک مشکل کے ساتھ آسانی ہے"',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: AppColors.darkText,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            SizedBox(height: 5),
+            Text(
+              '(سورۃ الشرح: 6)',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
         ),
       ),
     );
