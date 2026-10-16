@@ -29,7 +29,7 @@ class MuslimWayApp extends StatelessWidget {
       home: const SplashScreen(),
     );
   }
-}
+}6
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -350,6 +350,93 @@ _buildQuickAccess(context),
       ),
     );
   }
+
+Widget _buildQuickAccess(BuildContext context) {
+  return Column(
+    children: [
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            'Quick Access',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.deepGreen,
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(height: 12),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: GridView.count(
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 1.2,
+          children: [
+            _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen),
+            _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
+            _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
+            _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _makeCard(
+  BuildContext context,
+  IconData icon,
+  String title,
+  Color color,
+) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ComingSoonPage(title: title, icon: icon),
+        ),
+      );
+    },
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color.withOpacity(0.12),
+            ),
+            child: Icon(icon, color: color, size: 28),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: AppColors.darkText,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 }
 class ComingSoonPage extends StatelessWidget {
   final String title;
