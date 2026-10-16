@@ -395,7 +395,97 @@ Widget _buildQuickAccess(BuildContext context) {
     ],
   );
 }
+Widget _buildContactSection(BuildContext context) {
+  return Column(
+    children: [
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            'رابطہ کریں',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.deepGreen,
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(height: 12),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            _makeContact(context, Icons.chat, 'WhatsApp', 'واٹس ایپ پر رابطہ', const Color(0xFF25D366)),
+            const SizedBox(height: 10),
+            _makeContact(context, Icons.phone, 'Call', 'فون کال کریں', AppColors.deepGreen),
+            const SizedBox(height: 10),
+            _makeContact(context, Icons.language, 'Website', 'themuslimwayoffiicial.com', AppColors.gold),
+          ],
+        ),
+      ),
+    ],
+  );
+}
 
+Widget _makeContact(
+  BuildContext context,
+  IconData icon,
+  String title,
+  String subtitle,
+  Color color,
+) {
+  return GestureDetector(
+    onTap: () {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(title)),
+      );
+    },
+    child: Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color.withOpacity(0.12),
+            ),
+            child: Icon(icon, color: color, size: 24),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.darkText,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  subtitle,
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.arrow_back_ios, color: color, size: 16),
+        ],
+      ),
+    ),
+  );
+}
 Widget _makeCard(
   BuildContext context,
   IconData icon,
