@@ -160,6 +160,8 @@ class _DashboardPageState extends State<DashboardPage> {
 const SizedBox(height: 20),
 _buildQuickAccess(context),
                 _buildDailyAyah(),
+                const SizedBox(height: 25),
+                _buildContactSection(context),
               ],
             ),
           ),
