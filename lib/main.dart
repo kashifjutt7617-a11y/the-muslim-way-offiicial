@@ -29,7 +29,7 @@ class MuslimWayApp extends StatelessWidget {
       home: const SplashScreen(),
     );
   }
-}6
+}
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
