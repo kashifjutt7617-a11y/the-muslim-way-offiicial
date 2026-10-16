@@ -157,6 +157,8 @@ class _DashboardPageState extends State<DashboardPage> {
               children: [
                 _buildHeader(),
                 const SizedBox(height: 16),
+const SizedBox(height: 20),
+_buildQuickAccess(context),
                 _buildDailyAyah(),
               ],
             ),
@@ -344,6 +346,73 @@ class _DashboardPageState extends State<DashboardPage> {
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+class ComingSoonPage extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  const ComingSoonPage({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.gold,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: AppColors.gold),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.deepGreen.withOpacity(0.1),
+                    border: Border.all(color: AppColors.gold, width: 2),
+                  ),
+                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
+                ),
+                const SizedBox(height: 30),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.deepGreen,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Container(width: 60, height: 3, color: AppColors.gold),
+                const SizedBox(height: 20),
+                const Text(
+                  'بہت جلد دستیاب ہوگا',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
