@@ -383,11 +383,13 @@ Widget _buildQuickAccess(BuildContext context) {
             _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
             _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
             _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
-       _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
-_makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
-_makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
-_makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
-      
+            _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
+            _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
+            _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
+            _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
+          ],
+        ),
+      ),
     ],
   );
 }
