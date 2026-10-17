@@ -509,7 +509,7 @@ class _DashboardPageState extends State<DashboardPage> {
     IconData icon,
     String title,
     Color color,
-      [VoidCallback? customAction],
+      {VoidCallback? customAction},
 ) {
     return GestureDetector(
       onTap: () {
