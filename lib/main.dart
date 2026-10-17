@@ -338,7 +338,13 @@ class _DashboardPageState extends State<DashboardPage> {
   AppColors.lightGreen,
   customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HadithBooksPage())),
 ),
-              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
+              _makeCard(
+  context, 
+  Icons.volunteer_activism, 
+  'دعائیں و اذکار', 
+  AppColors.gold,
+  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DuasPage())),
+),
               _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
               _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
@@ -1064,6 +1070,233 @@ class _HadithBookTile extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// DUAS PAGE — دعائیں و اذکار
+// ============================================================
+class DuasPage extends StatelessWidget {
+  const DuasPage({super.key});
+
+  static const List<Map<String, dynamic>> duaCategories = [
+    {
+      'name': 'صبح کی دعائیں',
+      'en': 'Morning Duas',
+      'icon': Icons.wb_sunny,
+      'color': Color(0xFFFFA500),
+      'duas': [
+        {'title': 'صبح کے وقت کی دعا', 'arabic': 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ', 'urdu': 'ہم نے صبح کی اور ساری بادشاہت اللہ ہی کے لیے صبح ہوئی۔'},
+        {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔'},
+      ]
+    },
+    {
+      'name': 'شام کی دعائیں',
+      'en': 'Evening Duas',
+      'icon': Icons.nights_stay,
+      'color': Color(0xFF4A235A),
+      'duas': [
+        {'title': 'شام کے وقت کی دعا', 'arabic': 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ', 'urdu': 'ہم نے شام کی اور ساری بادشاہت اللہ ہی کے لیے شام ہوئی۔'},
+      ]
+    },
+    {
+      'name': 'سونے کی دعائیں',
+      'en': 'Sleeping Duas',
+      'icon': Icons.hotel,
+      'color': Color(0xFF1B4F72),
+      'duas': [
+        {'title': 'سونے کی دعا', 'arabic': 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا', 'urdu': 'اے اللہ! تیرے نام سے میں مرتا ہوں (سوتا ہوں) اور جیتا ہوں (جاگتا ہوں)۔'},
+        {'title': 'بستر پر جانے کی دعا', 'arabic': 'اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ', 'urdu': 'اے اللہ! مجھے اس دن کے عذاب سے بچا جس دن تو اپنے بندوں کو اٹھائے گا۔'},
+      ]
+    },
+    {
+      'name': 'جاگنے کی دعائیں',
+      'en': 'Waking Up Duas',
+      'icon': Icons.wb_twilight,
+      'color': Color(0xFFD4AF37),
+      'duas': [
+        {'title': 'جاگنے کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے ہمیں موت (نیند) کے بعد زندگی بخشی اور اسی کی طرف لوٹنا ہے۔'},
+      ]
+    },
+    {
+      'name': 'سفر کی دعائیں',
+      'en': 'Travel Duas',
+      'icon': Icons.directions_car,
+      'color': Color(0xFF2E86C1),
+      'duas': [
+        {'title': 'سواری پر بیٹھنے کی دعا', 'arabic': 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ', 'urdu': 'پاک ہے وہ ذات جس نے اس سواری کو ہمارے لیے مسخر کیا، حالانکہ ہم اسے قابو میں نہیں لا سکتے تھے، اور بے شک ہم اپنے رب کی طرف لوٹنے والے ہیں۔'},
+      ]
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'دعائیں و اذکار',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: GridView.builder(
+          padding: const EdgeInsets.all(16),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
+            childAspectRatio: 1.1,
+          ),
+          itemCount: duaCategories.length,
+          itemBuilder: (context, index) {
+            final cat = duaCategories[index];
+            return _CategoryTile(category: cat);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _CategoryTile extends StatelessWidget {
+  final Map<String, dynamic> category;
+  const _CategoryTile({required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = category['color'];
+    
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => DuaListPage(
+              categoryName: category['name'], 
+              duasList: category['duas']
+            ),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(category['icon'], color: color, size: 32),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              category['name'],
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              category['en'],
+              style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DuaListPage extends StatelessWidget {
+  final String categoryName;
+  final List<dynamic> duasList;
+
+  const DuaListPage({super.key, required this.categoryName, required this.duasList});
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: Text(categoryName, style: const TextStyle(color: Colors.white)),
+          iconTheme: const IconThemeData(color: Colors.white),
+        ),
+        body: ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: duasList.length,
+          itemBuilder: (context, index) {
+            final dua = duasList[index];
+            return Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: AppColors.gold.withOpacity(0.4)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    dua['title'],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.deepGreen,
+                    ),
+                  ),
+                  const Divider(color: AppColors.gold, height: 24),
+                  Text(
+                    dua['arabic'],
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontFamily: 'serif',
+                      height: 2.0,
+                      color: AppColors.darkText,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    dua['urdu'],
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[800],
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
