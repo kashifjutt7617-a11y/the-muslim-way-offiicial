@@ -204,8 +204,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.gold, width: 2),
                 ),
-                child: const Icon(Icons.mosque,
-                    color: AppColors.gold, size: 28),
+                child: const Icon(Icons.mosque, color: AppColors.gold, size: 28),
               ),
               const SizedBox(width: 12),
               const Expanded(
@@ -249,8 +248,7 @@ class _DashboardPageState extends State<DashboardPage> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.calendar_today,
-                        color: AppColors.gold, size: 16),
+                    const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
                     const SizedBox(width: 8),
                     Text(
                       _formatDate(_now),
@@ -264,8 +262,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.access_time,
-                        color: AppColors.gold, size: 16),
+                    const Icon(Icons.access_time, color: AppColors.gold, size: 16),
                     const SizedBox(width: 8),
                     Text(
                       _formatTime(_now),
@@ -298,7 +295,8 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
-   Widget _buildQuickAccess(BuildContext context) {
+
+  Widget _buildQuickAccess(BuildContext context) {
     return Column(
       children: [
         const Padding(
@@ -585,15 +583,13 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
+}
 
-// ============================================================
-// QURAN PAGE — 114 سورتوں کی مکمل list
-// ============================================================
 class QuranPage extends StatelessWidget {
   const QuranPage({super.key});
 
-  static const List<Map<String, dynamic>> surahs = [ 
-        {'n': 1, 'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'ayat': 7, 'type': 'مکی'},
+  static const List<Map<String, dynamic>> surahs = [
+    {'n': 1, 'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'ayat': 7, 'type': 'مکی'},
     {'n': 2, 'name': 'البقرہ', 'en': 'Al-Baqarah', 'ayat': 286, 'type': 'مدنی'},
     {'n': 3, 'name': 'آل عمران', 'en': 'Aal-Imran', 'ayat': 200, 'type': 'مدنی'},
     {'n': 4, 'name': 'النساء', 'en': 'An-Nisa', 'ayat': 176, 'type': 'مدنی'},
@@ -619,7 +615,7 @@ class QuranPage extends StatelessWidget {
     {'n': 24, 'name': 'النور', 'en': 'An-Nur', 'ayat': 64, 'type': 'مدنی'},
     {'n': 25, 'name': 'الفرقان', 'en': 'Al-Furqan', 'ayat': 77, 'type': 'مکی'},
     {'n': 26, 'name': 'الشعراء', 'en': 'Ash-Shuara', 'ayat': 227, 'type': 'مکی'},
-        {'n': 27, 'name': 'النمل', 'en': 'An-Naml', 'ayat': 93, 'type': 'مکی'},
+    {'n': 27, 'name': 'النمل', 'en': 'An-Naml', 'ayat': 93, 'type': 'مکی'},
     {'n': 28, 'name': 'القصص', 'en': 'Al-Qasas', 'ayat': 88, 'type': 'مکی'},
     {'n': 29, 'name': 'العنکبوت', 'en': 'Al-Ankabut', 'ayat': 69, 'type': 'مکی'},
     {'n': 30, 'name': 'الروم', 'en': 'Ar-Rum', 'ayat': 60, 'type': 'مکی'},
@@ -708,8 +704,7 @@ class QuranPage extends StatelessWidget {
     {'n': 113, 'name': 'الفلق', 'en': 'Al-Falaq', 'ayat': 5, 'type': 'مکی'},
     {'n': 114, 'name': 'الناس', 'en': 'An-Nas', 'ayat': 6, 'type': 'مکی'},
   ];
-
-  @override
+    @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
