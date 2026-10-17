@@ -397,7 +397,7 @@ class _DashboardPageState extends State<DashboardPage> {
             mainAxisSpacing: 12,
             childAspectRatio: 1.2,
             children: [
-              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen, _openQuran),
+              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen, () => _openQuran(context)),
               _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
               _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
               _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
@@ -411,7 +411,7 @@ class _DashboardPageState extends State<DashboardPage> {
       ],
     );
   }
-
+}
   Widget _buildContactSection(BuildContext context) {
     return Column(
       children: [
