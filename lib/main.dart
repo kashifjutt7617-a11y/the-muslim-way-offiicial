@@ -331,7 +331,13 @@ class _DashboardPageState extends State<DashboardPage> {
                 AppColors.deepGreen, 
                 customAction: () => _openQuran(context),
               ),
-              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
+              _makeCard(
+  context, 
+  Icons.auto_stories, 
+  'صحیح حدیث', 
+  AppColors.lightGreen,
+  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HadithBooksPage())),
+),
               _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
               _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
@@ -870,6 +876,194 @@ class ComingSoonPage extends StatelessWidget {
               style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// HADITH BOOKS PAGE — صحاح ستہ
+// ============================================================
+class HadithBooksPage extends StatelessWidget {
+  const HadithBooksPage({super.key});
+
+  static const List<Map<String, dynamic>> hadithBooks = [
+    {
+      'name': 'صحیح بخاری',
+      'en': 'Sahih al-Bukhari',
+      'ayat': '7,563 احادیث',
+      'icon': Icons.menu_book,
+      'color': Color(0xFF0B4F3A),
+    },
+    {
+      'name': 'صحیح مسلم',
+      'en': 'Sahih Muslim',
+      'ayat': '7,500 احادیث',
+      'icon': Icons.auto_stories,
+      'color': Color(0xFF1B6B4F),
+    },
+    {
+      'name': 'سنن ابو داؤد',
+      'en': 'Sunan Abu Dawood',
+      'ayat': '5,274 احادیث',
+      'icon': Icons.book,
+      'color': Color(0xFFD4AF37),
+    },
+    {
+      'name': 'جامع ترمذی',
+      'en': 'Jami` at-Tirmidhi',
+      'ayat': '3,956 احادیث',
+      'icon': Icons.library_books,
+      'color': Color(0xFF8B5A2B),
+    },
+    {
+      'name': 'سنن نسائی',
+      'en': 'Sunan an-Nasa\'i',
+      'ayat': '5,758 احادیث',
+      'icon': Icons.class_,
+      'color': Color(0xFF2E4053),
+    },
+    {
+      'name': 'سنن ابن ماجہ',
+      'en': 'Sunan Ibn Majah',
+      'ayat': '4,341 احادیث',
+      'icon': Icons.bookmark,
+      'color': Color(0xFF6C3483),
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'صحیح حدیث',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: hadithBooks.length,
+          itemBuilder: (context, index) {
+            final book = hadithBooks[index];
+            return _HadithBookTile(book: book);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _HadithBookTile extends StatelessWidget {
+  final Map<String, dynamic> book;
+
+  const _HadithBookTile({required this.book});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = book['color'];
+    
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => ComingSoonPage(
+              title: book['name'],
+              icon: book['icon'],
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              // Book Icon
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: color.withOpacity(0.3)),
+                ),
+                child: Icon(book['icon'], color: color, size: 32),
+              ),
+              const SizedBox(width: 16),
+              
+              // Book Details
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      book['name'],
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      book['en'],
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(Icons.format_list_bulleted, size: 14, color: color),
+                        const SizedBox(width: 4),
+                        Text(
+                          book['ayat'],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: color,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Arrow Icon
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: color.withOpacity(0.1),
+                ),
+                child: Icon(Icons.arrow_back_ios, color: color, size: 16),
+              ),
+            ],
+          ),
         ),
       ),
     );
