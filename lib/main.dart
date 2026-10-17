@@ -121,20 +121,21 @@ class _DashboardPageState extends State<DashboardPage> {
   void dispose() {
     _timer.cancel();
     super.dispose();
-  } void _openQuran(BuildContext context) {
-  Navigator.of(context).push(
-    MaterialPageRoute(builder: (_) => const QuranPage()),
-  );
-}
+  }
 
-void _openComingSoon(BuildContext context, String title, IconData icon) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) => ComingSoonPage(title: title, icon: icon),
-    ),
-  );
-}
+  void _openQuran(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const QuranPage()),
+    );
+  }
 
+  void _openComingSoon(BuildContext context, String title, IconData icon) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ComingSoonPage(title: title, icon: icon),
+      ),
+    );
+  }
 
   String _formatDate(DateTime dt) {
     const days = [
@@ -170,11 +171,13 @@ void _openComingSoon(BuildContext context, String title, IconData icon) {
               children: [
                 _buildHeader(),
                 const SizedBox(height: 16),
-const SizedBox(height: 20),
-_buildQuickAccess(context),
+                _buildQuickAccess(context),
+                const SizedBox(height: 20),
                 _buildDailyAyah(),
                 const SizedBox(height: 25),
                 _buildContactSection(context),
+                const SizedBox(height: 25),
+                _buildFooter(),
               ],
             ),
           ),
@@ -366,82 +369,226 @@ _buildQuickAccess(context),
     );
   }
 
-Widget _buildQuickAccess(BuildContext context) {
-  return Column(
-    children: [
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            'Quick Access',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.deepGreen,
+  Widget _buildQuickAccess(BuildContext context) {
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Quick Access',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+              ),
             ),
           ),
         ),
-      ),
-      const SizedBox(height: 12),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 1.2,
-          children: [
-            _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen, _openQuran),
-            _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
-            _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
-            _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
-            _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
-            _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
-            _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
-            _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
-          ],
-        ),
-      ),
-    ],
-  );
-}
-Widget _buildContactSection(BuildContext context) {
-  return Column(
-    children: [
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            'رابطہ کریں',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.deepGreen,
-            ),
+        const SizedBox(height: 12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.2,
+            children: [
+              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen, _openQuran),
+              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
+              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
+              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
+              _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
+              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
+              _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
+              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
+            ],
           ),
         ),
-      ),
-      const SizedBox(height: 12),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            _makeContact(context, Icons.chat, 'WhatsApp', 'واٹس ایپ پر رابطہ', const Color(0xFF25D366)),
-            const SizedBox(height: 10),
-            _makeContact(context, Icons.phone, 'Call', 'فون کال کریں', AppColors.deepGreen),
-            const SizedBox(height: 10),
-            _makeContact(context, Icons.language, 'Website', 'themuslimwayoffiicial.com', AppColors.gold),
-          ],
-        ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
+  Widget _buildContactSection(BuildContext context) {
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'رابطہ کریں',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              _makeContact(context, Icons.chat, 'WhatsApp', 'واٹس ایپ پر رابطہ', const Color(0xFF25D366)),
+              const SizedBox(height: 10),
+              _makeContact(context, Icons.phone, 'Call', 'فون کال کریں', AppColors.deepGreen),
+              const SizedBox(height: 10),
+              _makeContact(context, Icons.language, 'Website', 'themuslimwayoffiicial.com', AppColors.gold),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _makeContact(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String subtitle,
+    Color color,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(title)),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color.withOpacity(0.12),
+              ),
+              child: Icon(icon, color: color, size: 24),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.darkText,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    subtitle,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_back_ios, color: color, size: 16),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _makeCard(
+    BuildContext context,
+    IconData icon,
+    String title,
+    Color color,
+    [VoidCallback? customAction],
+  ) {
+    return GestureDetector(
+      onTap: () {
+        if (customAction != null) {
+          customAction();
+        } else {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => ComingSoonPage(title: title, icon: icon),
+            ),
+          );
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color.withOpacity(0.12),
+              ),
+              child: Icon(icon, color: color, size: 28),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: AppColors.darkText,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFooter() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        color: AppColors.deepGreen,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+      child: const Column(
+        children: [
+          Icon(Icons.mosque, color: AppColors.gold, size: 30),
+          SizedBox(height: 10),
+          Text(
+            'The Muslim Way Offiicial',
+            style: TextStyle(
+              color: AppColors.gold,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            'version 1.0.0',
+            style: TextStyle(color: Colors.white54, fontSize: 12),
+          ),
+        ],
+      ),
+    );
+  }
+}
 // ============================================================
 // QURAN PAGE — 114 سورتوں کی مکمل list
 // ============================================================
@@ -764,116 +911,7 @@ class _SurahTile extends StatelessWidget {
     );
   }
 }
-Widget _makeContact(
-  BuildContext context,
-  IconData icon,
-  String title,
-  String subtitle,
-  Color color,
-) {
-  return GestureDetector(
-    onTap: () {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(title)),
-      );
-    },
-    child: Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(0.12),
-            ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.darkText,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.arrow_back_ios, color: color, size: 16),
-        ],
-      ),
-    ),
-  );
-}
-Widget _makeCard(
-  BuildContext context,
-  IconData icon,
-  String title,
-Color color,
-[VoidCallback? customAction],
-) {
-  return GestureDetector(
-    onTap: () {
-        if (customAction != null) {
-    customAction();
-  } else {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => ComingSoonPage(title: title, icon: icon),
-      ),
-    );
-  }
-},
-    child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color.withOpacity(0.12),
-            ),
-            child: Icon(icon, color: color, size: 28),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: AppColors.darkText,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    ),
-  );
-}
 
-}
 class ComingSoonPage extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -933,6 +971,11 @@ class ComingSoonPage extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Coming Soon',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
               ],
             ),
           ),
@@ -941,4 +984,3 @@ class ComingSoonPage extends StatelessWidget {
     );
   }
 }
-// update
