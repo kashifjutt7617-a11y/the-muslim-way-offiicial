@@ -1285,14 +1285,23 @@ class DuaListPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    dua['urdu'],
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[800],
-                      height: 1.5,
-                    ),
-                  ),
+  dua['urdu'],
+  textAlign: TextAlign.justify,
+  style: TextStyle(
+    fontSize: 14,
+    color: Colors.grey[800],
+    height: 1.5,
+  ),
+),
+const SizedBox(height: 10),
+Text(
+  dua['ref'],
+  style: const TextStyle(
+    fontSize: 12,
+    color: AppColors.gold,
+    fontWeight: FontWeight.bold,
+  ),
+),
                 ],
               ),
             );
