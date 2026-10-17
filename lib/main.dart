@@ -129,14 +129,6 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  void _openComingSoon(BuildContext context, String title, IconData icon) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => ComingSoonPage(title: title, icon: icon),
-      ),
-    );
-  }
-
   String _formatDate(DateTime dt) {
     const days = [
       'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -306,6 +298,54 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
+   Widget _buildQuickAccess(BuildContext context) {
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Quick Access',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.2,
+            children: [
+              _makeCard(
+                context, 
+                Icons.menu_book, 
+                'قرآن پاک', 
+                AppColors.deepGreen, 
+                customAction: () => _openQuran(context),
+              ),
+              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
+              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
+              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
+              _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
+              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
+              _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
+              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildDailyAyah() {
     return Padding(
@@ -369,49 +409,6 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildQuickAccess(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'Quick Access',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.deepGreen,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.2,
-            children: [
-              _makeCard(context, Icons.menu_book, 'قرآن پاک', AppColors.deepGreen, () => _openQuran(context)),
-              _makeCard(context, Icons.auto_stories, 'صحیح حدیث', AppColors.lightGreen),
-              _makeCard(context, Icons.volunteer_activism, 'دعائیں و اذکار', AppColors.gold),
-              _makeCard(context, Icons.auto_awesome, 'استخارہ', AppColors.deepGreen),
-              _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
-              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
-              _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
-              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
   Widget _buildContactSection(BuildContext context) {
     return Column(
       children: [
@@ -508,9 +505,9 @@ class _DashboardPageState extends State<DashboardPage> {
     BuildContext context,
     IconData icon,
     String title,
-    Color color,
-      {VoidCallback? customAction},
-) {
+    Color color, {
+    VoidCallback? customAction,
+  }) {
     return GestureDetector(
       onTap: () {
         if (customAction != null) {
@@ -595,8 +592,8 @@ class _DashboardPageState extends State<DashboardPage> {
 class QuranPage extends StatelessWidget {
   const QuranPage({super.key});
 
-  static const List<Map<String, dynamic>> surahs = [
-    {'n': 1, 'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'ayat': 7, 'type': 'مکی'},
+  static const List<Map<String, dynamic>> surahs = [ 
+        {'n': 1, 'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'ayat': 7, 'type': 'مکی'},
     {'n': 2, 'name': 'البقرہ', 'en': 'Al-Baqarah', 'ayat': 286, 'type': 'مدنی'},
     {'n': 3, 'name': 'آل عمران', 'en': 'Aal-Imran', 'ayat': 200, 'type': 'مدنی'},
     {'n': 4, 'name': 'النساء', 'en': 'An-Nisa', 'ayat': 176, 'type': 'مدنی'},
@@ -635,7 +632,7 @@ class QuranPage extends StatelessWidget {
     {'n': 37, 'name': 'الصافات', 'en': 'As-Saffat', 'ayat': 182, 'type': 'مکی'},
     {'n': 38, 'name': 'ص', 'en': 'Sad', 'ayat': 88, 'type': 'مکی'},
     {'n': 39, 'name': 'الزمر', 'en': 'Az-Zumar', 'ayat': 75, 'type': 'مکی'},
-    {'n': 40, 'name': 'غافر', 'en': 'Ghafir', 'ayat': 85, 'type': 'مکی'},
+    {'n': 40, 'name': 'المؤمن', 'en': 'Al-Mumin', 'ayat': 85, 'type': 'مکی'},
     {'n': 41, 'name': 'فصلت', 'en': 'Fussilat', 'ayat': 54, 'type': 'مکی'},
     {'n': 42, 'name': 'الشوریٰ', 'en': 'Ash-Shura', 'ayat': 53, 'type': 'مکی'},
     {'n': 43, 'name': 'الزخرف', 'en': 'Az-Zukhruf', 'ayat': 89, 'type': 'مکی'},
@@ -653,7 +650,7 @@ class QuranPage extends StatelessWidget {
     {'n': 55, 'name': 'الرحمن', 'en': 'Ar-Rahman', 'ayat': 78, 'type': 'مدنی'},
     {'n': 56, 'name': 'الواقعہ', 'en': 'Al-Waqiah', 'ayat': 96, 'type': 'مکی'},
     {'n': 57, 'name': 'الحدید', 'en': 'Al-Hadid', 'ayat': 29, 'type': 'مدنی'},
-    {'n': 58, 'name': 'المجادلہ', 'en': 'Al-Mujadilah', 'ayat': 22, 'type': 'مدنی'},
+    {'n': 58, 'name': 'المجادلہ', 'en': 'Al-Mujadila', 'ayat': 22, 'type': 'مدنی'},
     {'n': 59, 'name': 'الحشر', 'en': 'Al-Hashr', 'ayat': 24, 'type': 'مدنی'},
     {'n': 60, 'name': 'الممتحنہ', 'en': 'Al-Mumtahanah', 'ayat': 13, 'type': 'مدنی'},
     {'n': 61, 'name': 'الصف', 'en': 'As-Saff', 'ayat': 14, 'type': 'مدنی'},
@@ -671,9 +668,9 @@ class QuranPage extends StatelessWidget {
     {'n': 73, 'name': 'المزمل', 'en': 'Al-Muzzammil', 'ayat': 20, 'type': 'مکی'},
     {'n': 74, 'name': 'المدثر', 'en': 'Al-Muddaththir', 'ayat': 56, 'type': 'مکی'},
     {'n': 75, 'name': 'القیامہ', 'en': 'Al-Qiyamah', 'ayat': 40, 'type': 'مکی'},
-    {'n': 76, 'name': 'الانسان', 'en': 'Al-Insan', 'ayat': 31, 'type': 'مدنی'},
+    {'n': 76, 'name': 'الدہر', 'en': 'Ad-Dahr', 'ayat': 31, 'type': 'مدنی'},
     {'n': 77, 'name': 'المرسلات', 'en': 'Al-Mursalat', 'ayat': 50, 'type': 'مکی'},
-    {'n': 78, 'name': 'النبا', 'en': 'An-Naba', 'ayat': 40, 'type': 'مکی'},
+    {'n': 78, 'name': 'النبأ', 'en': 'An-Naba', 'ayat': 40, 'type': 'مکی'},
     {'n': 79, 'name': 'النازعات', 'en': 'An-Naziat', 'ayat': 46, 'type': 'مکی'},
     {'n': 80, 'name': 'عبس', 'en': 'Abasa', 'ayat': 42, 'type': 'مکی'},
     {'n': 81, 'name': 'التکویر', 'en': 'At-Takwir', 'ayat': 29, 'type': 'مکی'},
@@ -694,7 +691,7 @@ class QuranPage extends StatelessWidget {
     {'n': 96, 'name': 'العلق', 'en': 'Al-Alaq', 'ayat': 19, 'type': 'مکی'},
     {'n': 97, 'name': 'القدر', 'en': 'Al-Qadr', 'ayat': 5, 'type': 'مکی'},
     {'n': 98, 'name': 'البینہ', 'en': 'Al-Bayyinah', 'ayat': 8, 'type': 'مدنی'},
-    {'n': 99, 'name': 'الزلزال', 'en': 'Az-Zalzalah', 'ayat': 8, 'type': 'مدنی'},
+    {'n': 99, 'name': 'الزلزلہ', 'en': 'Az-Zalzalah', 'ayat': 8, 'type': 'مدنی'},
     {'n': 100, 'name': 'العادیات', 'en': 'Al-Adiyat', 'ayat': 11, 'type': 'مکی'},
     {'n': 101, 'name': 'القارعہ', 'en': 'Al-Qariah', 'ayat': 11, 'type': 'مکی'},
     {'n': 102, 'name': 'التکاثر', 'en': 'At-Takathur', 'ayat': 8, 'type': 'مکی'},
@@ -714,64 +711,32 @@ class QuranPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.cream,
-      appBar: AppBar(
-        backgroundColor: AppColors.deepGreen,
-        foregroundColor: AppColors.gold,
-        title: const Text(
-          'قرآن پاک',
-          style: TextStyle(fontWeight: FontWeight.bold),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'قرآن پاک',
+            style: TextStyle(color: Colors.white),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(14),
-              margin: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppColors.deepGreen, AppColors.lightGreen],
-                ),
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: AppColors.gold, width: 1.5),
-              ),
-              child: const Column(
-                children: [
-                  Icon(Icons.menu_book, color: AppColors.gold, size: 32),
-                  SizedBox(height: 6),
-                  Text(
-                    'قرآن مجید — 114 سورتیں',
-                    style: TextStyle(
-                      color: AppColors.gold,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                itemCount: surahs.length,
-                itemBuilder: (context, index) {
-                  final s = surahs[index];
-                  return _SurahTile(
-                    number: s['n'] as int,
-                    name: s['name'] as String,
-                    englishName: s['en'] as String,
-                    ayat: s['ayat'] as int,
-                    type: s['type'] as String,
-                  );
-                },
-              ),
-            ),
-          ],
+        body: ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: surahs.length,
+          itemBuilder: (context, index) {
+            final surah = surahs[index];
+            return _SurahTile(
+              number: surah['n'],
+              name: surah['name'],
+              englishName: surah['en'],
+              ayatCount: surah['ayat'],
+              type: surah['type'],
+            );
+          },
         ),
       ),
     );
@@ -782,130 +747,93 @@ class _SurahTile extends StatelessWidget {
   final int number;
   final String name;
   final String englishName;
-  final int ayat;
+  final int ayatCount;
   final String type;
 
   const _SurahTile({
     required this.number,
     required this.name,
     required this.englishName,
-    required this.ayat,
+    required this.ayatCount,
     required this.type,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: Material(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ComingSoonPage(
-                  title: 'سورۃ $name',
-                  icon: Icons.menu_book,
-                ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => ComingSoonPage(
+              title: name,
+              icon: Icons.menu_book,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: AppColors.gold.withOpacity(0.3)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 45,
+              height: 45,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.deepGreen.withOpacity(0.1),
+                border: Border.all(color: AppColors.deepGreen, width: 1.5),
               ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColors.gold.withOpacity(0.3),
-                width: 1,
+              child: Text(
+                '$number',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.deepGreen,
+                ),
               ),
             ),
-            child: Row(
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.deepGreen,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    englishName,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  width: 42,
-                  height: 42,
-                  decoration: BoxDecoration(
-                    color: AppColors.deepGreen,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.gold, width: 1.5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '$number',
-                      style: const TextStyle(
-                        color: AppColors.gold,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
+                Text(
+                  '$ayatCount آیات',
+                  style: const TextStyle(fontSize: 12, color: AppColors.gold),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'سورۃ $name',
-                        style: const TextStyle(
-                          color: AppColors.deepGreen,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        englishName,
-                        style: TextStyle(
-                          color: AppColors.darkText.withOpacity(0.6),
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      '$ayat آیات',
-                      style: const TextStyle(
-                        color: AppColors.darkText,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: type == 'مکی'
-                            ? AppColors.gold.withOpacity(0.2)
-                            : AppColors.lightGreen.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        type,
-                        style: TextStyle(
-                          color: type == 'مکی'
-                              ? const Color(0xFF8B6914)
-                              : AppColors.lightGreen,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 4),
+                Text(
+                  type,
+                  style: TextStyle(fontSize: 11, color: Colors.grey[500]),
                 ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -915,70 +843,38 @@ class _SurahTile extends StatelessWidget {
 class ComingSoonPage extends StatelessWidget {
   final String title;
   final IconData icon;
+
   const ComingSoonPage({super.key, required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.cream,
-        appBar: AppBar(
-          backgroundColor: AppColors.deepGreen,
-          title: Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.gold,
-              fontWeight: FontWeight.bold,
+    return Scaffold(
+      backgroundColor: AppColors.cream,
+      appBar: AppBar(
+        backgroundColor: AppColors.deepGreen,
+        title: Text(title, style: const TextStyle(color: Colors.white)),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 80, color: AppColors.gold),
+            const SizedBox(height: 20),
+            const Text(
+              'بہت جلد دستیاب ہوگا',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+              ),
             ),
-          ),
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.gold),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.deepGreen.withOpacity(0.1),
-                    border: Border.all(color: AppColors.gold, width: 2),
-                  ),
-                  child: Icon(icon, size: 80, color: AppColors.deepGreen),
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.deepGreen,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                Container(width: 60, height: 3, color: AppColors.gold),
-                const SizedBox(height: 20),
-                const Text(
-                  'بہت جلد دستیاب ہوگا',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Coming Soon',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ],
+            const SizedBox(height: 10),
+            const Text(
+              'ان شاء اللہ',
+              style: TextStyle(fontSize: 18, color: Colors.grey),
             ),
-          ),
+          ],
         ),
       ),
     );
