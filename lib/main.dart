@@ -1206,7 +1206,6 @@ class DuasPage extends StatelessWidget {
     ]
   }
 ];
-];
 
   @override
   Widget build(BuildContext context) {
@@ -1229,7 +1228,7 @@ class DuasPage extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            childAspectRatio: 1.1,
+            childAspectRatio: 1.0,
           ),
           itemCount: duaCategories.length,
           itemBuilder: (context, index) {
