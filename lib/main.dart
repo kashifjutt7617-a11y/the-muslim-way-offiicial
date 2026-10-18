@@ -290,12 +290,102 @@ class _DashboardPageState extends State<DashboardPage> {
           const Text(
             'خوش آمدید! آج کا دن بابرکت ہو',
             style: TextStyle(color: Colors.white70, fontSize: 14),
+         const SizedBox(height: 20),
+Container(
+  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+  decoration: BoxDecoration(
+    color: Colors.black.withOpacity(0.2),
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(
+      color: AppColors.gold.withOpacity(0.5),
+      width: 1,
+    ),
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
+          const SizedBox(width: 8),
+          Text(
+            _formatDate(_now),
+            style: const TextStyle(
+              color: AppColors.cream,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+        ],
+      ),
+      Row(
+        children: [
+          const Icon(Icons.access_time, color: AppColors.gold, size: 16),
+          const SizedBox(width: 8),
+          Text(
+            _formatTime(_now),
+            style: const TextStyle(
+              color: AppColors.cream,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+), ),
         ],
       ),
     );
   }
 
+const SizedBox(height: 10),
+// اگلی نماز کا کارڈ
+Container(
+  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+  decoration: BoxDecoration(
+    color: Colors.white.withOpacity(0.15), 
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(
+      color: AppColors.gold.withOpacity(0.8), 
+      width: 1,
+    ),
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          const Icon(Icons.mosque, color: AppColors.gold, size: 20),
+          const SizedBox(width: 8),
+          const Text(
+            'اگلی نماز: عصر', 
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      Row(
+        children: [
+          const Icon(Icons.timer, color: AppColors.gold, size: 18),
+          const SizedBox(width: 5),
+          const Text(
+            '04:45 PM', 
+            style: TextStyle(
+              color: AppColors.gold,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),  
   Widget _buildQuickAccess(BuildContext context) {
     return Column(
       children: [
