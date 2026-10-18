@@ -104,7 +104,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   late Timer _timer;
   DateTime _now = DateTime.now();
-// 30 آیات کا مکمل ڈیٹا
+  // 30 آیات کا مکمل ڈیٹا
 final List<Map<String, String>> _dailyAyats = [
   {'arabic': 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', 'urdu': '"بے شک مشکل کے ساتھ آسانی ہے"', 'ref': '(سورۃ الشرح: 6)'},
   {'arabic': 'فَاذْكُرُونِي أَذْكُرْكُمْ', 'urdu': '"پس تم مجھے یاد کرو، میں تمہیں یاد رکھوں گا"', 'ref': '(سورۃ البقرہ: 152)'},
@@ -137,7 +137,8 @@ final List<Map<String, String>> _dailyAyats = [
   {'arabic': 'إِنَّ اللَّهَ لَا يُحِبُّ الظَّالِمِينَ', 'urdu': '"بے شک اللہ ظالموں کو پسند نہیں کرتا"', 'ref': '(سورۃ آل عمران: 140)'},
   {'arabic': 'وَمَنْ أَحْسَنُ قَوْلًا مِّمَّن دَعَا إِلَى اللَّهِ وَعَمِلَ صَالِحًا', 'urdu': '"اور اس سے بہتر کس کی بات ہو سکتی ہے جو اللہ کی طرف بلائے اور نیک عمل کرے"', 'ref': '(سورۃ فصلت: 33)'},
 ];
-  // 30 صحیح احادیث کا مکمل ڈیٹا
+
+// 30 صحیح احادیث کا مکمل ڈیٹا
 final List<Map<String, String>> _dailyHadiths = [
   {'arabic': 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ', 'urdu': '"اعمال کا دارومدار نیتوں پر ہے"', 'ref': '(صحیح بخاری: 1)'},
   {'arabic': 'الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ', 'urdu': '"سچا مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں"', 'ref': '(صحیح بخاری: 10)'},
@@ -171,92 +172,94 @@ final List<Map<String, String>> _dailyHadiths = [
   {'arabic': 'مَنْ لَزِمَ الاِسْتِغْفَارَ جَعَلَ اللَّهُ لَهُ مِنْ كُلِّ هَمٍّ فَرَجًا', 'urdu': '"جس نے استغفار کو لازم کر لیا، اللہ اس کے ہر غم سے نجات کا راستہ نکال دے گا"', 'ref': '(ابو داؤد: 1518)'},
   {'arabic': 'إِنَّ الرِّفْقَ لَا يَكُونُ فِي شَيْءٍ إِلَّا زَانَهُ', 'urdu': '"نرمی جس چیز میں بھی ہو، اسے خوبصورت بنا دیتی ہے"', 'ref': '(صحیح مسلم: 2594)'},
 ];
-  @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (mounted) {
-        setState(() {
-          _now = DateTime.now();
-        });
-      }
-    });
-  }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-// دن کے حساب سے آیت لانے کا فنکشن
+@override
+void initState() {
+  super.initState();
+  _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    if (mounted) {
+      setState(() {
+        _now = DateTime.now();
+      });
+    }
+  });
+}
+
+@override
+void dispose() {
+  _timer.cancel();
+  super.dispose();
+}
+
 Map<String, String> get _todayAyah {
   int dayIndex = _now.day % _dailyAyats.length; 
   return _dailyAyats[dayIndex];
 }
 
-// دن کے حساب سے حدیث لانے کا فنکشن
 Map<String, String> get _todayHadith {
   int dayIndex = _now.day % _dailyHadiths.length; 
   return _dailyHadiths[dayIndex];
 }
-  void _openQuran(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const QuranPage()),
-    );
-  }
 
-  String _formatDate(DateTime dt) {
-    const days = [
-      'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-      'Friday', 'Saturday', 'Sunday'
-    ];
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    return '${days[dt.weekday - 1]}, ${dt.day} ${months[dt.month - 1]} ${dt.year}';
-  }
+void _openQuran(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(builder: (_) => const QuranPage()),
+  );
+}
 
-  String _formatTime(DateTime dt) {
-    int hour = dt.hour;
-    final String period = hour >= 12 ? 'PM' : 'AM';
-    hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
-    final String h = hour.toString().padLeft(2, '0');
-    final String m = dt.minute.toString().padLeft(2, '0');
-    final String s = dt.second.toString().padLeft(2, '0');
-    return '$h:$m:$s $period';
-  }
+String _formatDate(DateTime dt) {
+  const days = [
+    'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+    'Friday', 'Saturday', 'Sunday'
+  ];
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  return '${days[dt.weekday - 1]}, ${dt.day} ${months[dt.month - 1]} ${dt.year}';
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.cream,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 16),
-                _buildQuickAccess(context),
-                const SizedBox(height: 20),
-                _buildDailyAyah(),
-                _buildDailyHadith(),
-                const SizedBox(height: 25),
-                _buildContactSection(context),
-                const SizedBox(height: 25),
-                _buildFooter(),
-              ],
-            ),
+String _formatTime(DateTime dt) {
+  int hour = dt.hour;
+  final String period = hour >= 12 ? 'PM' : 'AM';
+  hour = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
+  final String h = hour.toString().padLeft(2, '0');
+  final String m = dt.minute.toString().padLeft(2, '0');
+  final String s = dt.second.toString().padLeft(2, '0');
+  return '$h:$m:$s $period';
+}
+
+@override
+Widget build(BuildContext context) {
+  return Directionality(
+    textDirection: TextDirection.rtl,
+    child: Scaffold(
+      backgroundColor: AppColors.cream,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildHeader(),
+              const SizedBox(height: 16),
+              _buildQuickAccess(context),
+              const SizedBox(height: 20),
+              _buildDailyAyah(),
+              const SizedBox(height: 20),
+              _buildDailyHadith(),
+              const SizedBox(height: 25),
+              _buildContactSection(context),
+              const SizedBox(height: 25),
+              _buildFooter(),
+            ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget _buildHeader() {
-    return Container(
+Widget _buildHeader() {
+      return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
       decoration: const BoxDecoration(
@@ -425,7 +428,8 @@ Map<String, String> get _todayHadith {
       ),
     );
   }
-    Widget _buildQuickAccess(BuildContext context) {
+
+  Widget _buildQuickAccess(BuildContext context) {
     return Column(
       children: [
         const Padding(
@@ -493,128 +497,128 @@ Map<String, String> get _todayHadith {
   }
 
   Widget _buildDailyAyah() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.gold.withOpacity(0.4),
-          width: 1.5,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppColors.gold.withOpacity(0.4),
+            width: 1.5,
+          ),
+        ),
+        child: Column(
+          children: [
+            const Row(
+              children: [
+                Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
+                SizedBox(width: 8),
+                Text(
+                  'آج کی آیت',
+                  style: TextStyle(
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            Text(
+              _todayAyah['arabic']!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+                fontFamily: 'serif',
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              _todayAyah['urdu']!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 15,
+                color: AppColors.darkText,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              _todayAyah['ref']!,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
         ),
       ),
-      child: Column(
-        children: [
-          const Row(
-            children: [
-              Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
-              SizedBox(width: 8),
-              Text(
-                'آج کی آیت',
-                style: TextStyle(
-                  color: AppColors.deepGreen,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Text(
-            _todayAyah['arabic']!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: AppColors.deepGreen,
-              fontFamily: 'serif',
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            _todayAyah['urdu']!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 15,
-              color: AppColors.darkText,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            _todayAyah['ref']!,
-            style: const TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _buildDailyHadith() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    child: Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.deepGreen.withOpacity(0.3),
-          width: 1.5,
+  Widget _buildDailyHadith() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppColors.deepGreen.withOpacity(0.3),
+            width: 1.5,
+          ),
+        ),
+        child: Column(
+          children: [
+            const Row(
+              children: [
+                Icon(Icons.auto_stories, color: AppColors.deepGreen, size: 22),
+                SizedBox(width: 8),
+                Text(
+                  'آج کی حدیث',
+                  style: TextStyle(
+                    color: AppColors.deepGreen,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 15),
+            Text(
+              _todayHadith['arabic']!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: AppColors.deepGreen,
+                fontFamily: 'serif',
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              _todayHadith['urdu']!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 15,
+                color: AppColors.darkText,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              _todayHadith['ref']!,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
         ),
       ),
-      child: Column(
-        children: [
-          const Row(
-            children: [
-              Icon(Icons.auto_stories, color: AppColors.deepGreen, size: 22),
-              SizedBox(width: 8),
-              Text(
-                'آج کی حدیث',
-                style: TextStyle(
-                  color: AppColors.deepGreen,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          Text(
-            _todayHadith['arabic']!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: AppColors.deepGreen,
-              fontFamily: 'serif',
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            _todayHadith['urdu']!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 15,
-              color: AppColors.darkText,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            _todayHadith['ref']!,
-            style: const TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildContactSection(BuildContext context) {
     return Column(
@@ -801,18 +805,18 @@ class QuranPage extends StatelessWidget {
   const QuranPage({super.key});
 
   static const List<Map<String, dynamic>> surahs = [
-      {
-  'n': 1, 'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'ayat': 7, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', 'urdu': 'شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔'},
-    {'arabic': 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', 'urdu': 'سب تعریف اللہ کے لیے ہے جو تمام جہانوں کا پالنے والا ہے۔'},
-    {'arabic': 'الرَّحْمَٰنِ الرَّحِيمِ', 'urdu': 'بڑا مہربان نہایت رحم والا۔'},
-    {'arabic': 'مَالِكِ يَوْمِ الدِّينِ', 'urdu': 'انصاف کے دن کا حاکم۔'},
-    {'arabic': 'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', 'urdu': 'ہم تیری ہی عبادت کرتے ہیں اور تجھ ہی سے مدد مانگتے ہیں۔'},
-    {'arabic': 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', 'urdu': 'ہمیں سیدھا راستہ دکھا۔'},
-    {'arabic': 'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ', 'urdu': 'ان لوگوں کا راستہ جن پر تو نے انعام کیا، نہ ان کا جن پر غضب ہوا اور نہ گمراہوں کا۔'},
-  ]
-},
+    {
+      'n': 1, 'name': 'الفاتحہ', 'en': 'Al-Fatihah', 'ayat': 7, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', 'urdu': 'شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے۔'},
+        {'arabic': 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', 'urdu': 'سب تعریف اللہ کے لیے ہے جو تمام جہانوں کا پالنے والا ہے۔'},
+        {'arabic': 'الرَّحْمَٰنِ الرَّحِيمِ', 'urdu': 'بڑا مہربان نہایت رحم والا۔'},
+        {'arabic': 'مَالِكِ يَوْمِ الدِّينِ', 'urdu': 'انصاف کے دن کا حاکم۔'},
+        {'arabic': 'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', 'urdu': 'ہم تیری ہی عبادت کرتے ہیں اور تجھ ہی سے مدد مانگتے ہیں۔'},
+        {'arabic': 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', 'urdu': 'ہمیں سیدھا راستہ دکھا۔'},
+        {'arabic': 'صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ', 'urdu': 'ان لوگوں کا راستہ جن پر تو نے انعام کیا، نہ ان کا جن پر غضب ہوا اور نہ گمراہوں کا۔'},
+      ]
+    },
     {'n': 2, 'name': 'البقرہ', 'en': 'Al-Baqarah', 'ayat': 286, 'type': 'مدنی'},
     {'n': 3, 'name': 'آل عمران', 'en': 'Aal-Imran', 'ayat': 200, 'type': 'مدنی'},
     {'n': 4, 'name': 'النساء', 'en': 'An-Nisa', 'ayat': 176, 'type': 'مدنی'},
@@ -871,7 +875,7 @@ class QuranPage extends StatelessWidget {
     {'n': 57, 'name': 'الحدید', 'en': 'Al-Hadid', 'ayat': 29, 'type': 'مدنی'},
     {'n': 58, 'name': 'المجادلہ', 'en': 'Al-Mujadila', 'ayat': 22, 'type': 'مدنی'},
     {'n': 59, 'name': 'الحشر', 'en': 'Al-Hashr', 'ayat': 24, 'type': 'مدنی'},
-    {'n': 60, 'name': 'الممتحنہ', 'en': 'Al-Mumtahanah', 'ayat': 13, 'type': 'مدنی'},
+        {'n': 60, 'name': 'الممتحنہ', 'en': 'Al-Mumtahanah', 'ayat': 13, 'type': 'مدنی'},
     {'n': 61, 'name': 'الصف', 'en': 'As-Saff', 'ayat': 14, 'type': 'مدنی'},
     {'n': 62, 'name': 'الجمعہ', 'en': 'Al-Jumuah', 'ayat': 11, 'type': 'مدنی'},
     {'n': 63, 'name': 'المنافقون', 'en': 'Al-Munafiqun', 'ayat': 11, 'type': 'مدنی'},
@@ -914,112 +918,113 @@ class QuranPage extends StatelessWidget {
     {'n': 100, 'name': 'العادیات', 'en': 'Al-Adiyat', 'ayat': 11, 'type': 'مکی'},
     {'n': 101, 'name': 'القارعہ', 'en': 'Al-Qariah', 'ayat': 11, 'type': 'مکی'},
     {'n': 102, 'name': 'التکاثر', 'en': 'At-Takathur', 'ayat': 8, 'type': 'مکی'},
-    {'n': 103, 'name': 'العصر', 'en': 'Al-Asr', 'ayat': 3, 'type': 'مکی'},
+    {
+      'n': 103, 'name': 'العصر', 'en': 'Al-Asr', 'ayat': 3, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'وَالْعَصْرِ', 'urdu': 'زمانے کی قسم ہے۔'},
+        {'arabic': 'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', 'urdu': 'بے شک انسان خسارے میں ہے۔'},
+        {'arabic': 'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ', 'urdu': 'سوائے ان کے جو ایمان لائے، نیک عمل کیے، اور ایک دوسرے کو حق اور صبر کی تلقین کی۔'},
+      ]
+    },
     {'n': 104, 'name': 'الہمزہ', 'en': 'Al-Humazah', 'ayat': 9, 'type': 'مکی'},
     {
-  'n': 105, 'name': 'الفیل', 'en': 'Al-Fil', 'ayat': 5, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ', 'urdu': 'کیا آپ نے نہیں دیکھا کہ آپ کے رب نے ہاتھی والوں کے ساتھ کیا کیا؟'},
-    {'arabic': 'أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ', 'urdu': 'کیا اس نے ان کی چال کو بے کار نہیں کر دیا؟'},
-    {'arabic': 'وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ', 'urdu': 'اور ان پر غول کے غول پرندے بھیجے۔'},
-    {'arabic': 'تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ', 'urdu': 'جو ان پر کھدی ہوئی مٹی کے پتھر مارتے تھے۔'},
-    {'arabic': 'فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ', 'urdu': 'پس انہیں کھائے ہوئے بھوسے کی طرح کر دیا۔'},
-  ]
-},
+      'n': 105, 'name': 'الفیل', 'en': 'Al-Fil', 'ayat': 5, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'أَلَمْ تَرَ كَيْفَ فَعَلَ رَبُّكَ بِأَصْحَابِ الْفِيلِ', 'urdu': 'کیا آپ نے نہیں دیکھا کہ آپ کے رب نے ہاتھی والوں کے ساتھ کیا کیا؟'},
+        {'arabic': 'أَلَمْ يَجْعَلْ كَيْدَهُمْ فِي تَضْلِيلٍ', 'urdu': 'کیا اس نے ان کی چال کو بے کار نہیں کر دیا؟'},
+        {'arabic': 'وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ', 'urdu': 'اور ان پر غول کے غول پرندے بھیجے۔'},
+        {'arabic': 'تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ', 'urdu': 'جو ان پر کھدی ہوئی مٹی کے پتھر مارتے تھے۔'},
+        {'arabic': 'فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍ', 'urdu': 'پس انہیں کھائے ہوئے بھوسے کی طرح کر دیا۔'},
+      ]
+    },
     {
-  'n': 106, 'name': 'قریش', 'en': 'Quraish', 'ayat': 4, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'لِإِيلَافِ قُرَيْشٍ', 'urdu': 'قریش کو مانوس کرنے کے لیے۔'},
-    {'arabic': 'إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ', 'urdu': 'یعنی انہیں سردی اور گرمی کے سفر سے مانوس کرنے کے لیے۔'},
-    {'arabic': 'فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ', 'urdu': 'پس انہیں چاہیے کہ اس گھر (کعبہ) کے رب کی عبادت کریں۔'},
-    {'arabic': 'الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ', 'urdu': 'جس نے انہیں بھوک میں کھانا کھلایا اور خوف سے امن دیا۔'},
-  ]
-},
+      'n': 106, 'name': 'قریش', 'en': 'Quraish', 'ayat': 4, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'لِإِيلَافِ قُرَيْشٍ', 'urdu': 'قریش کو مانوس کرنے کے لیے۔'},
+        {'arabic': 'إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ', 'urdu': 'یعنی انہیں سردی اور گرمی کے سفر سے مانوس کرنے کے لیے۔'},
+        {'arabic': 'فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ', 'urdu': 'پس انہیں چاہیے کہ اس گھر (کعبہ) کے رب کی عبادت کریں۔'},
+        {'arabic': 'الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ', 'urdu': 'جس نے انہیں بھوک میں کھانا کھلایا اور خوف سے امن دیا۔'},
+      ]
+    },
     {
-  'n': 107, 'name': 'الماعون', 'en': 'Al-Maun', 'ayat': 7, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ', 'urdu': 'کیا آپ نے اس شخص کو دیکھا جو انصاف کے دن کو جھٹلاتا ہے؟'},
-    {'arabic': 'فَذَٰلِكَ الَّذِي يَدُعُّ الْيَتِيمَ', 'urdu': 'پس یہی وہ ہے جو یتیم کو دھکے دیتا ہے۔'},
-    {'arabic': 'وَلَا يَحُضُّ عَلَىٰ طَعَامِ الْمِسْكِينِ', 'urdu': 'اور مسکین کو کھانا کھلانے کی ترغیب نہیں دیتا۔'},
-    {'arabic': 'فَوَيْلٌ لِّلْمُصَلِّينَ', 'urdu': 'پس نمازیوں کے لیے تباہی ہے۔'},
-    {'arabic': 'الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ', 'urdu': 'جو اپنی نمازوں سے غافل ہیں۔'},
-    {'arabic': 'الَّذِينَ هُمْ يُرَاءُونَ', 'urdu': 'جو دکھلاوا کرتے ہیں۔'},
-    {'arabic': 'وَيَمْنَعُونَ الْمَاعُونَ', 'urdu': 'اور ضرورت کی چیزوں (کے دینے) سے انکار کرتے ہیں۔'},
-  ]
-},
+      'n': 107, 'name': 'الماعون', 'en': 'Al-Maun', 'ayat': 7, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'أَرَأَيْتَ الَّذِي يُكَذِّبُ بِالدِّينِ', 'urdu': 'کیا آپ نے اس شخص کو دیکھا جو انصاف کے دن کو جھٹلاتا ہے؟'},
+        {'arabic': 'فَذَٰلِكَ الَّذِي يَدُعُّ الْيَتِيمَ', 'urdu': 'پس یہی وہ ہے جو یتیم کو دھکے دیتا ہے۔'},
+        {'arabic': 'وَلَا يَحُضُّ عَلَىٰ طَعَامِ الْمِسْكِينِ', 'urdu': 'اور مسکین کو کھانا کھلانے کی ترغیب نہیں دیتا۔'},
+        {'arabic': 'فَوَيْلٌ لِّلْمُصَلِّينَ', 'urdu': 'پس نمازیوں کے لیے تباہی ہے۔'},
+        {'arabic': 'الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ', 'urdu': 'جو اپنی نمازوں سے غافل ہیں۔'},
+        {'arabic': 'الَّذِينَ هُمْ يُرَاءُونَ', 'urdu': 'جو دکھلاوا کرتے ہیں۔'},
+        {'arabic': 'وَيَمْنَعُونَ الْمَاعُونَ', 'urdu': 'اور ضرورت کی چیزوں (کے دینے) سے انکار کرتے ہیں۔'},
+      ]
+    },
     {
-  'n': 108, 'name': 'الکوثر', 'en': 'Al-Kauthar', 'ayat': 3, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ', 'urdu': 'بے شک ہم نے آپ کو کوثر (بہت بڑی نعمت) عطا کی ہے۔'},
-    {'arabic': 'فَصَلِّ لِرَبِّكَ وَانْحَرْ', 'urdu': 'پس اپنے رب کے لیے نماز پڑھیں اور قربانی کریں۔'},
-    {'arabic': 'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ', 'urdu': 'بے شک آپ کا دشمن ہی بے نام و نشان ہے۔'},
-  ]
-},
+      'n': 108, 'name': 'الکوثر', 'en': 'Al-Kauthar', 'ayat': 3, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ', 'urdu': 'بے شک ہم نے آپ کو کوثر (بہت بڑی نعمت) عطا کی ہے۔'},
+        {'arabic': 'فَصَلِّ لِرَبِّكَ وَانْحَرْ', 'urdu': 'پس اپنے رب کے لیے نماز پڑھیں اور قربانی کریں۔'},
+        {'arabic': 'إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ', 'urdu': 'بے شک آپ کا دشمن ہی بے نام و نشان ہے۔'},
+      ]
+    },
     {
-  'n': 109, 'name': 'الکافرون', 'en': 'Al-Kafirun', 'ayat': 6, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'قُلْ يَا أَيُّهَا الْكَافِرُونَ', 'urdu': 'کہہ دو اے کافرو!۔'},
-    {'arabic': 'لَا أَعْبُدُ مَا تَعْبُدُونَ', 'urdu': 'میں ان کی عبادت نہیں کرتا جن کی تم عبادت کرتے ہو۔'},
-    {'arabic': 'وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ', 'urdu': 'اور نہ تم ان کی عبادت کرنے والے ہو جن کی میں عبادت کرتا ہوں۔'},
-    {'arabic': 'وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ', 'urdu': 'اور نہ میں ان کی عبادت کرنے والا ہوں جن کی تم نے عبادت کی۔'},
-    {'arabic': 'وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ', 'urdu': 'اور نہ تم ان کی عبادت کرنے والے ہو جن کی میں عبادت کرتا ہوں۔'},
-    {'arabic': 'لَكُمْ دِينُكُمْ وَلِيَ دِينِ', 'urdu': 'تمہارے لیے تمہارا دین اور میرے لیے میرا دین۔'},
-  ]
-},
-  'n': 103, 'name': 'العصر', 'en': 'Al-Asr', 'ayat': 3, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'وَالْعَصْرِ', 'urdu': 'زمانے کی قسم ہے۔'},
-    {'arabic': 'إِنَّ الْإِنسَانَ لَفِي خُسْرٍ', 'urdu': 'بے شک انسان خسارے میں ہے۔'},
-    {'arabic': 'إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ', 'urdu': 'سوائے ان کے جو ایمان لائے، نیک عمل کیے، اور ایک دوسرے کو حق اور صبر کی تلقین کی۔'},
-  
-{
-  'n': 110, 'name': 'النصر', 'en': 'An-Nasr', 'ayat': 3, 'type': 'مدنی',
-  'verses': [
-    {'arabic': 'إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ', 'urdu': 'جب اللہ کی مدد آئی اور فتح حاصل ہوئی۔'},
-    {'arabic': 'وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا', 'urdu': 'اور آپ نے لوگوں کو دیکھا کہ وہ اللہ کے دین میں فوج در فوج داخل ہو رہے ہیں۔'},
-    {'arabic': 'فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا', 'urdu': 'تو اپنے رب کی حمد کے ساتھ تسبیح کریں اور اس سے بخشش مانگیں، بے شک وہ بہت توبہ قبول کرنے والا ہے۔'},
-  ]
-},{
-  'n': 111, 'name': 'اللہب', 'en': 'Al-Lahab', 'ayat': 5, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'تَبَّتْ يَدَا أَبِي لَهَبٍ وَتَبَّ', 'urdu': 'ابو لہب کے دونوں ہاتھ ٹوٹ جائیں اور وہ خود بھی ہلاک ہو۔'},
-    {'arabic': 'مَا أَغْنَىٰ عَنْهُ مَالُهُ وَمَا كَسَبَ', 'urdu': 'نہ اس کا مال اس کے کام آیا اور نہ اس کی کمائی۔'},
-    {'arabic': 'سَيَصْلَىٰ نَارًا ذَاتَ لَهَبٍ', 'urdu': 'عنقریب وہ شعلہ زن آگ میں داخل ہوگا۔'},
-    {'arabic': 'وَامْرَأَتُهُ حَمَّالَةَ الْحَطَبِ', 'urdu': 'اور اس کی عورت بھی، جو لکڑیاں ڈھونے والی ہے۔'},
-    {'arabic': 'فِي جِيدِهَا حَبْلٌ مِّن مَّسَدٍ', 'urdu': 'اس کی گردن میں مونجھ کی رسی ہوگی۔'},
-  ]
-},
-    
+      'n': 109, 'name': 'الکافرون', 'en': 'Al-Kafirun', 'ayat': 6, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'قُلْ يَا أَيُّهَا الْكَافِرُونَ', 'urdu': 'کہہ دو اے کافرو!۔'},
+        {'arabic': 'لَا أَعْبُدُ مَا تَعْبُدُونَ', 'urdu': 'میں ان کی عبادت نہیں کرتا جن کی تم عبادت کرتے ہو۔'},
+        {'arabic': 'وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ', 'urdu': 'اور نہ تم ان کی عبادت کرنے والے ہو جن کی میں عبادت کرتا ہوں۔'},
+        {'arabic': 'وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ', 'urdu': 'اور نہ میں ان کی عبادت کرنے والا ہوں جن کی تم نے عبادت کی۔'},
+        {'arabic': 'وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ', 'urdu': 'اور نہ تم ان کی عبادت کرنے والے ہو جن کی میں عبادت کرتا ہوں۔'},
+        {'arabic': 'لَكُمْ دِينُكُمْ وَلِيَ دِينِ', 'urdu': 'تمہارے لیے تمہارا دین اور میرے لیے میرا دین۔'},
+      ]
+    },
     {
-  'n': 112, 'name': 'الاخلاص', 'en': 'Al-Ikhlas', 'ayat': 4, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'قُلْ هُوَ اللَّهُ أَحَدٌ', 'urdu': 'کہہ دو کہ وہ اللہ ایک ہے۔'},
-    {'arabic': 'اللَّهُ الصَّمَدُ', 'urdu': 'اللہ بے نیاز ہے۔'},
-    {'arabic': 'لَمْ يَلِدْ وَلَمْ يُولَدْ', 'urdu': 'نہ اس نے کسی کو جنا اور نہ وہ کسی سے جنا گیا۔'},
-    {'arabic': 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ', 'urdu': 'اور نہ کوئی اس کا ہمسر ہے۔'},
-  ]
-},
+      'n': 110, 'name': 'النصر', 'en': 'An-Nasr', 'ayat': 3, 'type': 'مدنی',
+      'verses': [
+        {'arabic': 'إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ', 'urdu': 'جب اللہ کی مدد آئی اور فتح حاصل ہوئی۔'},
+        {'arabic': 'وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا', 'urdu': 'اور آپ نے لوگوں کو دیکھا کہ وہ اللہ کے دین میں فوج در فوج داخل ہو رہے ہیں۔'},
+        {'arabic': 'فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ ۚ إِنَّهُ كَانَ تَوَّابًا', 'urdu': 'تو اپنے رب کی حمد کے ساتھ تسبیح کریں اور اس سے بخشش مانگیں، بے شک وہ بہت توبہ قبول کرنے والا ہے۔'},
+      ]
+    },
     {
-  'n': 113, 'name': 'الفلق', 'en': 'Al-Falaq', 'ayat': 5, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ', 'urdu': 'کہہ دو میں صبح کے رب کی پناہ مانگتا ہوں۔'},
-    {'arabic': 'مِن شَرِّ مَا خَلَقَ', 'urdu': 'ہر اس چیز کے شر سے جو اس نے پیدا کی۔'},
-    {'arabic': 'وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ', 'urdu': 'اور اندھیری رات کے شر سے جب وہ چھا جائے۔'},
-    {'arabic': 'وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ', 'urdu': 'اور گرہوں میں پھونکنے والیوں کے شر سے۔'},
-    {'arabic': 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', 'urdu': 'اور حسد کرنے والے کے شر سے جب وہ حسد کرے۔'},
-  ]
-},
+      'n': 111, 'name': 'اللہب', 'en': 'Al-Lahab', 'ayat': 5, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'تَبَّتْ يَدَا أَبِي لَهَبٍ وَتَبَّ', 'urdu': 'ابو لہب کے دونوں ہاتھ ٹوٹ جائیں اور وہ خود بھی ہلاک ہو۔'},
+        {'arabic': 'مَا أَغْنَىٰ عَنْهُ مَالُهُ وَمَا كَسَبَ', 'urdu': 'نہ اس کا مال اس کے کام آیا اور نہ اس کی کمائی۔'},
+        {'arabic': 'سَيَصْلَىٰ نَارًا ذَاتَ لَهَبٍ', 'urdu': 'عنقریب وہ شعلہ زن آگ میں داخل ہوگا۔'},
+        {'arabic': 'وَامْرَأَتُهُ حَمَّالَةَ الْحَطَبِ', 'urdu': 'اور اس کی عورت بھی، جو لکڑیاں ڈھونے والی ہے۔'},
+        {'arabic': 'فِي جِيدِهَا حَبْلٌ مِّن مَّسَدٍ', 'urdu': 'اس کی گردن میں مونجھ کی رسی ہوگی۔'},
+      ]
+    },
     {
-  'n': 114, 'name': 'الناس', 'en': 'An-Nas', 'ayat': 6, 'type': 'مکی',
-  'verses': [
-    {'arabic': 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ', 'urdu': 'کہہ دو میں لوگوں کے رب کی پناہ مانگتا ہوں۔'},
-    {'arabic': 'مَلِكِ النَّاسِ', 'urdu': 'لوگوں کے بادشاہ کی۔'},
-    {'arabic': 'إِلَٰهِ النَّاسِ', 'urdu': 'لوگوں کے معبود کی۔'},
-    {'arabic': 'مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ', 'urdu': 'وسوسہ ڈالنے والے، پیچھے ہٹ جانے والے کے شر سے۔'},
-    {'arabic': 'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ', 'urdu': 'جو لوگوں کے دلوں میں وسوسہ ڈالتا ہے۔'},
-    {'arabic': 'مِنَ الْجِنَّةِ وَالنَّاسِ', 'urdu': 'وہ جنوں میں سے ہو یا انسانوں میں سے۔'},
-  ]
-},
+      'n': 112, 'name': 'الاخلاص', 'en': 'Al-Ikhlas', 'ayat': 4, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'قُلْ هُوَ اللَّهُ أَحَدٌ', 'urdu': 'کہہ دو کہ وہ اللہ ایک ہے۔'},
+        {'arabic': 'اللَّهُ الصَّمَدُ', 'urdu': 'اللہ بے نیاز ہے۔'},
+        {'arabic': 'لَمْ يَلِدْ وَلَمْ يُولَدْ', 'urdu': 'نہ اس نے کسی کو جنا اور نہ وہ کسی سے جنا گیا۔'},
+        {'arabic': 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ', 'urdu': 'اور نہ کوئی اس کا ہمسر ہے۔'},
+      ]
+    },
+    {
+      'n': 113, 'name': 'الفلق', 'en': 'Al-Falaq', 'ayat': 5, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ', 'urdu': 'کہہ دو میں صبح کے رب کی پناہ مانگتا ہوں۔'},
+        {'arabic': 'مِن شَرِّ مَا خَلَقَ', 'urdu': 'ہر اس چیز کے شر سے جو اس نے پیدا کی۔'},
+        {'arabic': 'وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ', 'urdu': 'اور اندھیری رات کے شر سے جب وہ چھا جائے۔'},
+        {'arabic': 'وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ', 'urdu': 'اور گرہوں میں پھونکنے والیوں کے شر سے۔'},
+        {'arabic': 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', 'urdu': 'اور حسد کرنے والے کے شر سے جب وہ حسد کرے۔'},
+      ]
+    },
+    {
+      'n': 114, 'name': 'الناس', 'en': 'An-Nas', 'ayat': 6, 'type': 'مکی',
+      'verses': [
+        {'arabic': 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ', 'urdu': 'کہہ دو میں لوگوں کے رب کی پناہ مانگتا ہوں۔'},
+        {'arabic': 'مَلِكِ النَّاسِ', 'urdu': 'لوگوں کے بادشاہ کی۔'},
+        {'arabic': 'إِلَٰهِ النَّاسِ', 'urdu': 'لوگوں کے معبود کی۔'},
+        {'arabic': 'مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ', 'urdu': 'وسوسہ ڈالنے والے، پیچھے ہٹ جانے والے کے شر سے۔'},
+        {'arabic': 'الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ', 'urdu': 'جو لوگوں کے دلوں میں وسوسہ ڈالتا ہے۔'},
+        {'arabic': 'مِنَ الْجِنَّةِ وَالنَّاسِ', 'urdu': 'وہ جنوں میں سے ہو یا انسانوں میں سے۔'},
+      ]
+    },
   ];
 
   @override
@@ -1193,7 +1198,7 @@ class ComingSoonPage extends StatelessWidget {
     );
   }
 }
-
+dart
 // ============================================================
 // HADITH BOOKS PAGE — صحاح ستہ
 // ============================================================
@@ -1311,7 +1316,6 @@ class _HadithBookTile extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              // Book Icon
               Container(
                 width: 60,
                 height: 60,
@@ -1323,8 +1327,6 @@ class _HadithBookTile extends StatelessWidget {
                 child: Icon(book['icon'], color: color, size: 32),
               ),
               const SizedBox(width: 16),
-              
-              // Book Details
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1364,8 +1366,6 @@ class _HadithBookTile extends StatelessWidget {
                   ],
                 ),
               ),
-              
-              // Arrow Icon
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
@@ -1396,7 +1396,6 @@ class DuasPage extends StatelessWidget {
       'duas': [
         {'title': 'صبح کی دعا', 'arabic': 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ', 'urdu': 'ہم نے صبح کی اور ساری بادشاہت اللہ ہی کے لیے صبح ہوئی، اور سب تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں۔', 'ref': 'صحیح مسلم: 2723'},
         {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5088'},
-        {'title': 'سید الاستغفار', 'arabic': 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ', 'urdu': 'اے اللہ! تو میرا رب ہے، تیرے سوا کوئی معبود نہیں۔ تو نے مجھے پیدا کیا، میں تیرا بندہ ہوں۔ میں اپنی طاقت کے مطابق تیرے عہد پر قائم ہوں۔ میں اپنے کیے ہوئے گناہوں سے تیری پناہ مانگتا ہوں۔ میں تیرے احسانات کا اعتراف کرتا ہوں اور اپنے گناہوں کا بھی۔ پس مجھے بخش دے، کیونکہ تیرے سوا کوئی گناہ نہیں بخش سکتا۔', 'ref': 'صحیح بخاری: 6306'},
       ]
     },
     {
@@ -1406,39 +1405,6 @@ class DuasPage extends StatelessWidget {
       'color': Color(0xFF4A235A),
       'duas': [
         {'title': 'شام کی دعا', 'arabic': 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ', 'urdu': 'ہم نے شام کی اور ساری بادشاہت اللہ ہی کے لیے شام ہوئی، اور سب تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں۔', 'ref': 'صحیح مسلم: 2723'},
-        {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5088'},
-        {'title': 'شام کے وقت کی دعا', 'arabic': 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ', 'urdu': 'اے اللہ! تیری مدد سے ہم نے شام کی اور تیری مدد سے ہم نے صبح کی، تیری مدد سے ہم زندہ ہیں اور تیری مدد سے ہم مرتے ہیں، اور تیری ہی طرف لوٹنا ہے۔', 'ref': 'ترمذی: 3391'},
-      ]
-    },
-    {
-      'name': 'سونے کی دعائیں',
-      'en': 'Sleeping Duas',
-      'icon': Icons.hotel,
-      'color': Color(0xFF1B4F72),
-      'duas': [
-        {'title': 'سونے کی دعا', 'arabic': 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا', 'urdu': 'اے اللہ! تیرے نام سے میں مرتا ہوں (سوتا ہوں) اور جیتا ہوں (جاگتا ہوں)۔', 'ref': 'صحیح بخاری: 6324'},
-        {'title': 'بستر پر جانے کی دعا', 'arabic': 'اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ', 'urdu': 'اے اللہ! مجھے اس دن کے عذاب سے بچا جس دن تو اپنے بندوں کو اٹھائے گا۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5045'},
-        {'title': 'سونے سے پہلے کی دعا', 'arabic': 'اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ', 'urdu': 'اے اللہ! میں نے اپنی جان تیرے سپرد کر دی، اپنا رخ تیری طرف کر لیا، اور اپنا معاملہ تیرے حوالے کر دیا۔', 'ref': 'صحیح بخاری: 247'},
-      ]
-    },
-    {
-      'name': 'جاگنے کی دعائیں',
-      'en': 'Waking Up Duas',
-      'icon': Icons.wb_twilight,
-      'color': Color(0xFFD4AF37),
-      'duas': [
-        {'title': 'جاگنے کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے ہمیں موت (نیند) کے بعد زندگی بخشی اور اسی کی طرف لوٹنا ہے۔', 'ref': 'صحیح بخاری: 6312'},
-        {'title': 'نیند سے بیدار ہونے پر', 'arabic': 'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', 'urdu': 'اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اسی کے لیے بادشاہت ہے اور اسی کے لیے تعریف ہے، اور وہ ہر چیز پر قادر ہے۔', 'ref': 'صحیح بخاری: 1154'},
-      ]
-    },
-    {
-      'name': 'سفر کی دعائیں',
-      'en': 'Travel Duas',
-      'icon': Icons.directions_car,
-      'color': Color(0xFF2E86C1),
-      'duas': [
-        {'title': 'سواری پر بیٹھنے کی دعا', 'arabic': 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ', 'urdu': 'پاک ہے وہ ذات جس نے اس سواری کو ہمارے لیے مسخر کیا، حالانکہ ہم اسے قابو میں نہیں لا سکتے تھے، اور بے شک ہم اپنے رب کی طرف لوٹنے والے ہیں۔', 'ref': 'صحیح مسلم: 1342'},
-        {'title': 'سفر کی دعا', 'arabic': 'اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى', 'urdu': 'اے اللہ! ہم تجھ سے اس سفر میں نیکی اور پرہیزگاری کا، اور ایسے عمل کا سوال کرتے ہیں جس سے تو راضی ہو جائے۔', 'ref': 'صحیح مسلم: 1342'},
       ]
     },
     {
@@ -1448,70 +1414,8 @@ class DuasPage extends StatelessWidget {
       'color': Color(0xFF2E7D32),
       'duas': [
         {'title': 'کھانے سے پہلے کی دعا', 'arabic': 'بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ', 'urdu': 'اللہ کے نام سے اور اللہ کی برکت پر (شروع کرتا ہوں)۔', 'ref': 'ابو داؤد: 3767'},
-        {'title': 'کھانے کے بعد کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے مجھے یہ کھلایا اور بغیر میری طاقت اور قوت کے مجھے یہ رزق دیا۔', 'ref': 'ترمذی: 3458'},
       ]
     },
-    {
-      'name': 'پریشانی کی دعائیں',
-      'en': 'Distress Duas',
-      'icon': Icons.healing,
-      'color': Color(0xFFC0392B),
-      'duas': [
-        {'title': 'پریشانی کے وقت کی دعا', 'arabic': 'لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ', 'urdu': 'اللہ کے سوا کوئی معبود نہیں جو بہت عظمت والا اور بردبار ہے۔ اللہ کے سوا کوئی معبود نہیں جو عرش عظیم کا رب ہے۔', 'ref': 'صحیح بخاری: 6345'},
-        {'title': 'غم اور فکر کی دعا', 'arabic': 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ', 'urdu': 'اے اللہ! میں تیری پناہ مانگتا ہوں فکر اور غم سے، کمزوری اور سستی سے، کنجوسی اور بزدلی سے۔', 'ref': 'صحیح بخاری: 6369'},
-      ]
-    },
-    {
-      'name': 'وضو اور نماز',
-      'en': 'Wudu & Prayer',
-      'icon': Icons.mosque,
-      'color': Color(0xFF008080),
-      'duas': [
-        {'title': 'وضو کے بعد کی دعا', 'arabic': 'أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ', 'urdu': 'میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد (صلی اللہ علیہ وسلم) اس کے بندے اور رسول ہیں۔', 'ref': 'صحیح مسلم: 234'},
-        {'title': 'نماز میں داخل ہونے کی دعا (تکبیر)', 'arabic': 'اللَّهُ أَكْبَرُ', 'urdu': 'اللہ سب سے بڑا ہے۔', 'ref': 'صحیح بخاری: 756'},
-        {'title': 'نماز سے سلام پھیرنے کے بعد', 'arabic': 'أَسْتَغْفِرُ اللَّهَ (تین بار) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ', 'urdu': 'میں اللہ سے بخشش مانگتا ہوں (تین بار)۔ اے اللہ! تو ہی سلامتی والا ہے اور سلامتی تیری ہی طرف سے ہے، تو بڑی برکت والا ہے، اے عظمت اور بزرگی والے۔', 'ref': 'صحیح مسلم: 591'},
-      ]
-    },
-    {
-      'name': 'مسجد کی دعائیں',
-      'en': 'Masjid Duas',
-      'icon': Icons.wifi_tethering,
-      'color': Color(0xFF8E44AD),
-      'duas': [
-        {'title': 'مسجد میں داخل ہونے کی دعا', 'arabic': 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ', 'urdu': 'اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے۔', 'ref': 'صحیح مسلم: 713'},
-        {'title': 'مسجد سے نکلنے کی دعا', 'arabic': 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ', 'urdu': 'اے اللہ! میں تجھ سے تیرے فضل کا سوال کرتا ہوں۔', 'ref': 'صحیح مسلم: 713'},
-      ]
-    },
-    {
-      'name': 'بیماری و شفا',
-      'en': 'Sickness & Healing',
-      'icon': Icons.health_and_safety,
-      'color': Color(0xFFE67E22),
-      'duas': [
-        {'title': 'بیمار کی عیادت کی دعا', 'arabic': 'أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ', 'urdu': 'میں اللہ عظیم سے، جو عرش عظیم کا رب ہے، سوال کرتا ہوں کہ وہ تجھے شفا دے۔ (سات بار پڑھیں)', 'ref': 'ابو داؤد: 3106'},
-        {'title': 'شفا کی دعا', 'arabic': 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَاسَ، اشْفِ أَنْتَ الشَّافِي، لَا شَافِيَ إِلَّا أَنْتَ', 'urdu': 'اے اللہ! لوگوں کے رب، تکلیف دور فرما، شفا عطا فرما، تو ہی شفا دینے والا ہے، تیرے سوا کوئی شفا دینے والا نہیں۔', 'ref': 'صحیح بخاری: 5675'},
-      ]
-    },
-    {
-      'name': 'گھر کی دعائیں',
-      'en': 'Home Duas',
-      'icon': Icons.home,
-      'color': Color(0xFF34495E),
-      'duas': [
-        {'title': 'گھر میں داخل ہونے کی دعا', 'arabic': 'بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا', 'urdu': 'اللہ کے نام سے ہم داخل ہوئے، اللہ کے نام سے ہم نکلے، اور اپنے رب ہی پر ہم نے بھروسہ کیا۔ (پھر گھر والوں کو سلام کریں)', 'ref': 'ابو داؤد: 5096'},
-        {'title': 'گھر سے نکلنے کی دعا', 'arabic': 'بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', 'urdu': 'اللہ کے نام سے (میں نکل رہا ہوں)، میں نے اللہ پر بھروسہ کیا، اور کوئی طاقت اور قوت اللہ کی توفیق کے بغیر نہیں۔', 'ref': 'ابو داؤد: 5095'},
-      ]
-    },
-    {
-      'name': 'بارش کی دعائیں',
-      'en': 'Rain Duas',
-      'icon': Icons.water_drop,
-      'color': Color(0xFF2980B9),
-      'duas': [
-        {'title': 'بارش ہوتے وقت کی دعا', 'arabic': 'اللَّهُمَّ صَيِّبًا نَافِعًا', 'urdu': 'اے اللہ! اسے نفع بخش بارش بنا دے۔', 'ref': 'صحیح بخاری: 1032'},
-        {'title': 'بارش کے بعد کی دعا', 'arabic': 'مُطِرْنَا بِفَضْلِ اللَّهِ وَرَحْمَتِهِ', 'urdu': 'ہم پر اللہ کے فضل اور اس کی رحمت سے بارش ہوئی ہے۔', 'ref': 'صحیح بخاری: 846'},
-      ]
-    }
   ];
 
   @override
@@ -1618,8 +1522,7 @@ class DuaListPage extends StatelessWidget {
   final List<dynamic> duasList;
 
   const DuaListPage({super.key, required this.categoryName, required this.duasList});
-
-  @override
+    @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -1693,6 +1596,7 @@ class DuaListPage extends StatelessWidget {
     );
   }
 }
+
 // ============================================================
 // ISTIKHARA PAGE — استخارہ
 // ============================================================
@@ -1719,23 +1623,18 @@ class IstikharaPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Definition Card
               _buildSectionCard(
                 title: 'استخارہ کیا ہے؟',
                 icon: Icons.info_outline,
                 content: 'استخارہ کا مطلب ہے کسی معاملے میں اللہ تعالیٰ سے بھلائی طلب کرنا۔ جب انسان کسی جائز کام کا ارادہ کرے اور اسے صحیح فیصلہ کرنے میں الجھن ہو، تو وہ نماز پڑھ کر اللہ سے مدد مانگتا ہے تاکہ اللہ اس کے لیے بہتر فیصلہ آسان فرمائے۔',
               ),
               const SizedBox(height: 16),
-
-              // Method Card
               _buildSectionCard(
                 title: 'استخارہ کا طریقہ',
                 icon: Icons.format_list_numbered,
                 content: '1. پہلے وضو کریں اور اچھی طرح تیار ہوں۔\n2. کوئی بھی دو رکعت نفل نماز پڑھیں (بہتر ہے کہ پہلی رکعت میں سورۃ الکافرون اور دوسری میں سورۃ الاخلاص پڑھیں)۔\n3. نماز کے بعد اللہ کی حمد و ثنا کریں اور درود شریف پڑھیں۔\n4. پھر نیچے دی گئی مسنون دعا پڑھیں۔\n5. دل میں اپنے اس کام کا ارادہ کریں۔\n6. اللہ جو بہتر سمجھے گا، وہ کام آسان کر دے گا۔',
               ),
               const SizedBox(height: 16),
-
-              // Dua Card
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -1779,14 +1678,12 @@ class IstikharaPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Misconceptions Card
               _buildSectionCard(
                 title: 'عام غلط فہمیاں',
                 icon: Icons.warning_amber_rounded,
                 content: '1. یہ ضروری نہیں کہ خواب میں اشارہ ملے۔\n2. استخارہ کا مطلب یہ نہیں کہ آپ کوئی کام شروع ہی نہ کریں۔ پہلے مشورہ کریں، پھر استخارہ کریں۔\n3. استخارہ صرف بڑے کاموں کے لیے نہیں، بلکہ ہر جائز معاملے میں کیا جا سکتا ہے۔',
               ),
-              const SizedBox(height: 30),
+          const SizedBox(height: 30),
             ],
           ),
         ),
@@ -1831,4 +1728,4 @@ class IstikharaPage extends StatelessWidget {
       ),
     );
   }
-}
+}    
