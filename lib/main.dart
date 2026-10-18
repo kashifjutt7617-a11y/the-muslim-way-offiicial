@@ -104,7 +104,73 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   late Timer _timer;
   DateTime _now = DateTime.now();
-
+// 30 آیات کا مکمل ڈیٹا
+final List<Map<String, String>> _dailyAyats = [
+  {'arabic': 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', 'urdu': '"بے شک مشکل کے ساتھ آسانی ہے"', 'ref': '(سورۃ الشرح: 6)'},
+  {'arabic': 'فَاذْكُرُونِي أَذْكُرْكُمْ', 'urdu': '"پس تم مجھے یاد کرو، میں تمہیں یاد رکھوں گا"', 'ref': '(سورۃ البقرہ: 152)'},
+  {'arabic': 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ', 'urdu': '"اور جو اللہ پر بھروسہ کرے، تو وہ اس کے لیے کافی ہے"', 'ref': '(سورۃ الطلاق: 3)'},
+  {'arabic': 'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', 'urdu': '"بے شک اللہ صبر کرنے والوں کے ساتھ ہے"', 'ref': '(سورۃ البقرہ: 153)'},
+  {'arabic': 'رَبِّ زِدْنِي عِلْمًا', 'urdu': '"اے میرے رب! میرے علم میں اضافہ فرما"', 'ref': '(سورۃ طہ: 114)'},
+  {'arabic': 'وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ', 'urdu': '"اور عنقریب تیرا رب تجھے اتنا دے گا کہ تو خوش ہو جائے گا"', 'ref': '(سورۃ الضحیٰ: 5)'},
+  {'arabic': 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا', 'urdu': '"پس بے شک مشکل کے ساتھ آسانی ہے"', 'ref': '(سورۃ الشرح: 5)'},
+  {'arabic': 'وَاصْبِرْ فَإِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ', 'urdu': '"اور صبر کرو، بے شک اللہ نیکوکاروں کا اجر ضائع نہیں کرتا"', 'ref': '(سورۃ ہود: 115)'},
+  {'arabic': 'وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ', 'urdu': '"اور ممکن ہے تم کسی چیز کو ناپسند کرو اور وہ تمہارے لیے بہتر ہو"', 'ref': '(سورۃ البقرہ: 216)'},
+  {'arabic': 'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا', 'urdu': '"اللہ کسی جان کو اس کی طاقت سے زیادہ تکلیف نہیں دیتا"', 'ref': '(سورۃ البقرہ: 286)'},
+  {'arabic': 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', 'urdu': '"سن لو! اللہ کے ذکر سے ہی دلوں کو سکون ملتا ہے"', 'ref': '(سورۃ الرعد: 28)'},
+  {'arabic': 'وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ', 'urdu': '"اور میری توفیق صرف اللہ کی طرف سے ہے"', 'ref': '(سورۃ ہود: 88)'},
+  {'arabic': 'ادْعُونِي أَسْتَجِبْ لَكُمْ', 'urdu': '"تم مجھے پکارو، میں تمہاری دعا قبول کروں گا"', 'ref': '(سورۃ غافر: 60)'},
+  {'arabic': 'وَقُل رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا', 'urdu': '"اور کہہ، اے میرے رب! ان (والدین) پر رحم فرما جیسے انہوں نے بچپن میں مجھے پالا"', 'ref': '(سورۃ الاسراء: 24)'},
+  {'arabic': 'فَاتَّقُوا اللَّهَ مَا اسْتَطَعْتُمْ', 'urdu': '"پس جتنا ممکن ہو اللہ سے ڈرو"', 'ref': '(سورۃ التغابن: 16)'},
+  {'arabic': 'وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ', 'urdu': '"اور اللہ کی رحمت سے مایوس نہ ہو"', 'ref': '(سورۃ یوسف: 87)'},
+  {'arabic': 'إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ', 'urdu': '"بے شک نماز بے حیائی اور برے کاموں سے روکتی ہے"', 'ref': '(سورۃ العنکبوت: 45)'},
+  {'arabic': 'وَلَا تَقْرَبُوا الزِّنَىٰ إِنَّهُ كَانَ فَاحِشَةً وَسَاءَ سَبِيلًا', 'urdu': '"اور زنا کے قریب نہ جاؤ، بے شک وہ بے حیائی ہے اور بہت برا راستہ ہے"', 'ref': '(سورۃ الاسراء: 32)'},
+  {'arabic': 'وَلَا تَقْتُلُوا النَّفْسَ الَّتِي حَرَّمَ اللَّهُ إِلَّا بِالْحَقِّ', 'urdu': '"اور جس جان کو اللہ نے حرام کیا ہے اسے قتل نہ کرو مگر حق کے ساتھ"', 'ref': '(سورۃ الانعام: 151)'},
+  {'arabic': 'وَبِالْوَالِدَيْنِ إِحْسَانًا', 'urdu': '"اور والدین کے ساتھ احسان کرو"', 'ref': '(سورۃ الاسراء: 23)'},
+  {'arabic': 'وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ', 'urdu': '"اور نماز قائم کرو اور زکوٰۃ ادا کرو"', 'ref': '(سورۃ البقرہ: 43)'},
+  {'arabic': 'وَأَوْفُوا بِالْعَهْدِ إِنَّ الْعَهْدَ كَانَ مَسْئُولًا', 'urdu': '"اور عہد پورا کرو، بے شک عہد کے بارے میں پوچھا جائے گا"', 'ref': '(سورۃ الاسراء: 34)'},
+  {'arabic': 'وَأْمُرْ بِالْمَعْرُوفِ وَانْهَ عَنِ الْمُنكَرِ', 'urdu': '"اور نیکی کا حکم دو اور برائی سے روکو"', 'ref': '(سورۃ لقمان: 17)'},
+  {'arabic': 'وَلَا تَمْشِ فِي الْأَرْضِ مَرَحًا', 'urdu': '"اور زمین پر اکڑ کر مت چلو"', 'ref': '(سورۃ لقمان: 18)'},
+  {'arabic': 'وَاصْبِرْ عَلَىٰ مَا أَصَابَكَ', 'urdu': '"اور جو مصیبت تم پر آئے اس پر صبر کرو"', 'ref': '(سورۃ لقمان: 17)'},
+  {'arabic': 'إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ', 'urdu': '"بے شک اللہ بھروسہ کرنے والوں کو پسند کرتا ہے"', 'ref': '(سورۃ آل عمران: 159)'},
+  {'arabic': 'وَاللَّهُ خَيْرُ الرَّازِقِينَ', 'urdu': '"اور اللہ سب سے بہتر رزق دینے والا ہے"', 'ref': '(سورۃ الجمعة: 11)'},
+  {'arabic': 'وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ', 'urdu': '"اور وہ تمہارے ساتھ ہے جہاں بھی تم ہو"', 'ref': '(سورۃ الحدید: 4)'},
+  {'arabic': 'إِنَّ اللَّهَ لَا يُحِبُّ الظَّالِمِينَ', 'urdu': '"بے شک اللہ ظالموں کو پسند نہیں کرتا"', 'ref': '(سورۃ آل عمران: 140)'},
+  {'arabic': 'وَمَنْ أَحْسَنُ قَوْلًا مِّمَّن دَعَا إِلَى اللَّهِ وَعَمِلَ صَالِحًا', 'urdu': '"اور اس سے بہتر کس کی بات ہو سکتی ہے جو اللہ کی طرف بلائے اور نیک عمل کرے"', 'ref': '(سورۃ فصلت: 33)'},
+];
+  // 30 صحیح احادیث کا مکمل ڈیٹا
+final List<Map<String, String>> _dailyHadiths = [
+  {'arabic': 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ', 'urdu': '"اعمال کا دارومدار نیتوں پر ہے"', 'ref': '(صحیح بخاری: 1)'},
+  {'arabic': 'الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ', 'urdu': '"سچا مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں"', 'ref': '(صحیح بخاری: 10)'},
+  {'arabic': 'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ', 'urdu': '"جو اللہ اور آخرت کے دن پر ایمان رکھتا ہے، وہ اچھی بات کہے یا خاموش رہے"', 'ref': '(صحیح بخاری: 6018)'},
+  {'arabic': 'لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ', 'urdu': '"تم میں سے کوئی اس وقت تک مومن نہیں ہو سکتا جب تک اپنے بھائی کے لیے وہی نہ چاہے جو اپنے لیے چاہتا ہے"', 'ref': '(صحیح بخاری: 13)'},
+  {'arabic': 'خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ', 'urdu': '"تم میں سب سے بہتر وہ ہے جو قرآن سیکھے اور دوسروں کو سکھائے"', 'ref': '(صحیح بخاری: 5027)'},
+  {'arabic': 'الدِّينُ النَّصِيحَةُ', 'urdu': '"دین خیر خواہی کا نام ہے"', 'ref': '(صحیح مسلم: 55)'},
+  {'arabic': 'الطُّهُورُ شَطْرُ الإِيمَانِ', 'urdu': '"پاکیزگی نصف ایمان ہے"', 'ref': '(صحیح مسلم: 223)'},
+  {'arabic': 'اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ', 'urdu': '"جہاں بھی ہو اللہ سے ڈرو"', 'ref': '(ترمذی: 1987)'},
+  {'arabic': 'مَنْ لَا يَرْحَمُ لَا يُرْحَمُ', 'urdu': '"جو رحم نہیں کرتا، اس پر رحم نہیں کیا جاتا"', 'ref': '(صحیح بخاری: 5997)'},
+  {'arabic': 'خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ', 'urdu': '"لوگوں میں سب سے بہتر وہ ہے جو لوگوں کے لیے سب سے زیادہ نفع بخش ہو"', 'ref': '(طبرانی)'},
+  {'arabic': 'الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ', 'urdu': '"اچھی بات کہنا بھی صدقہ ہے"', 'ref': '(صحیح بخاری: 2989)'},
+  {'arabic': 'تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ', 'urdu': '"اپنے بھائی کے سامنے مسکرانا بھی صدقہ ہے"', 'ref': '(ترمذی: 1956)'},
+  {'arabic': 'مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ', 'urdu': '"جو کسی مومن کی پریشانی دور کرے، اللہ قیامت کے دن اس کی پریشانی دور فرمائے گا"', 'ref': '(صحیح مسلم: 2699)'},
+  {'arabic': 'الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا', 'urdu': '"ایک مومن دوسرے مومن کے لیے عمارت کی طرح ہے، جس کا ایک حصہ دوسرے کو مضبوط کرتا ہے"', 'ref': '(صحیح بخاری: 481)'},
+  {'arabic': 'إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ', 'urdu': '"بے شک اللہ خوبصورت ہے اور خوبصورتی کو پسند کرتا ہے"', 'ref': '(صحیح مسلم: 91)'},
+  {'arabic': 'مَنْ صَلَّى عَلَيَّ صَلَاةً صَلَّى اللَّهُ عَلَيْهِ بِهَا عَشْرًا', 'urdu': '"جو مجھ پر ایک بار درود پڑھے، اللہ اس پر دس رحمتیں نازل فرماتا ہے"', 'ref': '(صحیح مسلم: 408)'},
+  {'arabic': 'أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ', 'urdu': '"اللہ کے نزدیک سب سے پسندیدہ عمل وہ ہے جو ہمیشہ کیا جائے، اگرچہ وہ تھوڑا ہو"', 'ref': '(صحیح بخاری: 6464)'},
+  {'arabic': 'مَنْ حَجَّ فَلَمْ يَرْفُثْ وَلَمْ يَفْسُقْ رَجَعَ كَيَوْمِ وَلَدَتْهُ أُمُّهُ', 'urdu': '"جو حج کرے اور کوئی گناہ نہ کرے، وہ اس دن کی طرح پاک ہو جاتا ہے جس دن اس کی ماں نے اسے جنم دیا تھا"', 'ref': '(صحیح بخاری: 1521)'},
+  {'arabic': 'لَا تَغْضَبْ', 'urdu': '"غصہ نہ کرو"', 'ref': '(صحیح بخاری: 6116)'},
+  {'arabic': 'الْجَنَّةُ تَحْتَ أَقْدَامِ الأُمَّهَاتِ', 'urdu': '"جنت ماؤں کے قدموں کے نیچے ہے"', 'ref': '(نسائی)'},
+  {'arabic': 'مَنْ أَصْبَحَ مِنْكُمْ آمِنًا فِي سِرْبِهِ مُعَافًى فِي جَسَدِهِ عِنْدَهُ قُوتُ يَوْمِهِ فَكَأَنَّمَا حِيزَتْ لَهُ الدُّنْيَا', 'urdu': '"جو شخص صبح اٹھے اور وہ امن میں ہو، جسم تندرست ہو، اور دن کا کھانا موجود ہو، تو گویا اسے پوری دنیا مل گئی"', 'ref': '(ترمذی: 2346)'},
+  {'arabic': 'صَدَقَةُ السِّرِّ تُطْفِئُ غَضَبَ الرَّبِّ', 'urdu': '"چھپا کر صدقہ دینا اللہ کے غضب کو بجھا دیتا ہے"', 'ref': '(طبرانی)'},
+  {'arabic': 'مَنْ سَتَرَ مُسْلِمًا سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالآخِرَةِ', 'urdu': '"جو کسی مسلمان کی پردہ پوشی کرے، اللہ دنیا اور آخرت میں اس کی پردہ پوشی فرمائے گا"', 'ref': '(صحیح مسلم: 2699)'},
+  {'arabic': 'أَعْطُوا الأَجِيرَ أَجْرَهُ قَبْلَ أَنْ يَجِفَّ عَرَقُهُ', 'urdu': '"مزدور کو اس کی مزدوری اس کا پسینہ خشک ہونے سے پہلے دے دو"', 'ref': '(ابن ماجہ: 2443)'},
+  {'arabic': 'مَنْ حَسُنَ خُلُقُهُ بَلَغَ دَرَجَةَ الصَّائِمِ الْقَائِمِ', 'urdu': '"جس کا اخلاق اچھا ہو، وہ روزہ رکھنے اور رات کو قیام کرنے والے کے درجے تک پہنچ جاتا ہے"', 'ref': '(ابو داؤد: 4798)'},
+  {'arabic': 'مَنْ كَذَبَ عَلَيَّ مُتَعَمِّدًا فَلْيَتَبَوَّأْ مَقْعَدَهُ مِنَ النَّارِ', 'urdu': '"جس نے جان بوجھ کر مجھ پر جھوٹ باندھا، وہ اپنا ٹھکانہ جہنم میں بنا لے"', 'ref': '(صحیح بخاری: 110)'},
+  {'arabic': 'بَلِّغُوا عَنِّي وَلَوْ آيَةً', 'urdu': '"میری طرف سے پہنچاؤ، اگرچہ ایک آیت ہی ہو"', 'ref': '(صحیح بخاری: 3461)'},
+  {'arabic': 'الْمُسْلِمُ مِرْآةُ أَخِيهِ', 'urdu': '"مسلمان اپنے بھائی کا آئینہ ہے"', 'ref': '(ابو داؤد: 4918)'},
+  {'arabic': 'مَنْ كَانَ فِي حَاجَةِ أَخِيهِ كَانَ اللَّهُ فِي حَاجَتِهِ', 'urdu': '"جو اپنے بھائی کی ضرورت میں ہو، اللہ اس کی ضرورت میں ہوتا ہے"', 'ref': '(صحیح بخاری: 2442)'},
+  {'arabic': 'مَنْ لَزِمَ الاِسْتِغْفَارَ جَعَلَ اللَّهُ لَهُ مِنْ كُلِّ هَمٍّ فَرَجًا', 'urdu': '"جس نے استغفار کو لازم کر لیا، اللہ اس کے ہر غم سے نجات کا راستہ نکال دے گا"', 'ref': '(ابو داؤد: 1518)'},
+  {'arabic': 'إِنَّ الرِّفْقَ لَا يَكُونُ فِي شَيْءٍ إِلَّا زَانَهُ', 'urdu': '"نرمی جس چیز میں بھی ہو، اسے خوبصورت بنا دیتی ہے"', 'ref': '(صحیح مسلم: 2594)'},
+];
   @override
   void initState() {
     super.initState();
@@ -122,7 +188,17 @@ class _DashboardPageState extends State<DashboardPage> {
     _timer.cancel();
     super.dispose();
   }
+// دن کے حساب سے آیت لانے کا فنکشن
+Map<String, String> get _todayAyah {
+  int dayIndex = _now.day % _dailyAyats.length; 
+  return _dailyAyats[dayIndex];
+}
 
+// دن کے حساب سے حدیث لانے کا فنکشن
+Map<String, String> get _todayHadith {
+  int dayIndex = _now.day % _dailyHadiths.length; 
+  return _dailyHadiths[dayIndex];
+}
   void _openQuran(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const QuranPage()),
@@ -166,6 +242,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 _buildQuickAccess(context),
                 const SizedBox(height: 20),
                 _buildDailyAyah(),
+                _buildDailyHadith(),
                 const SizedBox(height: 25),
                 _buildContactSection(context),
                 const SizedBox(height: 25),
@@ -416,66 +493,128 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildDailyAyah() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: AppColors.gold.withOpacity(0.4),
-            width: 1.5,
-          ),
-        ),
-        child: const Column(
-          children: [
-            Row(
-              children: [
-                Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
-                SizedBox(width: 8),
-                Text(
-                  'آج کی آیت',
-                  style: TextStyle(
-                    color: AppColors.deepGreen,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
-            Text(
-              'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: AppColors.deepGreen,
-                fontFamily: 'serif',
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              '"بے شک مشکل کے ساتھ آسانی ہے"',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-                color: AppColors.darkText,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            SizedBox(height: 5),
-            Text(
-              '(سورۃ الشرح: 6)',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ],
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.gold.withOpacity(0.4),
+          width: 1.5,
         ),
       ),
-    );
-  }
+      child: Column(
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.brightness_5, color: AppColors.gold, size: 22),
+              SizedBox(width: 8),
+              Text(
+                'آج کی آیت',
+                style: TextStyle(
+                  color: AppColors.deepGreen,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Text(
+            _todayAyah['arabic']!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: AppColors.deepGreen,
+              fontFamily: 'serif',
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            _todayAyah['urdu']!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15,
+              color: AppColors.darkText,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            _todayAyah['ref']!,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildDailyHadith() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: AppColors.deepGreen.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
+      child: Column(
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.auto_stories, color: AppColors.deepGreen, size: 22),
+              SizedBox(width: 8),
+              Text(
+                'آج کی حدیث',
+                style: TextStyle(
+                  color: AppColors.deepGreen,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Text(
+            _todayHadith['arabic']!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: AppColors.deepGreen,
+              fontFamily: 'serif',
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            _todayHadith['urdu']!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 15,
+              color: AppColors.darkText,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            _todayHadith['ref']!,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
   Widget _buildContactSection(BuildContext context) {
     return Column(
