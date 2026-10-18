@@ -1449,7 +1449,6 @@ class DuaListPage extends StatelessWidget {
     );
   }
 }
-
 // ============================================================
 // ISTIKHARA PAGE — استخارہ
 // ============================================================
@@ -1476,18 +1475,23 @@ class IstikharaPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Definition Card
               _buildSectionCard(
                 title: 'استخارہ کیا ہے؟',
                 icon: Icons.info_outline,
                 content: 'استخارہ کا مطلب ہے کسی معاملے میں اللہ تعالیٰ سے بھلائی طلب کرنا۔ جب انسان کسی جائز کام کا ارادہ کرے اور اسے صحیح فیصلہ کرنے میں الجھن ہو، تو وہ نماز پڑھ کر اللہ سے مدد مانگتا ہے تاکہ اللہ اس کے لیے بہتر فیصلہ آسان فرمائے۔',
               ),
               const SizedBox(height: 16),
+
+              // Method Card
               _buildSectionCard(
                 title: 'استخارہ کا طریقہ',
                 icon: Icons.format_list_numbered,
                 content: '1. پہلے وضو کریں اور اچھی طرح تیار ہوں۔\n2. کوئی بھی دو رکعت نفل نماز پڑھیں (بہتر ہے کہ پہلی رکعت میں سورۃ الکافرون اور دوسری میں سورۃ الاخلاص پڑھیں)۔\n3. نماز کے بعد اللہ کی حمد و ثنا کریں اور درود شریف پڑھیں۔\n4. پھر نیچے دی گئی مسنون دعا پڑھیں۔\n5. دل میں اپنے اس کام کا ارادہ کریں۔\n6. اللہ جو بہتر سمجھے گا، وہ کام آسان کر دے گا۔',
               ),
               const SizedBox(height: 16),
+
+              // Dua Card
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -1518,4 +1522,69 @@ class IstikharaPage extends StatelessWidget {
                     const Divider(color: AppColors.gold),
                     const SizedBox(height: 8),
                     Text(
-                      '"اے اللہ! میں تجھ سے تیرے علم کے ذریعے بھلائی چاہتا ہوں اور تیری قدرت کے ذریعے طاقت مانگتا ہوں۔ میں تجھ سے تیرے فضلِ عظیم کی درخواست کرتا ہوں،     
+                      '"اے اللہ! میں تجھ سے تیرے علم کے ذریعے بھلائی چاہتا ہوں اور تیری قدرت کے ذریعے طاقت مانگتا ہوں۔ میں تجھ سے تیرے فضلِ عظیم کی درخواست کرتا ہوں، کیونکہ تو قدرت رکھتا ہے اور میں نہیں، تو جانتا ہے اور میں نہیں جانتا، تو تمام پوشیدہ چیزوں کا جاننے والا ہے۔ اے اللہ! اگر تو جانتا ہے کہ یہ کام میرے لیے میرے دین، میرے رزق اور میرے انجام کے لحاظ سے بہتر ہے، تو اسے میرے لیے مقدر فرما، آسان فرما اور پھر اس میں برکت دے۔ اور اگر تو جانتا ہے کہ یہ کام میرے لیے میرے دین، میرے رزق اور میرے انجام کے لحاظ سے برا ہے، تو اسے مجھ سے پھیر دے اور مجھے اس سے پھیر دے، اور میرے لیے جہاں بھی بھلائی ہو وہ مقدر فرما اور پھر مجھے اس پر راضی کر دے۔"',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(fontSize: 14, color: Colors.grey, height: 1.5),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'حوالہ: صحیح بخاری (1166)',
+                      style: TextStyle(fontSize: 12, color: AppColors.gold, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Misconceptions Card
+              _buildSectionCard(
+                title: 'عام غلط فہمیاں',
+                icon: Icons.warning_amber_rounded,
+                content: '1. یہ ضروری نہیں کہ خواب میں اشارہ ملے۔\n2. استخارہ کا مطلب یہ نہیں کہ آپ کوئی کام شروع ہی نہ کریں۔ پہلے مشورہ کریں، پھر استخارہ کریں۔\n3. استخارہ صرف بڑے کاموں کے لیے نہیں، بلکہ ہر جائز معاملے میں کیا جا سکتا ہے۔',
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionCard({required String title, required IconData icon, required String content}) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: AppColors.deepGreen.withOpacity(0.2)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: AppColors.deepGreen),
+              const SizedBox(width: 10),
+              Text(
+                title,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.deepGreen),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            content,
+            style: TextStyle(fontSize: 15, color: Colors.grey, height: 1.6),
+          ),
+        ],
+      ),
+    );
+  }
+}
