@@ -1,3 +1,4 @@
+dart
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -177,7 +178,6 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
-
   Widget _buildHeader() {
     return Container(
       width: double.infinity,
@@ -232,7 +232,26 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
+          
+          // 1. سلام اور خوش آمدید
+          const Text(
+            'السلام علیکم',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            'خوش آمدید! آج کا دن بابرکت ہو',
+            style: TextStyle(color: Colors.white70, fontSize: 14),
+          ),
+          
+          const SizedBox(height: 20),
+          
+          // 2. تاریخ اور لائیو ٹائم
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
@@ -277,115 +296,58 @@ class _DashboardPageState extends State<DashboardPage> {
               ],
             ),
           ),
-          const SizedBox(height: 20),
-          const Text(
-            'السلام علیکم',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
+          
+          const SizedBox(height: 10),
+          
+          // 3. اگلی نماز کا کارڈ
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppColors.gold.withOpacity(0.8),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.mosque, color: AppColors.gold, size: 20),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'اگلی نماز: عصر',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.timer, color: AppColors.gold, size: 18),
+                    const SizedBox(width: 5),
+                    const Text(
+                      '04:45 PM',
+                      style: TextStyle(
+                        color: AppColors.gold,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 5),
-          const Text(
-            'خوش آمدید! آج کا دن بابرکت ہو',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
-         const SizedBox(height: 20),
-Container(
-  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-  decoration: BoxDecoration(
-    color: Colors.black.withOpacity(0.2),
-    borderRadius: BorderRadius.circular(12),
-    border: Border.all(
-      color: AppColors.gold.withOpacity(0.5),
-      width: 1,
-    ),
-  ),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Row(
-        children: [
-          const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
-          const SizedBox(width: 8),
-          Text(
-            _formatDate(_now),
-            style: const TextStyle(
-              color: AppColors.cream,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-      Row(
-        children: [
-          const Icon(Icons.access_time, color: AppColors.gold, size: 16),
-          const SizedBox(width: 8),
-          Text(
-            _formatTime(_now),
-            style: const TextStyle(
-              color: AppColors.cream,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    ],
-  ),
-), ),
         ],
       ),
     );
   }
-
-const SizedBox(height: 10),
-// اگلی نماز کا کارڈ
-Container(
-  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-  decoration: BoxDecoration(
-    color: Colors.white.withOpacity(0.15), 
-    borderRadius: BorderRadius.circular(12),
-    border: Border.all(
-      color: AppColors.gold.withOpacity(0.8), 
-      width: 1,
-    ),
-  ),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Row(
-        children: [
-          const Icon(Icons.mosque, color: AppColors.gold, size: 20),
-          const SizedBox(width: 8),
-          const Text(
-            'اگلی نماز: عصر', 
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-      Row(
-        children: [
-          const Icon(Icons.timer, color: AppColors.gold, size: 18),
-          const SizedBox(width: 5),
-          const Text(
-            '04:45 PM', 
-            style: TextStyle(
-              color: AppColors.gold,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    ],
-  ),
-),  
   Widget _buildQuickAccess(BuildContext context) {
     return Column(
       children: [
@@ -422,26 +384,26 @@ Container(
                 customAction: () => _openQuran(context),
               ),
               _makeCard(
-  context, 
-  Icons.auto_stories, 
-  'صحیح حدیث', 
-  AppColors.lightGreen,
-  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HadithBooksPage())),
-),
+                context, 
+                Icons.auto_stories, 
+                'صحیح حدیث', 
+                AppColors.lightGreen,
+                customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HadithBooksPage())),
+              ),
               _makeCard(
-  context, 
-  Icons.volunteer_activism, 
-  'دعائیں و اذکار', 
-  AppColors.gold,
-  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DuasPage())),
-),
+                context, 
+                Icons.volunteer_activism, 
+                'دعائیں و اذکار', 
+                AppColors.gold,
+                customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DuasPage())),
+              ),
               _makeCard(
-  context, 
-  Icons.auto_awesome, 
-  'استخارہ', 
-  AppColors.deepGreen,
-  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const IstikharaPage())),
-),
+                context, 
+                Icons.auto_awesome, 
+                'استخارہ', 
+                AppColors.deepGreen,
+                customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const IstikharaPage())),
+              ),
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
               _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
               _makeCard(context, Icons.calendar_month, 'اسلامی کیلنڈر', AppColors.gold),
@@ -606,8 +568,7 @@ Container(
       ),
     );
   }
-
-  Widget _makeCard(
+ Widget _makeCard(
     BuildContext context,
     IconData icon,
     String title,
@@ -693,6 +654,9 @@ Container(
   }
 }
 
+// ============================================================
+// QURAN PAGE — 114 سورتوں کی مکمل list
+// ============================================================
 class QuranPage extends StatelessWidget {
   const QuranPage({super.key});
 
@@ -780,7 +744,8 @@ class QuranPage extends StatelessWidget {
     {'n': 81, 'name': 'التکویر', 'en': 'At-Takwir', 'ayat': 29, 'type': 'مکی'},
     {'n': 82, 'name': 'الانفطار', 'en': 'Al-Infitar', 'ayat': 19, 'type': 'مکی'},
     {'n': 83, 'name': 'المطففین', 'en': 'Al-Mutaffifin', 'ayat': 36, 'type': 'مکی'},
-    {'n': 84, 'name': 'الانشقاق', 'en': 'Al-Inshiqaq', 'ayat': 25, 'type': 'مکی'},
+    {'n': 84, 'name': 'الانشقاق', 'en': 
+     Al-Inshiqaq', 'ayat': 25, 'type': 'مکی'},
     {'n': 85, 'name': 'البروج', 'en': 'Al-Buruj', 'ayat': 22, 'type': 'مکی'},
     {'n': 86, 'name': 'الطارق', 'en': 'At-Tariq', 'ayat': 17, 'type': 'مکی'},
     {'n': 87, 'name': 'الاعلیٰ', 'en': 'Al-Ala', 'ayat': 19, 'type': 'مکی'},
@@ -812,7 +777,8 @@ class QuranPage extends StatelessWidget {
     {'n': 113, 'name': 'الفلق', 'en': 'Al-Falaq', 'ayat': 5, 'type': 'مکی'},
     {'n': 114, 'name': 'الناس', 'en': 'An-Nas', 'ayat': 6, 'type': 'مکی'},
   ];
-    @override
+
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -983,8 +949,7 @@ class ComingSoonPage extends StatelessWidget {
     );
   }
 }
-
-// ============================================================
+/ ============================================================
 // HADITH BOOKS PAGE — صحاح ستہ
 // ============================================================
 class HadithBooksPage extends StatelessWidget {
@@ -1171,7 +1136,6 @@ class _HadithBookTile extends StatelessWidget {
     );
   }
 }
-
 // ============================================================
 // DUAS PAGE — دعائیں و اذکار
 // ============================================================
@@ -1179,129 +1143,131 @@ class DuasPage extends StatelessWidget {
   const DuasPage({super.key});
 
   static const List<Map<String, dynamic>> duaCategories = [
-  {
-    'name': 'صبح کی دعائیں',
-    'en': 'Morning Duas',
-    'icon': Icons.wb_sunny,
-    'color': Color(0xFFFFA500),
-    'duas': [
-      {'title': 'صبح کی دعا', 'arabic': 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ', 'urdu': 'ہم نے صبح کی اور ساری بادشاہت اللہ ہی کے لیے صبح ہوئی، اور سب تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں۔', 'ref': 'صحیح مسلم: 2723'},
-      {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5088'},
-      {'title': 'سید الاستغفار', 'arabic': 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ', 'urdu': 'اے اللہ! تو میرا رب ہے، تیرے سوا کوئی معبود نہیں۔ تو نے مجھے پیدا کیا، میں تیرا بندہ ہوں۔ میں اپنی طاقت کے مطابق تیرے عہد پر قائم ہوں۔ میں اپنے کیے ہوئے گناہوں سے تیری پناہ مانگتا ہوں۔ میں تیرے احسانات کا اعتراف کرتا ہوں اور اپنے گناہوں کا بھی۔ پس مجھے بخش دے، کیونکہ تیرے سوا کوئی گناہ نہیں بخش سکتا۔', 'ref': 'صحیح بخاری: 6306'},
-    ]
-  },
-  {
-    'name': 'شام کی دعائیں',
-    'en': 'Evening Duas',
-    'icon': Icons.nights_stay,
-    'color': Color(0xFF4A235A),
-    'duas': [
-      {'title': 'شام کی دعا', 'arabic': 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ', 'urdu': 'ہم نے شام کی اور ساری بادشاہت اللہ ہی کے لیے شام ہوئی، اور سب تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں۔', 'ref': 'صحیح مسلم: 2723'},
-      {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5088'},
-      {'title': 'شام کے وقت کی دعا', 'arabic': 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ', 'urdu': 'اے اللہ! تیری مدد سے ہم نے شام کی اور تیری مدد سے ہم نے صبح کی، تیری مدد سے ہم زندہ ہیں اور تیری مدد سے ہم مرتے ہیں، اور تیری ہی طرف لوٹنا ہے۔', 'ref': 'ترمذی: 3391'},
-    ]
-  },
-  {
-    'name': 'سونے کی دعائیں',
-    'en': 'Sleeping Duas',
-    'icon': Icons.hotel,
-    'color': Color(0xFF1B4F72),
-    'duas': [
-      {'title': 'سونے کی دعا', 'arabic': 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا', 'urdu': 'اے اللہ! تیرے نام سے میں مرتا ہوں (سوتا ہوں) اور جیتا ہوں (جاگتا ہوں)۔', 'ref': 'صحیح بخاری: 6324'},
-      {'title': 'بستر پر جانے کی دعا', 'arabic': 'اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ', 'urdu': 'اے اللہ! مجھے اس دن کے عذاب سے بچا جس دن تو اپنے بندوں کو اٹھائے گا۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5045'},
-    ]
-  },
-  {
-    'name': 'جاگنے کی دعائیں',
-    'en': 'Waking Up Duas',
-    'icon': Icons.wb_twilight,
-    'color': Color(0xFFD4AF37),
-    'duas': [
-      {'title': 'جاگنے کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے ہمیں موت (نیند) کے بعد زندگی بخشی اور اسی کی طرف لوٹنا ہے۔', 'ref': 'صحیح بخاری: 6312'},
-    ]
-  },
-  {
-    'name': 'کھانے کی دعائیں',
-    'en': 'Eating Duas',
-    'icon': Icons.restaurant,
-    'color': Color(0xFF2E7D32),
-    'duas': [
-      {'title': 'کھانے سے پہلے کی دعا', 'arabic': 'بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ', 'urdu': 'اللہ کے نام سے اور اللہ کی برکت پر (شروع کرتا ہوں)۔', 'ref': 'ابو داؤد: 3767'},
-      {'title': 'کھانے کے بعد کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے مجھے یہ کھلایا اور بغیر میری طاقت اور قوت کے مجھے یہ رزق دیا۔', 'ref': 'ترمذی: 3458'},
-    ]
-  },
-  {
-    'name': 'سفر کی دعائیں',
-    'en': 'Travel Duas',
-    'icon': Icons.directions_car,
-    'color': Color(0xFF2E86C1),
-    'duas': [
-      {'title': 'سواری پر بیٹھنے کی دعا', 'arabic': 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ', 'urdu': 'پاک ہے وہ ذات جس نے اس سواری کو ہمارے لیے مسخر کیا، حالانکہ ہم اسے قابو میں نہیں لا سکتے تھے، اور بے شک ہم اپنے رب کی طرف لوٹنے والے ہیں۔', 'ref': 'صحیح مسلم: 1342'},
-      {'title': 'سفر کی دعا', 'arabic': 'اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى', 'urdu': 'اے اللہ! ہم تجھ سے اس سفر میں نیکی اور پرہیزگاری کا، اور ایسے عمل کا سوال کرتے ہیں جس سے تو راضی ہو جائے۔', 'ref': 'صحیح مسلم: 1342'},
-    ]
-  },
-  {
-    'name': 'پریشانی کی دعائیں',
-    'en': 'Distress Duas',
-    'icon': Icons.healing,
-    'color': Color(0xFFC0392B),
-    'duas': [
-      {'title': 'پریشانی کے وقت کی دعا', 'arabic': 'لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ', 'urdu': 'اللہ کے سوا کوئی معبود نہیں جو بہت عظمت والا اور بردبار ہے۔ اللہ کے سوا کوئی معبود نہیں جو عرش عظیم کا رب ہے۔', 'ref': 'صحیح بخاری: 6345'},
-      {'title': 'غم اور فکر کی دعا', 'arabic': 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ', 'urdu': 'اے اللہ! میں تیری پناہ مانگتا ہوں فکر اور غم سے، کمزوری اور سستی سے، کنجوسی اور بزدلی سے۔', 'ref': 'صحیح بخاری: 6369'},
-    ]
-  },
-  {
-    'name': 'وضو اور نماز',
-    'en': 'Wudu & Prayer',
-    'icon': Icons.mosque,
-    'color': Color(0xFF008080),
-    'duas': [
-      {'title': 'وضو کے بعد کی دعا', 'arabic': 'أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ', 'urdu': 'میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد (صلی اللہ علیہ وسلم) اس کے بندے اور رسول ہیں۔', 'ref': 'صحیح مسلم: 234'},
-      {'title': 'نماز میں داخل ہونے کی دعا (تکبیر)', 'arabic': 'اللَّهُ أَكْبَرُ', 'urdu': 'اللہ سب سے بڑا ہے۔', 'ref': 'صحیح بخاری: 756'},
-      {'title': 'نماز سے سلام پھیرنے کے بعد', 'arabic': 'أَسْتَغْفِرُ اللَّهَ (تین بار) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ', 'urdu': 'میں اللہ سے بخشش مانگتا ہوں (تین بار)۔ اے اللہ! تو ہی سلامتی والا ہے اور سلامتی تیری ہی طرف سے ہے، تو بڑی برکت والا ہے، اے عظمت اور بزرگی والے۔', 'ref': 'صحیح مسلم: 591'},
-    ]
-  },
-  {
-    'name': 'مسجد کی دعائیں',
-    'en': 'Masjid Duas',
-    'icon': Icons.wifi_tethering,
-    'color': Color(0xFF8E44AD),
-    'duas': [
-      {'title': 'مسجد میں داخل ہونے کی دعا', 'arabic': 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ', 'urdu': 'اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے۔', 'ref': 'صحیح مسلم: 713'},
-      {'title': 'مسجد سے نکلنے کی دعا', 'arabic': 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ', 'urdu': 'اے اللہ! میں تجھ سے تیرے فضل کا سوال کرتا ہوں۔', 'ref': 'صحیح مسلم: 713'},
-    ]
-  },
-  {
-    'name': 'بیماری و شفا',
-    'en': 'Sickness & Healing',
-    'icon': Icons.health_and_safety,
-    'color': Color(0xFFE67E22),
-    'duas': [
-      {'title': 'بیمار کی عیادت کی دعا', 'arabic': 'أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ', 'urdu': 'میں اللہ عظیم سے، جو عرش عظیم کا رب ہے، سوال کرتا ہوں کہ وہ تجھے شفا دے۔ (سات بار پڑھیں)', 'ref': 'ابو داؤد: 3106'},
-      {'title': 'شفا کی دعا', 'arabic': 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَاسَ، اشْفِ أَنْتَ الشَّافِي، لَا شَافِيَ إِلَّا أَنْتَ', 'urdu': 'اے اللہ! لوگوں کے رب، تکلیف دور فرما، شفا عطا فرما، تو ہی شفا دینے والا ہے، تیرے سوا کوئی شفا دینے والا نہیں۔', 'ref': 'صحیح بخاری: 5675'},
-    ]
-  },
-  {
-    'name': 'گھر کی دعائیں',
-    'en': 'Home Duas',
-    'icon': Icons.home,
-    'color': Color(0xFF34495E),
-    'duas': [
-      {'title': 'گھر میں داخل ہونے کی دعا', 'arabic': 'بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا', 'urdu': 'اللہ کے نام سے ہم داخل ہوئے، اللہ کے نام سے ہم نکلے، اور اپنے رب ہی پر ہم نے بھروسہ کیا۔ (پھر گھر والوں کو سلام کریں)', 'ref': 'ابو داؤد: 5096'},
-      {'title': 'گھر سے نکلنے کی دعا', 'arabic': 'بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', 'urdu': 'اللہ کے نام سے (میں نکل رہا ہوں)، میں نے اللہ پر بھروسہ کیا، اور کوئی طاقت اور قوت اللہ کی توفیق کے بغیر نہیں۔', 'ref': 'ابو داؤد: 5095'},
-    ]
-  },
-  {
-    'name': 'بارش کی دعائیں',
-    'en': 'Rain Duas',
-    'icon': Icons.water_drop,
-    'color': Color(0xFF2980B9),
-    'duas': [
-      {'title': 'بارش ہوتے وقت کی دعا', 'arabic': 'اللَّهُمَّ صَيِّبًا نَافِعًا', 'urdu': 'اے اللہ! اسے نفع بخش بارش بنا دے۔', 'ref': 'صحیح بخاری: 1032'},
-      {'title': 'بارش کے بعد کی دعا', 'arabic': 'مُطِرْنَا بِفَضْلِ اللَّهِ وَرَحْمَتِهِ', 'urdu': 'ہم پر اللہ کے فضل اور اس کی رحمت سے بارش ہوئی ہے۔', 'ref': 'صحیح بخاری: 846'},
-    ]
-  }
-];
+    {
+      'name': 'صبح کی دعائیں',
+      'en': 'Morning Duas',
+      'icon': Icons.wb_sunny,
+      'color': Color(0xFFFFA500),
+      'duas': [
+        {'title': 'صبح کی دعا', 'arabic': 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ', 'urdu': 'ہم نے صبح کی اور ساری بادشاہت اللہ ہی کے لیے صبح ہوئی، اور سب تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں۔', 'ref': 'صحیح مسلم: 2723'},
+        {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5088'},
+        {'title': 'سید الاستغفار', 'arabic': 'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ', 'urdu': 'اے اللہ! تو میرا رب ہے، تیرے سوا کوئی معبود نہیں۔ تو نے مجھے پیدا کیا، میں تیرا بندہ ہوں۔ میں اپنی طاقت کے مطابق تیرے عہد پر قائم ہوں۔ میں اپنے کیے ہوئے گناہوں سے تیری پناہ مانگتا ہوں۔ میں تیرے احسانات کا اعتراف کرتا ہوں اور اپنے گناہوں کا بھی۔ پس مجھے بخش دے، کیونکہ تیرے سوا کوئی گناہ نہیں بخش سکتا۔', 'ref': 'صحیح بخاری: 6306'},
+      ]
+    },
+    {
+      'name': 'شام کی دعائیں',
+      'en': 'Evening Duas',
+      'icon': Icons.nights_stay,
+      'color': Color(0xFF4A235A),
+      'duas': [
+        {'title': 'شام کی دعا', 'arabic': 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ', 'urdu': 'ہم نے شام کی اور ساری بادشاہت اللہ ہی کے لیے شام ہوئی، اور سب تعریف اللہ کے لیے ہے۔ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں۔', 'ref': 'صحیح مسلم: 2723'},
+        {'title': 'حفظ کی دعا', 'arabic': 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ', 'urdu': 'اللہ کے نام سے، جس کے نام کے ساتھ زمین اور آسمان میں کوئی چیز نقصان نہیں پہنچا سکتی، اور وہ سننے والا جاننے والا ہے۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5088'},
+        {'title': 'شام کے وقت کی دعا', 'arabic': 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ', 'urdu': 'اے اللہ! تیری مدد سے ہم نے شام کی اور تیری مدد سے ہم نے صبح کی، تیری مدد سے ہم زندہ ہیں اور تیری مدد سے ہم مرتے ہیں، اور تیری ہی طرف لوٹنا ہے۔', 'ref': 'ترمذی: 3391'},
+      ]
+    },
+    {
+      'name': 'سونے کی دعائیں',
+      'en': 'Sleeping Duas',
+      'icon': Icons.hotel,
+      'color': Color(0xFF1B4F72),
+      'duas': [
+        {'title': 'سونے کی دعا', 'arabic': 'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا', 'urdu': 'اے اللہ! تیرے نام سے میں مرتا ہوں (سوتا ہوں) اور جیتا ہوں (جاگتا ہوں)۔', 'ref': 'صحیح بخاری: 6324'},
+        {'title': 'بستر پر جانے کی دعا', 'arabic': 'اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ', 'urdu': 'اے اللہ! مجھے اس دن کے عذاب سے بچا جس دن تو اپنے بندوں کو اٹھائے گا۔ (تین بار پڑھیں)', 'ref': 'ابو داؤد: 5045'},
+        {'title': 'سونے سے پہلے کی دعا', 'arabic': 'اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ', 'urdu': 'اے اللہ! میں نے اپنی جان تیرے سپرد کر دی، اپنا رخ تیری طرف کر لیا، اور اپنا معاملہ تیرے حوالے کر دیا۔', 'ref': 'صحیح بخاری: 247'},
+      ]
+    },
+    {
+      'name': 'جاگنے کی دعائیں',
+      'en': 'Waking Up Duas',
+      'icon': Icons.wb_twilight,
+      'color': Color(0xFFD4AF37),
+      'duas': [
+        {'title': 'جاگنے کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے ہمیں موت (نیند) کے بعد زندگی بخشی اور اسی کی طرف لوٹنا ہے۔', 'ref': 'صحیح بخاری: 6312'},
+        {'title': 'نیند سے بیدار ہونے پر', 'arabic': 'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', 'urdu': 'اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اسی کے لیے بادشاہت ہے اور اسی کے لیے تعریف ہے، اور وہ ہر چیز پر قادر ہے۔', 'ref': 'صحیح بخاری: 1154'},
+      ]
+    },
+    {
+      'name': 'سفر کی دعائیں',
+      'en': 'Travel Duas',
+      'icon': Icons.directions_car,
+      'color': Color(0xFF2E86C1),
+      'duas': [
+        {'title': 'سواری پر بیٹھنے کی دعا', 'arabic': 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ', 'urdu': 'پاک ہے وہ ذات جس نے اس سواری کو ہمارے لیے مسخر کیا، حالانکہ ہم اسے قابو میں نہیں لا سکتے تھے، اور بے شک ہم اپنے رب کی طرف لوٹنے والے ہیں۔', 'ref': 'صحیح مسلم: 1342'},
+        {'title': 'سفر کی دعا', 'arabic': 'اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى', 'urdu': 'اے اللہ! ہم تجھ سے اس سفر میں نیکی اور پرہیزگاری کا، اور ایسے عمل کا سوال کرتے ہیں جس سے تو راضی ہو جائے۔', 'ref': 'صحیح مسلم: 1342'},
+      ]
+    },
+    {
+      'name': 'کھانے کی دعائیں',
+      'en': 'Eating Duas',
+      'icon': Icons.restaurant,
+      'color': Color(0xFF2E7D32),
+      'duas': [
+        {'title': 'کھانے سے پہلے کی دعا', 'arabic': 'بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ', 'urdu': 'اللہ کے نام سے اور اللہ کی برکت پر (شروع کرتا ہوں)۔', 'ref': 'ابو داؤد: 3767'},
+        {'title': 'کھانے کے بعد کی دعا', 'arabic': 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ', 'urdu': 'سب تعریف اللہ کے لیے ہے جس نے مجھے یہ کھلایا اور بغیر میری طاقت اور قوت کے مجھے یہ رزق دیا۔', 'ref': 'ترمذی: 3458'},
+      ]
+    },
+    {
+      'name': 'پریشانی کی دعائیں',
+      'en': 'Distress Duas',
+      'icon': Icons.healing,
+      'color': Color(0xFFC0392B),
+      'duas': [
+        {'title': 'پریشانی کے وقت کی دعا', 'arabic': 'لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ', 'urdu': 'اللہ کے سوا کوئی معبود نہیں جو بہت عظمت والا اور بردبار ہے۔ اللہ کے سوا کوئی معبود نہیں جو عرش عظیم کا رب ہے۔', 'ref': 'صحیح بخاری: 6345'},
+        {'title': 'غم اور فکر کی دعا', 'arabic': 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ', 'urdu': 'اے اللہ! میں تیری پناہ مانگتا ہوں فکر اور غم سے، کمزوری اور سستی سے، کنجوسی اور بزدلی سے۔', 'ref': 'صحیح بخاری: 6369'},
+      ]
+    },
+    {
+      'name': 'وضو اور نماز',
+      'en': 'Wudu & Prayer',
+      'icon': Icons.mosque,
+      'color': Color(0xFF008080),
+      'duas': [
+        {'title': 'وضو کے بعد کی دعا', 'arabic': 'أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ', 'urdu': 'میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اور میں گواہی دیتا ہوں کہ محمد (صلی اللہ علیہ وسلم) اس کے بندے اور رسول ہیں۔', 'ref': 'صحیح مسلم: 234'},
+        {'title': 'نماز میں داخل ہونے کی دعا (تکبیر)', 'arabic': 'اللَّهُ أَكْبَرُ', 'urdu': 'اللہ سب سے بڑا ہے۔', 'ref': 'صحیح بخاری: 756'},
+        {'title': 'نماز سے سلام پھیرنے کے بعد', 'arabic': 'أَسْتَغْفِرُ اللَّهَ (تین بار) اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ', 'urdu': 'میں اللہ سے بخشش مانگتا ہوں (تین بار)۔ اے اللہ! تو ہی سلامتی والا ہے اور سلامتی تیری ہی طرف سے ہے، تو بڑی برکت والا ہے، اے عظمت اور بزرگی والے۔', 'ref': 'صحیح مسلم: 591'},
+      ]
+    },
+    {
+      'name': 'مسجد کی دعائیں',
+      'en': 'Masjid Duas',
+      'icon': Icons.wifi_tethering,
+      'color': Color(0xFF8E44AD),
+      'duas': [
+        {'title': 'مسجد میں داخل ہونے کی دعا', 'arabic': 'اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ', 'urdu': 'اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے۔', 'ref': 'صحیح مسلم: 713'},
+        {'title': 'مسجد سے نکلنے کی دعا', 'arabic': 'اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ', 'urdu': 'اے اللہ! میں تجھ سے تیرے فضل کا سوال کرتا ہوں۔', 'ref': 'صحیح مسلم: 713'},
+      ]
+    },
+    {
+      'name': 'بیماری و شفا',
+      'en': 'Sickness & Healing',
+      'icon': Icons.health_and_safety,
+      'color': Color(0xFFE67E22),
+      'duas': [
+        {'title': 'بیمار کی عیادت کی دعا', 'arabic': 'أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ', 'urdu': 'میں اللہ عظیم سے، جو عرش عظیم کا رب ہے، سوال کرتا ہوں کہ وہ تجھے شفا دے۔ (سات بار پڑھیں)', 'ref': 'ابو داؤد: 3106'},
+        {'title': 'شفا کی دعا', 'arabic': 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَاسَ، اشْفِ أَنْتَ الشَّافِي، لَا شَافِيَ إِلَّا أَنْتَ', 'urdu': 'اے اللہ! لوگوں کے رب، تکلیف دور فرما، شفا عطا فرما، تو ہی شفا دینے والا ہے، تیرے سوا کوئی شفا دینے والا نہیں۔', 'ref': 'صحیح بخاری: 5675'},
+      ]
+    },
+    {
+      'name': 'گھر کی دعائیں',
+      'en': 'Home Duas',
+      'icon': Icons.home,
+      'color': Color(0xFF34495E),
+      'duas': [
+        {'title': 'گھر میں داخل ہونے کی دعا', 'arabic': 'بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا', 'urdu': 'اللہ کے نام سے ہم داخل ہوئے، اللہ کے نام سے ہم نکلے، اور اپنے رب ہی پر ہم نے بھروسہ کیا۔ (پھر گھر والوں کو سلام کریں)', 'ref': 'ابو داؤد: 5096'},
+        {'title': 'گھر سے نکلنے کی دعا', 'arabic': 'بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', 'urdu': 'اللہ کے نام سے (میں نکل رہا ہوں)، میں نے اللہ پر بھروسہ کیا، اور کوئی طاقت اور قوت اللہ کی توفیق کے بغیر نہیں۔', 'ref': 'ابو داؤد: 5095'},
+      ]
+    },
+    {
+      'name': 'بارش کی دعائیں',
+      'en': 'Rain Duas',
+      'icon': Icons.water_drop,
+      'color': Color(0xFF2980B9),
+      'duas': [
+        {'title': 'بارش ہوتے وقت کی دعا', 'arabic': 'اللَّهُمَّ صَيِّبًا نَافِعًا', 'urdu': 'اے اللہ! اسے نفع بخش بارش بنا دے۔', 'ref': 'صحیح بخاری: 1032'},
+        {'title': 'بارش کے بعد کی دعا', 'arabic': 'مُطِرْنَا بِفَضْلِ اللَّهِ وَرَحْمَتِهِ', 'urdu': 'ہم پر اللہ کے فضل اور اس کی رحمت سے بارش ہوئی ہے۔', 'ref': 'صحیح بخاری: 846'},
+      ]
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -1394,7 +1360,7 @@ class _CategoryTile extends StatelessWidget {
             Text(
               category['en'],
               style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-            ),
+                      ),
           ],
         ),
       ),
@@ -1456,23 +1422,23 @@ class DuaListPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-  dua['urdu'],
-  textAlign: TextAlign.justify,
-  style: TextStyle(
-    fontSize: 14,
-    color: Colors.grey[800],
-    height: 1.5,
-  ),
-),
-const SizedBox(height: 10),
-Text(
-  dua['ref'],
-  style: const TextStyle(
-    fontSize: 12,
-    color: AppColors.gold,
-    fontWeight: FontWeight.bold,
-  ),
-),
+                    dua['urdu'],
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[800],
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    dua['ref'],
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.gold,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             );
@@ -1583,7 +1549,6 @@ class IstikharaPage extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildSectionCard({required String title, required IconData icon, required String content}) {
     return Container(
       padding: const EdgeInsets.all(20),
