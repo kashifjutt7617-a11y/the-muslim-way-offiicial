@@ -315,8 +315,8 @@ Widget build(BuildContext context) {
   onPressed: () {
     _launchWhatsApp();
   },
-  backgroundColor: Colors.green,
-  child: const Icon(Icons.chat, color: Colors.white, size: 30),
+  backgroundColor: const Color(0xFF25D366),
+  child: const Icon(Icons.wechat, color: Colors.white, size: 35),
 ),
      drawer: Drawer(
   child: ListView(
