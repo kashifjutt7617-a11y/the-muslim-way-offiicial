@@ -303,6 +303,88 @@ Widget build(BuildContext context) {
   return Directionality(
     textDirection: TextDirection.rtl,
     child: Scaffold(
+     drawer: Drawer(
+  child: ListView(
+    padding: EdgeInsets.zero,
+    children: [
+      DrawerHeader(
+        decoration: const BoxDecoration(
+          color: AppColors.deepGreen,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const CircleAvatar(
+              radius: 30,
+              backgroundColor: AppColors.gold,
+              child: Icon(Icons.person, size: 40, color: AppColors.deepGreen),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'The Muslim Way',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              'Offiicial App',
+              style: TextStyle(color: Colors.white70, fontSize: 14),
+            ),
+          ],
+        ),
+      ),
+      ListTile(
+        leading: const Icon(Icons.info_outline, color: AppColors.deepGreen),
+        title: const Text('ہمارے بارے میں'),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.settings, color: AppColors.deepGreen),
+        title: const Text('سیٹنگز'),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+      const Divider(),
+      ListTile(
+        leading: const Icon(Icons.chat, color: Colors.green),
+        title: const Text('واٹس ایپ سپورٹ'),
+        onTap: () {
+          Navigator.pop(context);
+          // واٹس ایپ کھولنے کا کوڈ بعد میں ڈالیں گے
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.notifications, color: AppColors.deepGreen),
+        title: const Text('اطلاعات'),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        leading: const Icon(Icons.share, color: AppColors.deepGreen),
+        title: const Text('شیئر کریں'),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+      const Divider(),
+      ListTile(
+        leading: const Icon(Icons.verified, color: AppColors.gold),
+        title: const Text('ورژن 1.0.0'),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    ],
+  ),
+),
       backgroundColor: AppColors.cream,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -346,7 +428,16 @@ Widget _buildHeader() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: [
+    children: [
+       
+          Builder(
+  builder: (context) => IconButton(
+    icon: const Icon(Icons.menu, color: AppColors.gold, size: 30),
+    onPressed: () => Scaffold.of(context).openDrawer(),
+  ),
+),
+const SizedBox(width: 5),
+
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
