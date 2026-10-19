@@ -414,20 +414,25 @@ Widget _buildHeader() {
           child: Row(
   mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: [
-    Row(
-      children: [
-        const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
-        const SizedBox(width: 8),
-        Text(
-          _formatUrduDate(_now), // <--- یہاں نیا فنکشن لگا دیا ہے
+  Expanded(
+  child: Row(
+    children: [
+      const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
+      const SizedBox(width: 5),
+      Expanded(
+        child: Text(
+          _formatUrduDate(_now),
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
             color: AppColors.cream,
-            fontSize: 13,
+            fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
         ),
-      ],
-    ),
+      ),
+    ],
+  ),
+),
     Row(
       children: [
         const Icon(Icons.access_time, color: AppColors.gold, size: 16),
