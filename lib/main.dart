@@ -283,6 +283,21 @@ String _formatTime(DateTime dt) {
   final String s = dt.second.toString().padLeft(2, '0');
   return '$h:$m:$s $period';
 }
+String _formatUrduDate(DateTime dt) {
+  const urduMonths = [
+    'جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون',
+    'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'
+  ];
+  const islamicMonths = [
+    'محرم', 'صفر', 'ربیع الاول', 'ربیع الثانی', 'جمادی الاول', 'جمادی الثانی',
+    'رجب', 'شعبان', 'رمضان', 'شوال', 'ذیقعدہ', 'ذی الحجہ'
+  ];
+
+  int islamicYear = dt.year - 622; 
+  int islamicMonthIndex = (dt.month + 6) % 12; 
+
+  return '${dt.day} ${urduMonths[dt.month - 1]} ${dt.year} | ${islamicMonths[islamicMonthIndex]} ${islamicYear}ھ';
+}
   @override
 Widget build(BuildContext context) {
   return Directionality(
@@ -397,38 +412,38 @@ Widget _buildHeader() {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
-                  const SizedBox(width: 8),
-                  Text(
-                    _formatDate(_now),
-                    style: const TextStyle(
-                      color: AppColors.cream,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(Icons.access_time, color: AppColors.gold, size: 16),
-                  const SizedBox(width: 8),
-                  Text(
-                    _formatTime(_now),
-                    style: const TextStyle(
-                      color: AppColors.cream,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Row(
+      children: [
+        const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
+        const SizedBox(width: 8),
+        Text(
+          _formatUrduDate(_now), // <--- یہاں نیا فنکشن لگا دیا ہے
+          style: const TextStyle(
+            color: AppColors.cream,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
           ),
+        ),
+      ],
+    ),
+    Row(
+      children: [
+        const Icon(Icons.access_time, color: AppColors.gold, size: 16),
+        const SizedBox(width: 8),
+        Text(
+          _formatTime(_now),
+          style: const TextStyle(
+            color: AppColors.cream,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    ),
+  ],
+),
         ),
         
         const SizedBox(height: 10),
