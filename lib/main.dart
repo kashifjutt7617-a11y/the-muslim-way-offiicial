@@ -103,8 +103,8 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   late Timer _timer;
- DateTime _now = DateTime.now();
- // نمازوں کے اوقات (فی الحال سیمپل، بعد میں GPS سے لنک کریں گے)
+  DateTime _now = DateTime.now();
+  // نمازوں کے اوقات (فی الحال سیمپل، بعد میں GPS سے لنک کریں گے)
 final Map<String, String> _prayerTimes = {
   'فجر': '05:00',
   'ظہر': '12:30',
@@ -159,7 +159,8 @@ Map<String, String> get _nextPrayerInfo {
     'countdown': '${hoursLeft.toString().padLeft(2, '0')}:${minutesLeft.toString().padLeft(2, '0')}:${secondsLeft.toString().padLeft(2, '0')}',
   };
 }
-  // 30 آیات کا مکمل ڈیٹا
+
+// 30 آیات کا مکمل ڈیٹا
 final List<Map<String, String>> _dailyAyats = [
   {'arabic': 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', 'urdu': '"بے شک مشکل کے ساتھ آسانی ہے"', 'ref': '(سورۃ الشرح: 6)'},
   {'arabic': 'فَاذْكُرُونِي أَذْكُرْكُمْ', 'urdu': '"پس تم مجھے یاد کرو، میں تمہیں یاد رکھوں گا"', 'ref': '(سورۃ البقرہ: 152)'},
@@ -192,8 +193,7 @@ final List<Map<String, String>> _dailyAyats = [
   {'arabic': 'إِنَّ اللَّهَ لَا يُحِبُّ الظَّالِمِينَ', 'urdu': '"بے شک اللہ ظالموں کو پسند نہیں کرتا"', 'ref': '(سورۃ آل عمران: 140)'},
   {'arabic': 'وَمَنْ أَحْسَنُ قَوْلًا مِّمَّن دَعَا إِلَى اللَّهِ وَعَمِلَ صَالِحًا', 'urdu': '"اور اس سے بہتر کس کی بات ہو سکتی ہے جو اللہ کی طرف بلائے اور نیک عمل کرے"', 'ref': '(سورۃ فصلت: 33)'},
 ];
-
-// 30 صحیح احادیث کا مکمل ڈیٹا
+  // 30 صحیح احادیث کا مکمل ڈیٹا
 final List<Map<String, String>> _dailyHadiths = [
   {'arabic': 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ', 'urdu': '"اعمال کا دارومدار نیتوں پر ہے"', 'ref': '(صحیح بخاری: 1)'},
   {'arabic': 'الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ', 'urdu': '"سچا مسلمان وہ ہے جس کی زبان اور ہاتھ سے دوسرے مسلمان محفوظ رہیں"', 'ref': '(صحیح بخاری: 10)'},
@@ -283,8 +283,7 @@ String _formatTime(DateTime dt) {
   final String s = dt.second.toString().padLeft(2, '0');
   return '$h:$m:$s $period';
 }
-
-@override
+  @override
 Widget build(BuildContext context) {
   return Directionality(
     textDirection: TextDirection.rtl,
@@ -314,7 +313,6 @@ Widget build(BuildContext context) {
 }
 
 Widget _buildHeader() {
-      Widget _buildHeader() {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.fromLTRB(20, 25, 20, 30),
@@ -369,6 +367,8 @@ Widget _buildHeader() {
           ],
         ),
         const SizedBox(height: 20),
+        
+        // 1. سلام اور خوش آمدید
         const Text(
           'السلام علیکم',
           style: TextStyle(
@@ -382,7 +382,10 @@ Widget _buildHeader() {
           'خوش آمدید! آج کا دن بابرکت ہو',
           style: TextStyle(color: Colors.white70, fontSize: 14),
         ),
+        
         const SizedBox(height: 20),
+        
+        // 2. تاریخ اور لائیو ٹائم
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
@@ -427,8 +430,10 @@ Widget _buildHeader() {
             ],
           ),
         ),
+        
         const SizedBox(height: 10),
-        // 3. اگلی نماز کا کارڈ
+        
+        // 3. اگلی نماز کا کارڈ (لائیو ٹائم کے ساتھ)
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
@@ -476,151 +481,8 @@ Widget _buildHeader() {
       ],
     ),
   );
-      }
-                ),
-                child: const Icon(Icons.mosque, color: AppColors.gold, size: 28),
-              ),
-              const SizedBox(width: 12),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'The Muslim Way',
-                      style: TextStyle(
-                        color: AppColors.gold,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Offiicial',
-                      style: TextStyle(
-                        color: AppColors.lightGold,
-                        fontSize: 14,
-                        letterSpacing: 3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          
-          // 1. سلام اور خوش آمدید
-          const Text(
-            'السلام علیکم',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 5),
-          const Text(
-            'خوش آمدید! آج کا دن بابرکت ہو',
-            style: TextStyle(color: Colors.white70, fontSize: 14),
-          ),
-          
-          const SizedBox(height: 20),
-          
-          // 2. تاریخ اور لائیو ٹائم
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColors.gold.withOpacity(0.5),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.calendar_today, color: AppColors.gold, size: 16),
-                    const SizedBox(width: 8),
-                    Text(
-                      _formatDate(_now),
-                      style: const TextStyle(
-                        color: AppColors.cream,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.access_time, color: AppColors.gold, size: 16),
-                    const SizedBox(width: 8),
-                    Text(
-                      _formatTime(_now),
-                      style: const TextStyle(
-                        color: AppColors.cream,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          
-          const SizedBox(height: 10),
-          
-          // 3. اگلی نماز کا کارڈ
-        Container(
-  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-  decoration: BoxDecoration(
-    color: Colors.white.withOpacity(0.15),
-    borderRadius: BorderRadius.circular(12),
-    border: Border.all(
-      color: AppColors.gold.withOpacity(0.8),
-      width: 1,
-    ),
-  ),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Row(
-        children: [
-          const Icon(Icons.mosque, color: AppColors.gold, size: 20),
-          const SizedBox(width: 8),
-          Text(
-            'اگلی نماز: ${_nextPrayerInfo['name']}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-      Row(
-        children: [
-          const Icon(Icons.timer, color: AppColors.gold, size: 18),
-          const SizedBox(width: 5),
-          Text(
-            'باقی وقت: ${_nextPrayerInfo['countdown']}',
-            style: const TextStyle(
-              color: AppColors.gold,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    ],
-  ),
-),
-  }
-
-  Widget _buildQuickAccess(BuildContext context) {
+}
+    Widget _buildQuickAccess(BuildContext context) {
     return Column(
       children: [
         const Padding(
@@ -988,7 +850,6 @@ Widget _buildHeader() {
     );
   }
 }
-
 // ============================================================
 // QURAN PAGE — 114 سورتوں کی مکمل list
 // ============================================================
@@ -1066,7 +927,7 @@ class QuranPage extends StatelessWidget {
     {'n': 57, 'name': 'الحدید', 'en': 'Al-Hadid', 'ayat': 29, 'type': 'مدنی'},
     {'n': 58, 'name': 'المجادلہ', 'en': 'Al-Mujadila', 'ayat': 22, 'type': 'مدنی'},
     {'n': 59, 'name': 'الحشر', 'en': 'Al-Hashr', 'ayat': 24, 'type': 'مدنی'},
-        {'n': 60, 'name': 'الممتحنہ', 'en': 'Al-Mumtahanah', 'ayat': 13, 'type': 'مدنی'},
+    {'n': 60, 'name': 'الممتحنہ', 'en': 'Al-Mumtahanah', 'ayat': 13, 'type': 'مدنی'},
     {'n': 61, 'name': 'الصف', 'en': 'As-Saff', 'ayat': 14, 'type': 'مدنی'},
     {'n': 62, 'name': 'الجمعہ', 'en': 'Al-Jumuah', 'ayat': 11, 'type': 'مدنی'},
     {'n': 63, 'name': 'المنافقون', 'en': 'Al-Munafiqun', 'ayat': 11, 'type': 'مدنی'},
@@ -1271,14 +1132,14 @@ class _SurahTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) => SurahDetailPage(
-        surah: QuranPage.surahs.firstWhere((s) => s['n'] == number),
-      ),
-    ),
-  );
-},
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => SurahDetailPage(
+              surah: QuranPage.surahs.firstWhere((s) => s['n'] == number),
+            ),
+          ),
+        );
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
@@ -1342,7 +1203,7 @@ class _SurahTile extends StatelessWidget {
               ],
             ),
           ],
-        ),
+ ),
       ),
     );
   }
@@ -1388,6 +1249,7 @@ class ComingSoonPage extends StatelessWidget {
     );
   }
 }
+
 // ============================================================
 // HADITH BOOKS PAGE — صحاح ستہ
 // ============================================================
@@ -1711,7 +1573,8 @@ class DuaListPage extends StatelessWidget {
   final List<dynamic> duasList;
 
   const DuaListPage({super.key, required this.categoryName, required this.duasList});
-    @override
+
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -1785,7 +1648,6 @@ class DuaListPage extends StatelessWidget {
     );
   }
 }
-
 // ============================================================
 // ISTIKHARA PAGE — استخارہ
 // ============================================================
@@ -1872,7 +1734,7 @@ class IstikharaPage extends StatelessWidget {
                 icon: Icons.warning_amber_rounded,
                 content: '1. یہ ضروری نہیں کہ خواب میں اشارہ ملے۔\n2. استخارہ کا مطلب یہ نہیں کہ آپ کوئی کام شروع ہی نہ کریں۔ پہلے مشورہ کریں، پھر استخارہ کریں۔\n3. استخارہ صرف بڑے کاموں کے لیے نہیں، بلکہ ہر جائز معاملے میں کیا جا سکتا ہے۔',
               ),
-          const SizedBox(height: 30),
+              const SizedBox(height: 30),
             ],
           ),
         ),
@@ -1917,7 +1779,7 @@ class IstikharaPage extends StatelessWidget {
       ),
     );
   }
-}    
+}
 // ============================================================
 // SURAH DETAIL PAGE — سورت کا صفحہ
 // ============================================================
