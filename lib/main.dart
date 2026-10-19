@@ -339,14 +339,14 @@ Widget build(BuildContext context) {
       ),
       ListTile(
         leading: const Icon(Icons.info_outline, color: AppColors.deepGreen),
-        title: const Text('ہمارے بارے میں'),
+        title: const Text('About Us'),
         onTap: () {
           Navigator.pop(context);
         },
       ),
       ListTile(
         leading: const Icon(Icons.settings, color: AppColors.deepGreen),
-        title: const Text('سیٹنگز'),
+        title: const Text('Settings'),
         onTap: () {
           Navigator.pop(context);
         },
@@ -354,22 +354,22 @@ Widget build(BuildContext context) {
       const Divider(),
       ListTile(
         leading: const Icon(Icons.chat, color: Colors.green),
-        title: const Text('واٹس ایپ سپورٹ'),
+        title: const Text('WhatsApp Support'),
         onTap: () {
           Navigator.pop(context);
-          // واٹس ایپ کھولنے کا کوڈ بعد میں ڈالیں گے
+          // WhatsApp link will be added later
         },
       ),
       ListTile(
         leading: const Icon(Icons.notifications, color: AppColors.deepGreen),
-        title: const Text('اطلاعات'),
+        title: const Text('Notifications'),
         onTap: () {
           Navigator.pop(context);
         },
       ),
       ListTile(
         leading: const Icon(Icons.share, color: AppColors.deepGreen),
-        title: const Text('شیئر کریں'),
+        title: const Text('Share App'),
         onTap: () {
           Navigator.pop(context);
         },
@@ -377,7 +377,7 @@ Widget build(BuildContext context) {
       const Divider(),
       ListTile(
         leading: const Icon(Icons.verified, color: AppColors.gold),
-        title: const Text('ورژن 1.0.0'),
+        title: const Text('Version 1.0.0'),
         onTap: () {
           Navigator.pop(context);
         },
