@@ -365,7 +365,7 @@ Widget build(BuildContext context) {
         title: const Text('WhatsApp Support'),
         onTap: () {
           Navigator.pop(context);
-          // WhatsApp link will be added later
+        _launchWhatsApp();
         },
       ),
       ListTile(
