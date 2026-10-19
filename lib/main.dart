@@ -103,7 +103,62 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   late Timer _timer;
-  DateTime _now = DateTime.now();
+ DateTime _now = DateTime.now();
+ // نمازوں کے اوقات (فی الحال سیمپل، بعد میں GPS سے لنک کریں گے)
+final Map<String, String> _prayerTimes = {
+  'فجر': '05:00',
+  'ظہر': '12:30',
+  'عصر': '15:45',
+  'مغرب': '18:15',
+  'عشاء': '19:45',
+};
+
+Map<String, String> get _nextPrayerInfo {
+  final now = DateTime.now();
+  final currentTime = now.hour * 60 + now.minute;
+
+  final timesInMinutes = {
+    'فجر': 5 * 60,
+    'ظہر': 12 * 60 + 30,
+    'عصر': 15 * 60 + 45,
+    'مغرب': 18 * 60 + 15,
+    'عشاء': 19 * 60 + 45,
+  };
+
+  String nextName = 'فجر';
+  String nextTimeStr = '05:00';
+  int nextTimeInMinutes = timesInMinutes['فجر']!;
+
+  for (var entry in timesInMinutes.entries) {
+    if (entry.value > currentTime) {
+      nextName = entry.key;
+      nextTimeInMinutes = entry.value;
+      break;
+    }
+  }
+
+  if (currentTime >= timesInMinutes['عشاء']!) {
+    nextName = 'فجر';
+    nextTimeInMinutes = timesInMinutes['فجر']! + (24 * 60);
+  }
+
+  final h = (nextTimeInMinutes ~/ 60) % 24;
+  final m = nextTimeInMinutes % 60;
+  nextTimeStr = '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}';
+
+  int diff = nextTimeInMinutes - currentTime;
+  if (diff < 0) diff += 24 * 60;
+
+  final hoursLeft = diff ~/ 60;
+  final minutesLeft = diff % 60;
+  final secondsLeft = 59 - now.second;
+
+  return {
+    'name': nextName,
+    'time': nextTimeStr,
+    'countdown': '${hoursLeft.toString().padLeft(2, '0')}:${minutesLeft.toString().padLeft(2, '0')}:${secondsLeft.toString().padLeft(2, '0')}',
+  };
+}
   // 30 آیات کا مکمل ڈیٹا
 final List<Map<String, String>> _dailyAyats = [
   {'arabic': 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', 'urdu': '"بے شک مشکل کے ساتھ آسانی ہے"', 'ref': '(سورۃ الشرح: 6)'},
@@ -380,53 +435,50 @@ Widget _buildHeader() {
           const SizedBox(height: 10),
           
           // 3. اگلی نماز کا کارڈ
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColors.gold.withOpacity(0.8),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.mosque, color: AppColors.gold, size: 20),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'اگلی نماز: عصر',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.timer, color: AppColors.gold, size: 18),
-                    const SizedBox(width: 5),
-                    const Text(
-                      '04:45 PM',
-                      style: TextStyle(
-                        color: AppColors.gold,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+        Container(
+  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+  decoration: BoxDecoration(
+    color: Colors.white.withOpacity(0.15),
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(
+      color: AppColors.gold.withOpacity(0.8),
+      width: 1,
+    ),
+  ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          const Icon(Icons.mosque, color: AppColors.gold, size: 20),
+          const SizedBox(width: 8),
+          Text(
+            'اگلی نماز: ${_nextPrayerInfo['name']}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
       ),
-    );
+      Row(
+        children: [
+          const Icon(Icons.timer, color: AppColors.gold, size: 18),
+          const SizedBox(width: 5),
+          Text(
+            'باقی وقت: ${_nextPrayerInfo['countdown']}',
+            style: const TextStyle(
+              color: AppColors.gold,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+),
   }
 
   Widget _buildQuickAccess(BuildContext context) {
