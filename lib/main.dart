@@ -311,6 +311,13 @@ Widget build(BuildContext context) {
   return Directionality(
     textDirection: TextDirection.rtl,
     child: Scaffold(
+      floatingActionButton: FloatingActionButton(
+  onPressed: () {
+    _launchWhatsApp();
+  },
+  backgroundColor: Colors.green,
+  child: const Icon(Icons.chat, color: Colors.white, size: 30),
+),
      drawer: Drawer(
   child: ListView(
     padding: EdgeInsets.zero,
