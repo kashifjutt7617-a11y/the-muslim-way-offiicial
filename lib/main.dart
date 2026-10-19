@@ -1080,15 +1080,14 @@ class _SurahTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => ComingSoonPage(
-              title: name,
-              icon: Icons.menu_book,
-            ),
-          ),
-        );
-      },
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => SurahDetailPage(
+        surah: QuranPage.surahs.firstWhere((s) => s['n'] == number),
+      ),
+    ),
+  );
+},
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
@@ -1728,3 +1727,95 @@ class IstikharaPage extends StatelessWidget {
     );
   }
 }    
+// ============================================================
+// SURAH DETAIL PAGE — سورت کا صفحہ
+// ============================================================
+class SurahDetailPage extends StatelessWidget {
+  final Map<String, dynamic> surah;
+
+  const SurahDetailPage({super.key, required this.surah});
+
+  @override
+  Widget build(BuildContext context) {
+    List<dynamic> verses = surah['verses'] ?? [];
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: Text(
+            surah['name'],
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: verses.isEmpty
+            ? const Center(
+                child: Text(
+                  'اس سورت کا ترجمہ جلد شامل کیا جائے گا۔',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: verses.length,
+                itemBuilder: (context, index) {
+                  final verse = verses[index];
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: AppColors.gold.withOpacity(0.4)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              color: AppColors.deepGreen.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              'آیت ${index + 1}',
+                              style: const TextStyle(color: AppColors.deepGreen, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          verse['arabic'] ?? '',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontFamily: 'serif',
+                            height: 2.0,
+                            color: AppColors.darkText,
+                          ),
+                        ),
+                        const Divider(color: AppColors.gold, height: 30),
+                        Text(
+                          verse['urdu'] ?? '',
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[800],
+                            height: 1.6,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
+  }
+}
