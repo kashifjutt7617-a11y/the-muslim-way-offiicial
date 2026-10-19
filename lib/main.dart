@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
 
 void main() {
@@ -102,9 +103,16 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  late Timer _timer;
-  DateTime _now = DateTime.now();
-  // نمازوں کے اوقات (فی الحال سیمپل، بعد میں GPS سے لنک کریں گے)
+ late Timer _timer;
+ DateTime _now = DateTime.now();
+  // واٹس ایپ کھولنے کا فنکشن
+void _launchWhatsApp() async {
+final Uri url = Uri.parse('https://wa.link/b0a0ve');
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch WhatsApp');
+  }
+}
+// نمازوں کے اوقات (فی الحال سیمپل، بعد میں GPS سے لنک کریں گے)
 final Map<String, String> _prayerTimes = {
   'فجر': '05:00',
   'ظہر': '12:30',
