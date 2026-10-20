@@ -805,7 +805,7 @@ const SizedBox(width: 5),
     child: GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => const IslamicCalendarPage()),
+          MaterialPageRoute(builder: (_) => IslamicCalendarPage()),
         );
       },
       child: Container(
@@ -857,7 +857,7 @@ const SizedBox(width: 5),
                 ],
               ),
             ),
-            const Icon(Icons.arrow_back_ios, color: Colors.gold, size: 18),
+            Icon(Icons.arrow_back_ios, color: Colors.gold, size: 18),
           ],
         ),
       ),
