@@ -1972,3 +1972,152 @@ class SurahDetailPage extends StatelessWidget {
     );
   }
 }
+// ============================================================
+// ISLAMIC & ENGLISH CALENDAR PAGE
+// ============================================================
+class IslamicCalendarPage extends StatelessWidget {
+  const IslamicCalendarPage({super.key});
+
+  static const List<Map<String, String>> islamicEvents = [
+    {'date': '1 محرم', 'event': 'اسلامی نیا سال'},
+    {'date': '10 محرم', 'event': 'یومِ عاشورہ'},
+    {'date': '12 ربیع الاول', 'event': 'عید میلاد النبی ﷺ'},
+    {'date': '27 رجب', 'event': 'شبِ معراج'},
+    {'date': '15 شعبان', 'event': 'شبِ برات'},
+    {'date': '1 رمضان', 'event': 'رمضان المبارک کا آغاز'},
+    {'date': '27 رمضان', 'event': 'شبِ قدر (اندازاً)'},
+    {'date': '1 شوال', 'event': 'عید الفطر'},
+    {'date': '9 ذی الحجہ', 'event': 'یومِ عرفہ'},
+    {'date': '10 ذی الحجہ', 'event': 'عید الاضحیٰ'},
+  ];
+
+  static const List<String> englishMonths = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  static const List<String> islamicMonths = [
+    'محرم', 'صفر', 'ربیع الاول', 'ربیع الثانی', 'جمادی الاول', 'جمادی الثانی',
+    'رجب', 'شعبان', 'رمضان', 'شوال', 'ذیقعدہ', 'ذی الحجہ'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'اسلامی اور انگریزی کیلنڈر',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [AppColors.deepGreen, AppColors.lightGreen],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'آج کی تاریخ',
+                      style: TextStyle(color: AppColors.gold, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${now.day} ${englishMonths[now.month - 1]} ${now.year}',
+                      style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      '${islamicMonths[(now.month + 6) % 12]} ${now.year - 622}ھ (اندازاً)',
+                      style: const TextStyle(color: Colors.white70, fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'اسلامی تہوار اور اہم دن',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.deepGreen),
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: islamicEvents.length,
+                itemBuilder: (context, index) {
+                  final event = islamicEvents[index];
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.gold.withOpacity(0.3)),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: AppColors.deepGreen.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            event['date']!,
+                            style: const TextStyle(color: AppColors.deepGreen, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: Text(
+                            event['event']!,
+                            style: const TextStyle(fontSize: 15, color: AppColors.darkText),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'انگریزی مہینے',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.deepGreen),
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: englishMonths.map((month) {
+                  return Chip(
+                    label: Text(month),
+                    backgroundColor: AppColors.deepGreen.withOpacity(0.1),
+                    labelStyle: const TextStyle(color: AppColors.deepGreen),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
