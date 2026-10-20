@@ -800,96 +800,70 @@ const SizedBox(width: 5),
   }
 
   Widget _buildContactSection(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'رابطہ کریں',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.deepGreen,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              _makeContact(context, Icons.chat, 'WhatsApp', 'واٹس ایپ پر رابطہ', const Color(0xFF25D366)),
-              const SizedBox(height: 10),
-              _makeContact(context, Icons.phone, 'Call', 'فون کال کریں', AppColors.deepGreen),
-              const SizedBox(height: 10),
-              _makeContact(context, Icons.language, 'Website', 'themuslimwayoffiicial.com', AppColors.gold),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _makeContact(
-    BuildContext context,
-    IconData icon,
-    String title,
-    String subtitle,
-    Color color,
-  ) {
-    return GestureDetector(
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: GestureDetector(
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(title)),
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => const IslamicCalendarPage()),
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(15),
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+          gradient: const LinearGradient(
+            colors: [AppColors.deepGreen, AppColors.lightGreen],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.deepGreen.withOpacity(0.2),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
                 shape: BoxShape.circle,
-                color: color.withOpacity(0.12),
               ),
-              child: Icon(icon, color: color, size: 24),
+              child: const Icon(Icons.calendar_month, color: AppColors.gold, size: 35),
             ),
             const SizedBox(width: 15),
-            Expanded(
+            const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    'Islamic & English Calendar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.darkText,
                     ),
                   ),
-                  const SizedBox(height: 3),
+                  SizedBox(height: 5),
                   Text(
-                    subtitle,
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    'اسلامی اور انگریزی کیلنڈر (تہوار اور چھٹیاں)',
+                    style: TextStyle(color: Colors.white70, fontSize: 13),
                   ),
                 ],
               ),
             ),
-            Icon(Icons.arrow_back_ios, color: color, size: 16),
+            const Icon(Icons.arrow_back_ios, color: Colors.gold, size: 18),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _makeCard(
     BuildContext context,
