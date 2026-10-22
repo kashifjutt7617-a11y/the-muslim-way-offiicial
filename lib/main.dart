@@ -2121,7 +2121,7 @@ class IslamicCalendarPage extends StatelessWidget {
     );
   }
 }
-static const List<Map<String, String>> names = [
+ const List<Map<String, String>> names = [
   {'arabic': 'الرَّحْمَنُ', 'urdu': 'الرحمٰن', 'meaning': 'بہت مہربان'},
   {'arabic': 'الرَّحِيمُ', 'urdu': 'الرحیم', 'meaning': 'نہایت رحم والا'},
   {'arabic': 'الْمَلِكُ', 'urdu': 'الملک', 'meaning': 'بادشاہ'},
