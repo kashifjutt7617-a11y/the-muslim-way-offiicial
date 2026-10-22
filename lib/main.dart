@@ -673,7 +673,13 @@ const SizedBox(width: 5),
   AppColors.gold,
   customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AsmaUlHusnaPage())),
 ),
-              _makeCard(context, Icons.help_outline, 'روز مرہ مسائل', AppColors.lightGreen),
+              _makeCard(
+  context, 
+  Icons.help_outline, 
+  'روز مرہ مسائل', 
+  AppColors.lightGreen,
+  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DailyProblemsPage())),
+),
             ],
           ),
         ),
@@ -2401,3 +2407,294 @@ class AsmaUlHusnaPage extends StatelessWidget {
   {'arabic': 'الرَّشِيدُ', 'urdu': 'الرشید', 'meaning': 'راہ دکھانے والا'},
   {'arabic': 'الصَّبُورُ', 'urdu': 'الصبور', 'meaning': 'صبر کرنے والا'},
 ];
+// ============================================================
+// DAILY PROBLEMS PAGE — روز مرہ مسائل اور ان کا حل
+// ============================================================
+class DailyProblemsPage extends StatelessWidget {
+  const DailyProblemsPage({super.key});
+
+  static const List<Map<String, dynamic>> problems = [
+    {
+      'title': 'پریشانی اور ٹینشن',
+      'icon': Icons.sentiment_dissatisfied,
+      'color': Color(0xFFC0392B),
+      'ayah': 'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+      'ayah_urdu': 'بے شک مشکل کے ساتھ آسانی ہے۔',
+      'ayah_ref': 'سورۃ الشرح: 6',
+      'hadith': 'جو شخص صبح اٹھے اور وہ امن میں ہو، جسم تندرست ہو، اور دن کا کھانا موجود ہو، تو گویا اسے پوری دنیا مل گئی۔',
+      'hadith_ref': 'ترمذی: 2346',
+    },
+    {
+      'title': 'رزق اور کاروبار',
+      'icon': Icons.business_center,
+      'color': Color(0xFFD4AF37),
+      'ayah': 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ',
+      'ayah_urdu': 'اور جو اللہ پر بھروسہ کرے، تو وہ اس کے لیے کافی ہے۔',
+      'ayah_ref': 'سورۃ الطلاق: 3',
+      'hadith': 'جس نے استغفار کو لازم کر لیا، اللہ اس کے ہر غم سے نجات کا راستہ نکال دے گا اور اسے وہاں سے رزق دے گا جہاں سے اسے گمان بھی نہ ہوگا۔',
+      'hadith_ref': 'ابو داؤد: 1518',
+    },
+    {
+      'title': 'شادی اور ازدواجی مسائل',
+      'icon': Icons.family_restroom,
+      'color': Color(0xFF8E44AD),
+      'ayah': 'وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً',
+      'ayah_urdu': 'اور اس کی نشانیوں میں سے یہ ہے کہ اس نے تمہارے لیے تمہاری ہی جنس سے جوڑے پیدا کیے تاکہ تم ان سے سکون حاصل کرو، اور اس نے تمہارے درمیان محبت اور رحمت رکھ دی۔',
+      'ayah_ref': 'سورۃ الروم: 21',
+      'hadith': 'عورتوں کے ساتھ اچھا سلوک کرو، کیونکہ وہ تمہاری ماں، بہن، بیٹیوں کی طرح ہیں۔',
+      'hadith_ref': 'صحیح بخاری: 5186',
+    },
+    {
+      'title': 'اولاد کی نعمت',
+      'icon': Icons.child_care,
+      'color': Color(0xFF2980B9),
+      'ayah': 'رَبِّ هَبْ لِي مِنَ الصَّالِحِينَ',
+      'ayah_urdu': 'اے میرے رب! مجھے نیک اولاد عطا فرما۔',
+      'ayah_ref': 'سورۃ الصافات: 100',
+      'hadith': 'بے شک اللہ تعالیٰ اپنے بندوں پر اس طرح مہربان ہے جیسے ایک ماں اپنی اولاد پر مہربان ہوتی ہے۔',
+      'hadith_ref': 'صحیح بخاری: 5999',
+    },
+    {
+      'title': 'بیماری اور شفا',
+      'icon': Icons.local_hospital,
+      'color': Color(0xFFE67E22),
+      'ayah': 'وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ',
+      'ayah_urdu': 'اور جب میں بیمار ہوتا ہوں تو وہی مجھے شفا دیتا ہے۔',
+      'ayah_ref': 'سورۃ الشعراء: 80',
+      'hadith': 'اللہ نے جو بیماری بھی نازل کی ہے، اس کی دوا بھی نازل کی ہے۔',
+      'hadith_ref': 'صحیح بخاری: 5678',
+    },
+    {
+      'title': 'دشمن اور حسد',
+      'icon': Icons.security,
+      'color': Color(0xFF2E4053),
+      'ayah': 'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ',
+      'ayah_urdu': 'اللہ ہمیں کافی ہے اور وہ بہترین کارساز ہے۔',
+      'ayah_ref': 'سورۃ آل عمران: 173',
+      'hadith': 'جو شخص صبح و شام تین بار "بسم اللہ الذی لا یضر مع اسمہ شیء فی الارض ولا فی السماء وہو السمیع العلیم" پڑھے، اسے کوئی چیز نقصان نہیں پہنچا سکتی۔',
+      'hadith_ref': 'ابو داؤد: 5088',
+    },
+    {
+      'title': 'غم اور فکر',
+      'icon': Icons.psychology_alt,
+      'color': Color(0xFF1B4F72),
+      'ayah': 'وَلَقَدْ نَعْلَمُ أَنَّكَ يَضِيقُ صَدْرُكَ بِمَا يَقُولُونَ',
+      'ayah_urdu': 'اور ہم خوب جانتے ہیں کہ جو باتیں یہ لوگ کرتے ہیں، ان سے آپ کا دل تنگ ہوتا ہے۔',
+      'ayah_ref': 'سورۃ الحجر: 97',
+      'hadith': 'اے اللہ! میں تیری پناہ مانگتا ہوں فکر اور غم سے، کمزوری اور سستی سے، کنجوسی اور بزدلی سے۔',
+      'hadith_ref': 'صحیح بخاری: 6369',
+    },
+    {
+      'title': 'گناہوں کی معافی',
+      'icon': Icons.self_improvement,
+      'color': Color(0xFF6C3483),
+      'ayah': 'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ',
+      'ayah_urdu': 'کہہ دو اے میرے بندو! جنہوں نے اپنی جانوں پر زیادتی کی ہے، اللہ کی رحمت سے مایوس نہ ہو۔',
+      'ayah_ref': 'سورۃ الزمر: 53',
+      'hadith': 'اللہ تعالیٰ فرماتا ہے: اے ابن آدم! جب تک تو مجھے پکارتا رہے گا اور مجھ سے امید رکھے گا، میں تجھے بخش دیتا رہوں گا۔',
+      'hadith_ref': 'ترمذی: 3540',
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'روز مرہ مسائل اور ان کا حل',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: problems.length,
+          itemBuilder: (context, index) {
+            final problem = problems[index];
+            return _ProblemTile(problem: problem);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _ProblemTile extends StatelessWidget {
+  final Map<String, dynamic> problem;
+
+  const _ProblemTile({required this.problem});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = problem['color'];
+    
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => ProblemDetailPage(problem: problem),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Icon(problem['icon'], color: color, size: 32),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  problem['title'],
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+              ),
+              Icon(Icons.arrow_back_ios, color: color, size: 18),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// PROBLEM DETAIL PAGE — مسئلہ کی تفصیل
+// ============================================================
+class ProblemDetailPage extends StatelessWidget {
+  final Map<String, dynamic> problem;
+
+  const ProblemDetailPage({super.key, required this.problem});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = problem['color'];
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: color,
+          title: Text(
+            problem['title'],
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // آیت کا کارڈ
+              _buildTextCard(
+                title: 'قرآن پاک کی روشنی میں',
+                arabic: problem['ayah'],
+                urdu: problem['ayah_urdu'],
+                ref: problem['ayah_ref'],
+                icon: Icons.menu_book,
+                color: AppColors.deepGreen,
+              ),
+              const SizedBox(height: 16),
+              // حدیث کا کارڈ
+              _buildTextCard(
+                title: 'حدیث مبارکہ کی روشنی میں',
+                arabic: '',
+                urdu: problem['hadith'],
+                ref: problem['hadith_ref'],
+                icon: Icons.auto_stories,
+                color: AppColors.gold,
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextCard({
+    required String title,
+    required String arabic,
+    required String urdu,
+    required String ref,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: color),
+              const SizedBox(width: 8),
+              Text(
+                title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color),
+              ),
+            ],
+          ),
+          const Divider(height: 30),
+          if (arabic.isNotEmpty) ...[
+            Text(
+              arabic,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 22, fontFamily: 'serif', height: 2.0, color: AppColors.darkText),
+            ),
+            const SizedBox(height: 15),
+          ],
+          Text(
+            urdu,
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 15, color: Colors.grey[800], height: 1.6),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            'حوالہ: $ref',
+            style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+}
