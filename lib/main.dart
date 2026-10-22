@@ -2625,7 +2625,7 @@ class DailyProblemsPage extends StatelessWidget {
   },
   {
     'title': 'حج و عمرہ کی توفیق',
-    'icon': Icons.kaaba,
+    Icons.location_city
     'color': Color(0xFF95A5A6),
     'ayah': 'وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا',
     'ayah_urdu': 'اور اللہ کے لیے لوگوں پر بیت اللہ کا حج فرض ہے، جو اس تک پہنچنے کی استطاعت رکھتے ہوں۔',
