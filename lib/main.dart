@@ -2627,17 +2627,27 @@ class ProblemDetailPage extends StatelessWidget {
                 icon: Icons.menu_book,
                 color: AppColors.deepGreen,
               ),
-              const SizedBox(height: 16),
               // حدیث کا کارڈ
-              _buildTextCard(
-                title: 'حدیث مبارکہ کی روشنی میں',
-                arabic: '',
-                urdu: problem['hadith'],
-                ref: problem['hadith_ref'],
-                icon: Icons.auto_stories,
-                color: AppColors.gold,
-              ),
-              const SizedBox(height: 30),
+_buildTextCard(
+  title: 'حدیث مبارکہ کی روشنی میں',
+  arabic: '',
+  urdu: problem['hadith'],
+  ref: problem['hadith_ref'],
+  icon: Icons.auto_stories,
+  color: AppColors.gold,
+),
+const SizedBox(height: 16),
+
+// قرآنی وظیفہ کا کارڈ
+_buildTextCard(
+  title: 'قرآنی وظیفہ اور عمل',
+  arabic: '',
+  urdu: problem['wazifa'] ?? 'کوئی وظیفہ موجود نہیں',
+  ref: 'روحانی علاج',
+  icon: Icons.healing,
+  color: AppColors.deepGreen,
+),
+const SizedBox(height: 30),
             ],
           ),
         ),
