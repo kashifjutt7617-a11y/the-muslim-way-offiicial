@@ -814,7 +814,7 @@ const SizedBox(width: 5),
     child: GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => const AsmaUlHusnaPage()),
+          MaterialPageRoute(builder: (_) => AsmaUlHusnaPage()),
         );
       },
       child: Container(
