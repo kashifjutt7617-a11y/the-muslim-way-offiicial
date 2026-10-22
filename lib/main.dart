@@ -800,21 +800,12 @@ const SizedBox(width: 5),
   }
 
   Widget _buildContactSection(BuildContext context) {
-  // روز بدلنے والا نام (آپ یہاں 99 ناموں کی لسٹ بھی لگا سکتے ہیں)
-  final namesList = [
-    {'arabic': 'الرَّحْمَنُ', 'urdu': 'الرحمٰن', 'meaning': 'بہت مہربان'},
-    {'arabic': 'الرَّحِيمُ', 'urdu': 'الرحیم', 'meaning': 'نہایت رحم والا'},
-    {'arabic': 'الْمَلِكُ', 'urdu': 'الملک', 'meaning': 'بادشاہ'},
-    {'arabic': 'الْقُدُّوسُ', 'urdu': 'القدوس', 'meaning': 'پاکیزہ'},
-  ];
-  final todayName = namesList[_now.day % namesList.length];
-
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     child: GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => AsmaUlHusnaPage()),
+          MaterialPageRoute(builder: (_) => const IslamicCalendarPage()),
         );
       },
       child: Container(
@@ -822,14 +813,14 @@ const SizedBox(width: 5),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [AppColors.gold, AppColors.lightGold],
+            colors: [AppColors.deepGreen, AppColors.lightGreen],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppColors.gold.withOpacity(0.3),
+              color: AppColors.deepGreen.withOpacity(0.2),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -840,32 +831,33 @@ const SizedBox(width: 5),
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.3),
+                color: Colors.white.withOpacity(0.2),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.star, color: AppColors.deepGreen, size: 35),
+              child: const Icon(Icons.calendar_month, color: AppColors.gold, size: 35),
             ),
             const SizedBox(width: 15),
-            Expanded(
+            const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'اللہ کا نام (Asma-ul-Husna)',
-                    style: TextStyle(color: AppColors.deepGreen, fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
                   Text(
-                    todayName['arabic']!,
-                    style: const TextStyle(color: AppColors.deepGreen, fontSize: 24, fontWeight: FontWeight.bold, fontFamily: 'serif'),
+                    'Islamic & English Calendar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  SizedBox(height: 5),
                   Text(
-                    '${todayName['urdu']} - ${todayName['meaning']}',
-                    style: const TextStyle(color: AppColors.darkText, fontSize: 13),
+                    'اسلامی اور انگریزی کیلنڈر (تہوار اور چھٹیاں)',
+                    style: TextStyle(color: Colors.white70, fontSize: 13),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.arrow_back_ios, color: AppColors.deepGreen, size: 18),
+            const Icon(Icons.arrow_back_ios, color: AppColors.gold, size: 18),
           ],
         ),
       ),
