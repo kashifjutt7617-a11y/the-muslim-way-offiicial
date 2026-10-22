@@ -2129,6 +2129,86 @@ class IslamicCalendarPage extends StatelessWidget {
     );
   }
 }
+class AsmaUlHusnaPage extends StatelessWidget {
+  const AsmaUlHusnaPage({super.key});
+
+  static const List<Map<String, String>> names = [
+    {'arabic': 'الرَّحْمَنُ', 'urdu': 'الرحمٰن', 'meaning': 'بہت مہربان'},
+    {'arabic': 'الرَّحِيمُ', 'urdu': 'الرحیم', 'meaning': 'نہایت رحم والا'},
+    {'arabic': 'الْمَلِكُ', 'urdu': 'الملک', 'meaning': 'بادشاہ'},
+    {'arabic': 'الْقُدُّوسُ', 'urdu': 'القدوس', 'meaning': 'پاکیزہ'},
+    {'arabic': 'السَّلَامُ', 'urdu': 'السلام', 'meaning': 'سلامتی والا'},
+    {'arabic': 'الْمُؤْمِنُ', 'urdu': 'المؤمن', 'meaning': 'امن دینے والا'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'اللہ کے 99 نام',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: GridView.builder(
+          padding: const EdgeInsets.all(16),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.2,
+          ),
+          itemCount: names.length,
+          itemBuilder: (context, index) {
+            final name = names[index];
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: AppColors.gold.withOpacity(0.4), width: 1.5),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    name['arabic']!,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.deepGreen,
+                      fontFamily: 'serif',
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    name['urdu']!,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.darkText,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    name['meaning']!,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
  const List<Map<String, String>> names = [
   {'arabic': 'الرَّحْمَنُ', 'urdu': 'الرحمٰن', 'meaning': 'بہت مہربان'},
   {'arabic': 'الرَّحِيمُ', 'urdu': 'الرحیم', 'meaning': 'نہایت رحم والا'},
