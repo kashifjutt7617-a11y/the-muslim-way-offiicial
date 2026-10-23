@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.0
-flutter_compass: ^0.8.0
-geolocator: ^11.0.0
+flutter_compass: any
+geolocator: any
 intl: any
 dev_dependencies:
   flutter_test:
