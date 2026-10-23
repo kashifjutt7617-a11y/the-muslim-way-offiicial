@@ -3014,10 +3014,6 @@ const SizedBox(height: 30),
 // ============================================================
 // QIBLA COMPASS PAGE — قبلہ کمپاس
 // ============================================================
-import 'dart:math' as math;
-import 'package:flutter_compass/flutter_compass.dart';
-import 'package:geolocator/geolocator.dart';
-
 class QiblaCompassPage extends StatefulWidget {
   const QiblaCompassPage({super.key});
 
