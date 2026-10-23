@@ -10,7 +10,6 @@ void main() {
 }
 
 class AppColors {
-class AppColors {
   static const Color deepGreen = Color(0xFF0B4F3A);
   static const Color lightGreen = Color(0xFF1B6B4F);
   static const Color gold = Color(0xFFD4AF37);
