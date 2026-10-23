@@ -4,10 +4,12 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
+
 void main() {
   runApp(const MuslimWayApp());
 }
 
+class AppColors {
 class AppColors {
   static const Color deepGreen = Color(0xFF0B4F3A);
   static const Color lightGreen = Color(0xFF1B6B4F);
