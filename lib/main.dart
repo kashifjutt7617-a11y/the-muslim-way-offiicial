@@ -665,7 +665,13 @@ const SizedBox(width: 5),
                 customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const IstikharaPage())),
               ),
               _makeCard(context, Icons.access_time, 'نماز کے اوقات', AppColors.deepGreen),
-              _makeCard(context, Icons.explore, 'قبلہ کمپاس', AppColors.lightGreen),
+              _makeCard(
+  context, 
+  Icons.explore, 
+  'قبلہ کمپاس', 
+  AppColors.lightGreen,
+  customAction: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const QiblaCompassPage())),
+),
               _makeCard(
   context, 
   Icons.star, 
@@ -2998,6 +3004,211 @@ const SizedBox(height: 30),
             style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.bold),
           ),
         ],
+      ),
+    );
+  }
+}
+// ============================================================
+// QIBLA COMPASS PAGE — قبلہ کمپاس
+// ============================================================
+import 'dart:math' as math;
+import 'package:flutter_compass/flutter_compass.dart';
+import 'package:geolocator/geolocator.dart';
+
+class QiblaCompassPage extends StatefulWidget {
+  const QiblaCompassPage({super.key});
+
+  @override
+  State<QiblaCompassPage> createState() => _QiblaCompassPageState();
+}
+
+class _QiblaCompassPageState extends State<QiblaCompassPage> {
+  double? _qiblaDirection;
+  double? _deviceHeading;
+  String _statusMessage = 'لوکیشن حاصل کی جا رہی ہے...';
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _initCompass();
+    _listenToCompass();
+  }
+
+  Future<void> _initCompass() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() {
+        _statusMessage = 'براہ کرم اپنی لوکیشن (GPS) آن کریں۔';
+        _isLoading = false;
+      });
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          _statusMessage = 'لوکیشن کی اجازت نہیں دی گئی۔';
+          _isLoading = false;
+        });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      setState(() {
+        _statusMessage = 'لوکیشن کی اجازت مستقل طور پر مسترد کر دی گئی ہے۔';
+        _isLoading = false;
+      });
+      return;
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    // کعبہ کے کوآرڈینیٹس (مکہ مکرمہ)
+    const double kaabaLat = 21.4225;
+    const double kaabaLon = 39.8262;
+
+    // صارف کی لوکیشن سے کعبہ کا رخ (Bearing) حساب کرنا
+    double lat1 = position.latitude * math.pi / 180.0;
+    double lon1 = position.longitude * math.pi / 180.0;
+    double lat2 = kaabaLat * math.pi / 180.0;
+    double lon2 = kaabaLon * math.pi / 180.0;
+
+    double dLon = lon2 - lon1;
+    double y = math.sin(dLon) * math.cos(lat2);
+    double x = math.cos(lat1) * math.sin(lat2) -
+        math.sin(lat1) * math.cos(lat2) * math.cos(dLon);
+    double bearing = math.atan2(y, x) * 180.0 / math.pi;
+
+    setState(() {
+      _qiblaDirection = (bearing + 360) % 360;
+      _isLoading = false;
+    });
+  }
+
+  void _listenToCompass() {
+    FlutterCompass.events?.listen((event) {
+      if (event.heading != null && mounted) {
+        setState(() {
+          _deviceHeading = event.heading;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: AppColors.cream,
+        appBar: AppBar(
+          backgroundColor: AppColors.deepGreen,
+          title: const Text(
+            'قبلہ کمپاس',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: _isLoading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(color: AppColors.deepGreen),
+                    const SizedBox(height: 20),
+                    Text(_statusMessage, style: const TextStyle(fontSize: 16)),
+                  ],
+                )
+              : _statusMessage != 'لوکیشن حاصل کی جا رہی ہے...' && _qiblaDirection == null
+                  ? Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(
+                        _statusMessage,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 18, color: Colors.red),
+                      ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'اپنے فون کو سیدھا رکھیں اور سوئی (Needle) کی طرف دیکھیں',
+                          style: TextStyle(fontSize: 16, color: AppColors.darkText),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 40),
+                        // کمپاس کا گول ڈیزائن
+                        SizedBox(
+                          width: 300,
+                          height: 300,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // گول دائرہ
+                              Container(
+                                width: 300,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white,
+                                  border: Border.all(color: AppColors.gold, width: 4),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.gold.withOpacity(0.2),
+                                      blurRadius: 20,
+                                      spreadRadius: 5,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // سوئی (Needle)
+                              if (_deviceHeading != null && _qiblaDirection != null)
+                                Transform.rotate(
+                                  angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
+                                  child: Column(
+                                    children: [
+                                      const Icon(Icons.navigation, color: AppColors.deepGreen, size: 60),
+                                      Container(
+                                        width: 4,
+                                        height: 100,
+                                        color: AppColors.deepGreen,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              const Text(
+                                'کعبہ',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.deepGreen,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        if (_deviceHeading != null && _qiblaDirection != null)
+                          Text(
+                            'کعبہ کا رخ: ${_qiblaDirection!.toStringAsFixed(1)}°',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.gold,
+                            ),
+                          ),
+                      ],
+                    ),
+        ),
       ),
     );
   }
