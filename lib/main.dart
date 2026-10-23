@@ -3147,54 +3147,79 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
                         const SizedBox(height: 40),
                         // کمپاس کا گول ڈیزائن
                         SizedBox(
-                          width: 300,
-                          height: 300,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              // گول دائرہ
-                              Container(
-                                width: 300,
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(color: AppColors.gold, width: 4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.gold.withOpacity(0.2),
-                                      blurRadius: 20,
-                                      spreadRadius: 5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // سوئی (Needle)
-                              if (_deviceHeading != null && _qiblaDirection != null)
-                                Transform.rotate(
-                                  angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
-                                  child: Column(
-                                    children: [
-                                      const Icon(Icons.navigation, color: AppColors.deepGreen, size: 60),
-                                      Container(
-                                        width: 4,
-                                        height: 100,
-                                        color: AppColors.deepGreen,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              const Text(
-                                'کعبہ',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.deepGreen,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+  width: 300,
+  height: 300,
+  child: Stack(
+    alignment: Alignment.center,
+    children: [
+      // گول دائرہ
+      Container(
+        width: 300,
+        height: 300,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          border: Border.all(color: AppColors.gold, width: 4),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.gold.withOpacity(0.2),
+              blurRadius: 20,
+              spreadRadius: 5,
+            ),
+          ],
+        ),
+      ),
+      
+      // 👇 یہاں سے نئے نشانات (N, S, E, W) شامل کیے گئے ہیں 👇
+      // شمال (N)
+      const Positioned(
+        top: 20,
+        child: Text('N', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
+      ),
+      // جنوب (S)
+      const Positioned(
+        bottom: 20,
+        child: Text('S', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
+      ),
+      // مشرق (E)
+      const Positioned(
+        right: 20,
+        child: Text('E', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
+      ),
+      // مغرب (W)
+      const Positioned(
+        left: 20,
+        child: Text('W', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
+      ),
+      // 👆 یہاں تک 👆
+
+      // سوئی (Needle)
+      if (_deviceHeading != null && _qiblaDirection != null)
+        Transform.rotate(
+          angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.navigation, color: AppColors.deepGreen, size: 60),
+              Container(
+                width: 4,
+                height: 100,
+                color: AppColors.deepGreen,
+              ),
+            ],
+          ),
+        ),
+      const Text(
+        'کعبہ',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: AppColors.deepGreen,
+        ),
+      ),
+    ],
+  ),
+),
                         const SizedBox(height: 40),
                         if (_deviceHeading != null && _qiblaDirection != null)
                           Text(
