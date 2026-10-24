@@ -3167,20 +3167,20 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
 
                           // 3. N, S, E, W کے نشانات
                           const Positioned(
-                            top: 22,
-                            child: Text('N', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.red)),
+                            top: 12,
+                            child: Text('N', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
                           ),
                           const Positioned(
-                            bottom: 22,
-                            child: Text('S', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                            bottom: 12,
+                            child: Text('S', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
                           ),
                           const Positioned(
-                            right: 22,
-                            child: Text('E', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                            right: 12,
+                            child: Text('E', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
                           ),
                           const Positioned(
-                            left: 22,
-                            child: Text('W', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                            left: 12,
+                            child: Text('W', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
                           ),
 
                           // 4. قبلہ کی سوئی (Needle)
@@ -3191,30 +3191,36 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
                                 alignment: Alignment.center,
                                 children: [
                                   // سوئی کی لکیر اور تیر
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      // اوپر کا حصہ (کعبہ اور تیر)
-                                      Container(
-                                        padding: const EdgeInsets.all(4),
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xFF1E5631),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: const Icon(
-                                          Icons.mosque,
-                                          color: Colors.white,
-                                          size: 20,
-                                        ),
-                                      ),
-                                      const Icon(Icons.arrow_drop_down, color: Color(0xFF1E5631), size: 40),
-                                      
-                                      // نیچے کا حصہ (لمبی سوئی)
-                                      Container(
-                                        width: 4,
-                                        height: 60,
-                                        color: Colors.grey.shade400,
-                                      ),
+                              // سوئی کا نیا اور واضح ڈیزائن
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    // کعبہ کا آئیکن (سوئی کے اوپری حصے پر)
+    Container(
+      padding: const EdgeInsets.all(2),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: Colors.black26, blurRadius: 4)
+        ]
+      ),
+      child: const Icon(
+        Icons.mosque,
+        color: Color(0xFF1E5631),
+        size: 18,
+      ),
+    ),
+    // سوئی کا اوپری تیر (موٹا کیا گیا ہے)
+    const Icon(Icons.arrow_drop_down, color: Color(0xFF1E5631), size: 50),
+    // سوئی کی لمبی لکیر
+    Container(
+      width: 6, // پہلے 4 تھا، اب 6 کر دیں تاکہ موٹی لگے
+      height: 70,
+      color: Colors.grey.shade400,
+    ),
+  ],
+),
                                     ],
                                   ),
                                 ],
@@ -3287,7 +3293,7 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 45),
               child: Transform.rotate(
                 angle: -(i * 45) * math.pi / 180, // نمبروں کو سیدھا رکھنے کے لیے
                 child: Text(
