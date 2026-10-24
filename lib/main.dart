@@ -3102,73 +3102,139 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF9F6F0), // ہلکا کریمی رنگ
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF1E5631), // گہرا سبز
-          title: const Text(
-            'قبلہ کمپاس',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          iconTheme: const IconThemeData(color: Colors.white),
-          centerTitle: true,
+  @override
+Widget build(BuildContext context) {
+  return Directionality(
+    textDirection: TextDirection.rtl,
+    child: Scaffold(
+      backgroundColor: const Color(0xFFF9F6F0),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF1E5631),
+        title: const Text(
+          'قبلہ کمپاس',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        body: Center(
-          child: _isLoading
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircularProgressIndicator(color: Color(0xFF1E5631)),
-                    const SizedBox(height: 20),
-                    Text(_statusMessage,
-                        style: const TextStyle(fontSize: 16)),
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'اپنے فون کو سیدھا رکھیں اور سوئی کو دیکھیں',
-                      style: TextStyle(fontSize: 16, color: Colors.black54),
-                    ),
-                    const SizedBox(height: 40),
-                    
-                    // 👇 کمپاس کا گول ڈیزائن
-                    SizedBox(
-                      width: 300,
-                      height: 300,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          // 1. گول پس منظر
-                          Container(
-                            width: 300,
-                            height: 300,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                              border: Border.all(
-                                  color: const Color(0xFFD4AF37), width: 4), // گولڈن بارڈر
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFFD4AF37).withOpacity(0.2),
-                                  blurRadius: 20,
-                                  spreadRadius: 5,
+        iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: _isLoading
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(color: Color(0xFF1E5631)),
+                  const SizedBox(height: 20),
+                  Text(_statusMessage, style: const TextStyle(fontSize: 16)),
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'اپنے فون کو سیدھا رکھیں اور سوئی کو دیکھیں',
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                  const SizedBox(height: 40),
+                  
+                  // کمپاس کا گول ڈیزائن
+                  SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // گول پس منظر
+                        Container(
+                          width: 300,
+                          height: 300,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                            border: Border.all(color: const Color(0xFFD4AF37), width: 4),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFFD4AF37).withOpacity(0.2),
+                                blurRadius: 20,
+                                spreadRadius: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // ڈگریوں والا گول ڈائل
+                        _buildCompassDial(),
+
+                        // N, S, E, W کے نشانات
+                        const Positioned(
+                          top: 12,
+                          child: Text('N', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.red)),
+                        ),
+                        const Positioned(
+                          bottom: 12,
+                          child: Text('S', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                        ),
+                        const Positioned(
+                          right: 12,
+                          child: Text('E', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                        ),
+                        const Positioned(
+                          left: 12,
+                          child: Text('W', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                        ),
+
+                        // قبلہ کی سوئی (Needle)
+                        if (_deviceHeading != null && _qiblaDirection != null)
+                          Transform.rotate(
+                            angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(2),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)]
+                                      ),
+                                      child: const Icon(Icons.mosque, color: Color(0xFF1E5631), size: 18),
+                                    ),
+                                    const Icon(Icons.arrow_drop_down, color: Color(0xFF1E5631), size: 50),
+                                    Container(width: 6, height: 70, color: Colors.grey.shade400),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
-
-                          // 2. ڈگریوں والا گول ڈائل
-                          _buildCompassDial(),
-
-                          // 3. N, S, E, W کے نشانات
-                          const Positioned(
-                            top: 12,
-                            child: Text('N', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 40),
+                  
+                  // نیچے ڈگریوں کی معلومات
+                  if (_deviceHeading != null && _qiblaDirection != null)
+                    Column(
+                      children: [
+                        Text(
+                          'قبلہ کا رخ: ${_qiblaDirection!.toStringAsFixed(1)}°',
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFFD4AF37)),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'آپ کا رخ: ${_deviceHeading!.toStringAsFixed(1)}°',
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+      ),
+    ),
+  );
+}
                           ),
                           const Positioned(
                             bottom: 12,
