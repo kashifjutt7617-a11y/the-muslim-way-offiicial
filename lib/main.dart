@@ -3191,32 +3191,43 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
         left: 20,
         child: Text('W', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
       ),
-      // 👆 یہاں تک 👆
-
-      // سوئی (Needle)
-      if (_deviceHeading != null && _qiblaDirection != null)
-        Transform.rotate(
-          angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.navigation, color: AppColors.deepGreen, size: 60),
-              Container(
-                width: 4,
-                height: 100,
-                color: AppColors.deepGreen,
-              ),
-            ],
-          ),
+      // 👇 نیا پروفیشنل کعبہ کا آئیکن (سوئی کے ساتھ)
+if (_deviceHeading != null && _qiblaDirection != null)
+  Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      // کعبہ کا آئیکن
+      Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 6,
+              spreadRadius: 1,
+            ),
+          ],
         ),
+        child: Icon(
+          Icons.mosque,
+          color: AppColors.deepGreen,
+          size: 24,
+        ),
+      ),
+      const SizedBox(height: 4),
+      // کعبہ کا نام
       const Text(
         'کعبہ',
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 14,
           fontWeight: FontWeight.bold,
           color: AppColors.deepGreen,
         ),
       ),
+    ],
+  ),
     ],
   ),
 ),
