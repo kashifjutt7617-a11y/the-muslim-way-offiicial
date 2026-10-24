@@ -3191,44 +3191,146 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
         left: 20,
         child: Text('W', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
       ),
-      // 👇 نیا پروفیشنل کعبہ کا آئیکن (سوئی کے ساتھ)
+      // 👇 گول ڈائل شامل کریں (ڈگریوں والا)
+_buildCompassDial(),
+
+// 👇 شامل کیے گئے نشانات (N, S, E, W)
+// شمال (N)
+const Positioned(
+  top: 20,
+  child: Text('N', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
+),
+// جنوب (S)
+const Positioned(
+  bottom: 20,
+  child: Text('S', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
+),
+// مشرق (E)
+const Positioned(
+  right: 20,
+  child: Text('E', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
+),
+// مغرب (W)
+const Positioned(
+  left: 20,
+  child: Text('W', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
+),
+
+// 👇 سوئی اور کعبہ کا آئیکن (دونوں ایک ساتھ گھومیں گے)
 if (_deviceHeading != null && _qiblaDirection != null)
-  Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      // کعبہ کا آئیکن
-      Container(
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 6,
-              spreadRadius: 1,
+  Transform.rotate(
+    angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // 1. اوپر کعبہ کا آئیکن
+        Container(
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 6,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: Icon(
+            Icons.mosque,
+            color: AppColors.deepGreen,
+            size: 24,
+          ),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+       // 👇 گول ڈائل (ڈگریوں والا) بنانے کا فنکشن
+Widget _buildCompassDial() {
+  List<Widget> ticks = [];
+  for (int i = 0; i < 72; i++) {
+    bool isMajor = i % 9 == 0;
+    ticks.add(
+      Transform.rotate(
+        angle: (i * 5) * math.pi / 180,
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            margin: const EdgeInsets.only(top: 8),
+            width: isMajor ? 3 : 1,
+            height: isMajor ? 12 : 6,
+            color: isMajor ? AppColors.deepGreen : Colors.grey.shade400,
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> labels = [];
+  List<String> labelTexts = ['0', '45', '90', '135', '180', '225', '270', '315'];
+  
+  for (int i = 0; i < labelTexts.length; i++) {
+    labels.add(
+      Transform.rotate(
+        angle: (i * 45) * math.pi / 180,
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 24),
+            child: Transform.rotate(
+              angle: -(i * 45) * math.pi / 180,
+              child: Text(
+                labelTexts[i],
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.deepGreen.withOpacity(0.7),
+                ),
+              ),
             ),
-          ],
-        ),
-        child: Icon(
-          Icons.mosque,
-          color: AppColors.deepGreen,
-          size: 24,
+          ),
         ),
       ),
-      const SizedBox(height: 4),
-      // کعبہ کا نام
-      const Text(
-        'کعبہ',
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
+    );
+  }
+
+  return SizedBox(
+    width: 300,
+    height: 300,
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        ...ticks,
+        ...labels,
+      ],
+    ),
+  );
+}
+          'کعبہ',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: AppColors.deepGreen,
+          ),
+        ),
+        const SizedBox(height: 8),
+
+        // 2. سوئی کا اوپری حصہ (تیر کا نشان)
+        const Icon(
+          Icons.navigation, 
+          color: AppColors.deepGreen, 
+          size: 40, 
+        ),
+        
+        // 3. سوئی کی لکیر (نیچے کی طرف)
+        Container(
+          width: 4,
+          height: 80, 
           color: AppColors.deepGreen,
         ),
-      ),
-    ],
-  ),
-    ],
+      ],
+    ),
   ),
 ),
                         const SizedBox(height: 40),
