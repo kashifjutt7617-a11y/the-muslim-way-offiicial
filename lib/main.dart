@@ -3253,66 +3253,57 @@ Widget build(BuildContext context) {
                           if (_deviceHeading != null && _qiblaDirection != null)
                             Transform.rotate(
                               angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  // سوئی کی لکیر اور تیر
-                              // سوئی کا نیا اور واضح ڈیزائن
-Column(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    // کعبہ کا آئیکن (سوئی کے اوپری حصے پر)
-    Container(
-      padding: const EdgeInsets.all(2),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(color: Colors.black26, blurRadius: 4)
-        ]
-      ),
-      child: const Icon(
-        Icons.mosque,
-        color: Color(0xFF1E5631),
-        size: 18,
+                                      // قبلہ کی سوئی (Needle)
+          if (_deviceHeading != null && _qiblaDirection != null)
+            Transform.rotate(
+              angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 4)
+                          ]
+                        ),
+                        child: const Icon(Icons.mosque, color: Color(0xFF1E5631), size: 18),
+                      ),
+                      const Icon(Icons.arrow_drop_down, color: Color(0xFF1E5631), size: 50),
+                      Container(width: 6, height: 70, color: Colors.grey.shade400),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     ),
-    // سوئی کا اوپری تیر (موٹا کیا گیا ہے)
-    const Icon(Icons.arrow_drop_down, color: Color(0xFF1E5631), size: 50),
-    // سوئی کی لمبی لکیر
-    Container(
-      width: 6, // پہلے 4 تھا، اب 6 کر دیں تاکہ موٹی لگے
-      height: 70,
-      color: Colors.grey.shade400,
-    ),
+    
+    const SizedBox(height: 40),
+    
+    // نیچے ڈگریوں کی معلومات
+    if (_deviceHeading != null && _qiblaDirection != null)
+      Column(
+        children: [
+          Text(
+            'قبلہ کا رخ: ${_qiblaDirection!.toStringAsFixed(1)}°',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFFD4AF37)),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'آپ کا رخ: ${_deviceHeading!.toStringAsFixed(1)}°',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black54),
+          ),
+        ],
+      ),
   ],
 ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    
-                    const SizedBox(height: 40),
-                    
-                    // 👇 نیچے ڈگریوں کی معلومات
-                    if (_deviceHeading != null && _qiblaDirection != null)
-                      Column(
-                        children: [
-                          Text(
-                            'قبلہ کا رخ: ${_qiblaDirection!.toStringAsFixed(1)}°',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFD4AF37), // گولڈن رنگ
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'آپ کا رخ: ${_deviceHeading!.toStringAsFixed(1)}°',
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
