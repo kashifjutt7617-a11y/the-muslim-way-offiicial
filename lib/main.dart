@@ -3011,9 +3011,10 @@ const SizedBox(height: 30),
     );
   }
 }
-// ============================================================
-// QIBLA COMPASS PAGE — قبلہ کمپاس
-// ============================================================
+// =========================================================================
+// 👇 نیا پروفیشنل قبلہ کمپاس پیج (صاف اور مکمل)
+// =========================================================================
+
 class QiblaCompassPage extends StatefulWidget {
   const QiblaCompassPage({super.key});
 
@@ -3070,20 +3071,18 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    // کعبہ کے کوآرڈینیٹس (مکہ مکرمہ)
     const double kaabaLat = 21.4225;
     const double kaabaLon = 39.8262;
 
-    // صارف کی لوکیشن سے کعبہ کا رخ (Bearing) حساب کرنا
     double lat1 = position.latitude * math.pi / 180.0;
     double lon1 = position.longitude * math.pi / 180.0;
     double lat2 = kaabaLat * math.pi / 180.0;
     double lon2 = kaabaLon * math.pi / 180.0;
 
-    double dLon = lon2 - lon1;
-    double y = math.sin(dLon) * math.cos(lat2);
+    double dlon = lon2 - lon1;
+    double y = math.sin(dlon) * math.cos(lat2);
     double x = math.cos(lat1) * math.sin(lat2) -
-        math.sin(lat1) * math.cos(lat2) * math.cos(dLon);
+        math.sin(lat1) * math.cos(lat2) * math.cos(dlon);
     double bearing = math.atan2(y, x) * 180.0 / math.pi;
 
     setState(() {
@@ -3107,9 +3106,9 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: AppColors.cream,
+        backgroundColor: const Color(0xFFF9F6F0), // ہلکا کریمی رنگ
         appBar: AppBar(
-          backgroundColor: AppColors.deepGreen,
+          backgroundColor: const Color(0xFF1E5631), // گہرا سبز
           title: const Text(
             'قبلہ کمپاس',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -3122,231 +3121,196 @@ class _QiblaCompassPageState extends State<QiblaCompassPage> {
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CircularProgressIndicator(color: AppColors.deepGreen),
+                    const CircularProgressIndicator(color: Color(0xFF1E5631)),
                     const SizedBox(height: 20),
-                    Text(_statusMessage, style: const TextStyle(fontSize: 16)),
+                    Text(_statusMessage,
+                        style: const TextStyle(fontSize: 16)),
                   ],
                 )
-              : _statusMessage != 'لوکیشن حاصل کی جا رہی ہے...' && _qiblaDirection == null
-                  ? Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        _statusMessage,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 18, color: Colors.red),
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'اپنے فون کو سیدھا رکھیں اور سوئی کو دیکھیں',
+                      style: TextStyle(fontSize: 16, color: Colors.black54),
+                    ),
+                    const SizedBox(height: 40),
+                    
+                    // 👇 کمپاس کا گول ڈیزائن
+                    SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // 1. گول پس منظر
+                          Container(
+                            width: 300,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: const Color(0xFFD4AF37), width: 4), // گولڈن بارڈر
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFD4AF37).withOpacity(0.2),
+                                  blurRadius: 20,
+                                  spreadRadius: 5,
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // 2. ڈگریوں والا گول ڈائل
+                          _buildCompassDial(),
+
+                          // 3. N, S, E, W کے نشانات
+                          const Positioned(
+                            top: 22,
+                            child: Text('N', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.red)),
+                          ),
+                          const Positioned(
+                            bottom: 22,
+                            child: Text('S', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                          ),
+                          const Positioned(
+                            right: 22,
+                            child: Text('E', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                          ),
+                          const Positioned(
+                            left: 22,
+                            child: Text('W', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black54)),
+                          ),
+
+                          // 4. قبلہ کی سوئی (Needle)
+                          if (_deviceHeading != null && _qiblaDirection != null)
+                            Transform.rotate(
+                              angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // سوئی کی لکیر اور تیر
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      // اوپر کا حصہ (کعبہ اور تیر)
+                                      Container(
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xFF1E5631),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(
+                                          Icons.mosque,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      ),
+                                      const Icon(Icons.arrow_drop_down, color: Color(0xFF1E5631), size: 40),
+                                      
+                                      // نیچے کا حصہ (لمبی سوئی)
+                                      Container(
+                                        width: 4,
+                                        height: 60,
+                                        color: Colors.grey.shade400,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
                       ),
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'اپنے فون کو سیدھا رکھیں اور سوئی (Needle) کی طرف دیکھیں',
-                          style: TextStyle(fontSize: 16, color: AppColors.darkText),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 40),
-                        // کمپاس کا گول ڈیزائن
-                        SizedBox(
-  width: 300,
-  height: 300,
-  child: Stack(
-    alignment: Alignment.center,
-    children: [
-      // گول دائرہ
-      Container(
-        width: 300,
-        height: 300,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          border: Border.all(color: AppColors.gold, width: 4),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.gold.withOpacity(0.2),
-              blurRadius: 20,
-              spreadRadius: 5,
-            ),
-          ],
-        ),
-      ),
-      
-      // 👇 یہاں سے نئے نشانات (N, S, E, W) شامل کیے گئے ہیں 👇
-      // شمال (N)
-      const Positioned(
-        top: 20,
-        child: Text('N', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
-      ),
-      // جنوب (S)
-      const Positioned(
-        bottom: 20,
-        child: Text('S', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
-      ),
-      // مشرق (E)
-      const Positioned(
-        right: 20,
-        child: Text('E', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
-      ),
-      // مغرب (W)
-      const Positioned(
-        left: 20,
-        child: Text('W', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
-      ),
-      // 👇 گول ڈائل شامل کریں (ڈگریوں والا)
-_buildCompassDial(),
-
-// 👇 شامل کیے گئے نشانات (N, S, E, W)
-// شمال (N)
-const Positioned(
-  top: 20,
-  child: Text('N', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
-),
-// جنوب (S)
-const Positioned(
-  bottom: 20,
-  child: Text('S', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
-),
-// مشرق (E)
-const Positioned(
-  right: 20,
-  child: Text('E', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
-),
-// مغرب (W)
-const Positioned(
-  left: 20,
-  child: Text('W', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkText)),
-),
-
-// 👇 سوئی اور کعبہ کا آئیکن (دونوں ایک ساتھ گھومیں گے)
-if (_deviceHeading != null && _qiblaDirection != null)
-  Transform.rotate(
-    angle: ((_qiblaDirection! - _deviceHeading!) * (math.pi / 180)),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // 1. اوپر کعبہ کا آئیکن
-        Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                blurRadius: 6,
-                spreadRadius: 1,
-              ),
-            ],
-          ),
-          child: Icon(
-            Icons.mosque,
-            color: AppColors.deepGreen,
-            size: 24,
-          ),
-        ),
-        const SizedBox(height: 4),
-        const Text(
-       // 👇 گول ڈائل (ڈگریوں والا) بنانے کا فنکشن
-Widget _buildCompassDial() {
-  List<Widget> ticks = [];
-  for (int i = 0; i < 72; i++) {
-    bool isMajor = i % 9 == 0;
-    ticks.add(
-      Transform.rotate(
-        angle: (i * 5) * math.pi / 180,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: const EdgeInsets.only(top: 8),
-            width: isMajor ? 3 : 1,
-            height: isMajor ? 12 : 6,
-            color: isMajor ? AppColors.deepGreen : Colors.grey.shade400,
-          ),
+                    ),
+                    
+                    const SizedBox(height: 40),
+                    
+                    // 👇 نیچے ڈگریوں کی معلومات
+                    if (_deviceHeading != null && _qiblaDirection != null)
+                      Column(
+                        children: [
+                          Text(
+                            'قبلہ کا رخ: ${_qiblaDirection!.toStringAsFixed(1)}°',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFD4AF37), // گولڈن رنگ
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'آپ کا رخ: ${_deviceHeading!.toStringAsFixed(1)}°',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
         ),
       ),
     );
   }
 
-  List<Widget> labels = [];
-  List<String> labelTexts = ['0', '45', '90', '135', '180', '225', '270', '315'];
-  
-  for (int i = 0; i < labelTexts.length; i++) {
-    labels.add(
-      Transform.rotate(
-        angle: (i * 45) * math.pi / 180,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 24),
-            child: Transform.rotate(
-              angle: -(i * 45) * math.pi / 180,
-              child: Text(
-                labelTexts[i],
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.deepGreen.withOpacity(0.7),
+  // 👇 ڈگریوں والا گول ڈائل بنانے کا فنکشن
+  Widget _buildCompassDial() {
+    List<Widget> ticks = [];
+    for (int i = 0; i < 72; i++) {
+      bool isMajor = i % 9 == 0; // ہر 45 ڈگری پر بڑا نشان
+      ticks.add(
+        Transform.rotate(
+          angle: (i * 5) * math.pi / 180,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: const EdgeInsets.only(top: 12),
+              width: isMajor ? 3 : 1,
+              height: isMajor ? 12 : 6,
+              color: isMajor ? const Color(0xFF1E5631) : Colors.grey.shade400,
+            ),
+          ),
+        ),
+      );
+    }
+
+    List<Widget> labels = [];
+    List<String> labelTexts = ['0', '45', '90', '135', '180', '225', '270', '315'];
+    
+    for (int i = 0; i < labelTexts.length; i++) {
+      labels.add(
+        Transform.rotate(
+          angle: (i * 45) * math.pi / 180,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Transform.rotate(
+                angle: -(i * 45) * math.pi / 180, // نمبروں کو سیدھا رکھنے کے لیے
+                child: Text(
+                  labelTexts[i],
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1E5631).withOpacity(0.6),
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  return SizedBox(
-    width: 300,
-    height: 300,
-    child: Stack(
+    return Stack(
       alignment: Alignment.center,
       children: [
         ...ticks,
         ...labels,
       ],
-    ),
-  );
-}
-          'کعبہ',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: AppColors.deepGreen,
-          ),
-        ),
-        const SizedBox(height: 8),
-
-        // 2. سوئی کا اوپری حصہ (تیر کا نشان)
-        const Icon(
-          Icons.navigation, 
-          color: AppColors.deepGreen, 
-          size: 40, 
-        ),
-        
-        // 3. سوئی کی لکیر (نیچے کی طرف)
-        Container(
-          width: 4,
-          height: 80, 
-          color: AppColors.deepGreen,
-        ),
-      ],
-    ),
-  ),
-),
-                        const SizedBox(height: 40),
-                        if (_deviceHeading != null && _qiblaDirection != null)
-                          Text(
-                            'کعبہ کا رخ: ${_qiblaDirection!.toStringAsFixed(1)}°',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.gold,
-                            ),
-                          ),
-                      ],
-                    ),
-        ),
-      ),
     );
   }
 }
