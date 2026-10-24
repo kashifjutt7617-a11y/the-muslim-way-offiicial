@@ -3254,16 +3254,11 @@ Column(
                             ),
                           ),
                         ],
-                      ),
-                  ],
-                ),
-        ),
-      ),
-    );
-  }
-
-  // 👇 ڈگریوں والا گول ڈائل بنانے کا فنکشن
-  Widget _buildCompassDial() {
+                              ],
+    ),
+  );
+     // 👇 گول ڈائل کا فنکشن
+Widget _buildCompassDial() {               
     List<Widget> ticks = [];
     for (int i = 0; i < 72; i++) {
       bool isMajor = i % 9 == 0; // ہر 45 ڈگری پر بڑا نشان
